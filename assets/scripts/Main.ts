@@ -1,4 +1,4 @@
-import { _decorator, AssetManager, assetManager, Component, Label, native, Node, Sprite, sys } from 'cc';
+import { _decorator, AssetManager, assetManager, Component, Label, native, Node, ResolutionPolicy, Sprite, sys, view } from 'cc';
 const { ccclass, property } = _decorator;
 
 const VersionManifest = "version.manifest";

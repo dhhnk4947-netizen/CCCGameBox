@@ -5,8 +5,6 @@ import GameItem from "./GameItem";
 import ProxyData from "../data/ProxyData";
 
 export abstract class UIView extends Component implements IUIView {
-    /**占位，勿使用同名变量名 */
-    SymbolBundleName: string;
     abstract UIType: TEA_UI_TYPE;
     onMount(): void { };
     onInit(...params: any[]): void { };
@@ -140,6 +138,15 @@ export abstract class ResidentView extends UIView {
         SingletonFactory.getInst(UIPage)['ShowCommon'](js.getClassName(this), ...params);
     }
 }
+export abstract class Cutscene extends UIView implements ICutscene {
+    UIType: TEA_UI_TYPE = TEA_UI_TYPE.CUTSCENE;
+    animTime: number = 1;
+    abstract openAnim(): void;
+    abstract closeAnim(): void;
+    static show(...params: any) {
+        SingletonFactory.getInst(UIPage)['ShowCutscene'](js.getClassName(this), ...params);
+    }
+}
 
 export interface IUIView {
     UIType: TEA_UI_TYPE;
@@ -153,6 +160,12 @@ export interface IUIView {
     onHide(): void;
     /**生命周期方法：创建后，注意此时没有挂载完成，勿进行节点操作*/
     onCreated(): void;
+}
+
+export interface ICutscene {
+    animTime: number;
+    openAnim(): void;
+    closeAnim(): void;
 }
 
 export enum ShowType {
@@ -224,4 +237,11 @@ export function onCreated(target: UIView | GameItem, key: string, descriptor: Pr
     delete target[key];
 
     return descriptor;
+}
+
+export function TBundleName(bundleName: string) {
+    return function (target: typeof UIView) {
+        let SymbolBundleName = Symbol.for('BundleName');
+        target.prototype[SymbolBundleName] = bundleName;
+    };
 }

@@ -2,11 +2,11 @@ import { _decorator, Component, Node, sys } from 'cc';
 import { MainMapper } from './Tea/decorators/tea.decorators';
 import UIPage from './Tea/UI/UIPage';
 import { Autowired } from './Tea/Util/SingletonFactory';
-import { BundleName, ViewName } from './tools/Tools';
+import { ViewName } from './tools/Tools';
 const { ccclass, property } = _decorator;
 
 @ccclass('GameController')
-@MainMapper({ bundleName: BundleName.hall, uiPath: 'prefabs/view/', maxPage: 5, maxFullPage: 5, maxPopPage: 8 })
+@MainMapper({ bundleName: "Hall", uiPath: 'prefabs/view/', maxPage: 5, maxFullPage: 5, maxPopPage: 8 })
 export class GameController extends Component {
     @Autowired(UIPage)
     uiPage: UIPage = null;

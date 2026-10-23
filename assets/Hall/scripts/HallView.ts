@@ -1,9 +1,10 @@
 import { _decorator, easing, game, Mask, Node, Quat, size, tween, Tween, UITransform } from 'cc';
 import { Path } from '../../Common/Tea/decorators/tea.decorators';
-import { FullView, onMount } from '../../Common/Tea/UI/UIView';
+import { TBundleName, FullView, onMount } from '../../Common/Tea/UI/UIView';
 const { ccclass, property } = _decorator;
 
 @ccclass('HallView')
+@TBundleName("Hall")
 export class HallView extends FullView {
     @Path('titleBase/title')
     titleNode: Node = null;
@@ -30,8 +31,14 @@ export class HallView extends FullView {
         this.settingBtn.on(Node.EventType.TOUCH_END, this.onClickSettingBtn.bind(this));
     }
 
+    test() {
+        let SymbolBundleName = Symbol.for('BundleName');
+        console.log("test ====>", this[SymbolBundleName]);
+    }
+
     onShow() {
         this.titleStartAnim();
+        this.test();
     }
 
     onHide() {
@@ -39,6 +46,8 @@ export class HallView extends FullView {
     }
 
     onClickOpenListBtn() {
+        startGame("T2048");
+        return;
         console.log("<-------- onClickOpenListBtn -------->");
 
         // return;
@@ -104,4 +113,15 @@ export class HallView extends FullView {
             .set({ rotation: rotation })
             .start();
     }
+}
+
+interface ttt {
+    a: string;
+    b: string;
+}
+
+
+interface ttt {
+    c: string;
+    d: string;
 }

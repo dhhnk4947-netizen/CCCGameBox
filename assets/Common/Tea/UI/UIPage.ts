@@ -1,7 +1,7 @@
-import { find, instantiate, Prefab, Node, UITransform, view, game, director, Canvas, js, ResolutionPolicy } from "cc";
+import { find, instantiate, Prefab, Node, UITransform, view, game, director, Canvas, js, ResolutionPolicy, sys, screen } from "cc";
 import TAssetManager from "../Util/TAssetManager";
 import SingletonFactory, { Singleton } from "../Util/SingletonFactory";
-import { FullView, PopView, ResidentView, TipView, UIView } from "./UIView";
+import { Cutscene, FullView, PopView, ResidentView, TipView, UIView } from "./UIView";
 import GameItem from "./GameItem";
 
 export enum TEA_UI_TYPE {
@@ -9,6 +9,7 @@ export enum TEA_UI_TYPE {
     POP,
     RESIDENT,
     TIP,
+    CUTSCENE
 }
 
 export class UILRU {
@@ -80,19 +81,15 @@ export default class UIPage {
     private FullLRU: UILRU;
     private PopLRU: UILRU;
 
+    private gameTrans: UITransform;
+    private uiRoot: Node;
+    private uiTrans: UITransform;
     init(cb?) {
         this.FullLRU = new UILRU(MaxFullPage);
         this.PopLRU = new UILRU(MaxPopPage);
 
         const scene = director.getScene();
-        let size = view.getVisibleSize();
-        let resolutionSize = view.getDesignResolutionSize();
         const canvas = scene.getComponentInChildren(Canvas).node;
-        if (size.height / size.width > 1.5) {
-            view.setDesignResolutionSize(resolutionSize.width, resolutionSize.height, ResolutionPolicy.FIXED_WIDTH);
-        } else {
-            view.setDesignResolutionSize(resolutionSize.width, resolutionSize.height, ResolutionPolicy.SHOW_ALL);
-        }
 
         let oldGameRoot2D = find("GameNode2D");
         oldGameRoot2D && oldGameRoot2D.destroy();
@@ -100,7 +97,7 @@ export default class UIPage {
         oldGameRoot3D && oldGameRoot3D.destroy();
 
         let gameNode2D = new Node();
-        let gameTrans = gameNode2D.addComponent(UITransform);
+        this.gameTrans = gameNode2D.addComponent(UITransform);
         gameNode2D.name = "GameNode2D";
         gameNode2D.parent = canvas;
         let gameNode3D = new Node();
@@ -110,41 +107,41 @@ export default class UIPage {
         let oldUIRoot = find("UIRoot", canvas);
         oldUIRoot && oldUIRoot.destroy();
 
-        let uiRoot = new Node();
-        let uiTrans = uiRoot.addComponent(UITransform);
-        uiRoot.name = "UIRoot";
-        uiRoot.parent = canvas;
+        this.uiRoot = new Node();
+        this.uiTrans = this.uiRoot.addComponent(UITransform);
+        this.uiRoot.name = "UIRoot";
+        this.uiRoot.parent = canvas;
 
         let fullNode = new Node();
         fullNode.name = "Full";
-        fullNode.parent = uiRoot;
+        fullNode.parent = this.uiRoot;
         let residentNode = new Node();
         residentNode.name = "Resident";
-        residentNode.parent = uiRoot;
+        residentNode.parent = this.uiRoot;
         let popNode = new Node();
         popNode.name = "Pop";
-        popNode.parent = uiRoot;
+        popNode.parent = this.uiRoot;
         let tipNode = new Node();
         tipNode.name = "Tip";
-        tipNode.parent = uiRoot;
+        tipNode.parent = this.uiRoot;
 
         this.MountCbs[TEA_UI_TYPE.FULL] = (view) => {
-            view.setContentSize(uiTrans.contentSize);
+            view.setContentSize(this.uiTrans.contentSize);
             fullNode.addChild(view);
             view.setPosition(0, 0);
         }
         this.MountCbs[TEA_UI_TYPE.POP] = (view) => {
-            view.setContentSize(uiTrans.contentSize);
+            view.setContentSize(this.uiTrans.contentSize);
             popNode.addChild(view);
             view.setPosition(0, 0);
         }
         this.MountCbs[TEA_UI_TYPE.TIP] = (view) => {
-            view.setContentSize(uiTrans.contentSize);
+            view.setContentSize(this.uiTrans.contentSize);
             tipNode.addChild(view);
             view.setPosition(0, 0);
         }
         this.MountCbs[TEA_UI_TYPE.RESIDENT] = (view) => {
-            view.setContentSize(uiTrans.contentSize);
+            view.setContentSize(this.uiTrans.contentSize);
             residentNode.addChild(view);
             view.setPosition(0, 0);
         }
@@ -162,16 +159,51 @@ export default class UIPage {
             game.setPosition(0, 0, 0);
         }
 
+        canvas.setSiblingIndex(999);
+
+        let size = view.getVisibleSize();
+        let resolutionSize = view.getDesignResolutionSize();
+        const proportion = size.height / size.width;
+        if (proportion > 1.5 && proportion < 2.2) {
+            view.setDesignResolutionSize(resolutionSize.width, resolutionSize.height, ResolutionPolicy.FIXED_WIDTH);
+        } else {
+            view.setDesignResolutionSize(resolutionSize.width, resolutionSize.height, ResolutionPolicy.SHOW_ALL);
+        }
+        this.uiRootAdapt();
+
+        if (sys.platform != sys.Platform.IOS && sys.platform != sys.Platform.ANDROID) {
+            view.on('canvas-resize', this.adapt, this);
+        }
+        cb && cb();
+    }
+
+    private adapt() {
+        let size = screen.windowSize;
+        let resolutionSize = view.getDesignResolutionSize();
+        const proportion = size.height / size.width;
+        if (proportion > 1.5 && proportion < 2.2) {
+            view.setDesignResolutionSize(resolutionSize.width, resolutionSize.height, ResolutionPolicy.FIXED_WIDTH);
+        } else {
+            view.setDesignResolutionSize(resolutionSize.width, resolutionSize.height, ResolutionPolicy.SHOW_ALL);
+        }
+        this.uiRootAdapt();
+    }
+
+    private uiRootAdapt(){
+        const scene = director.getScene();
+        const canvas = scene.getComponentInChildren(Canvas).node;
+
         requestAnimationFrame(() => {
             const canvasSize = canvas.getComponent(UITransform).contentSize;
-            uiTrans.setContentSize(canvasSize);
-            gameTrans.setContentSize(canvasSize);
-            canvas.setSiblingIndex(999);
-            [fullNode, popNode, tipNode, residentNode].forEach(node => {
-                const trans = node.addComponent(UITransform);
-                trans.setContentSize(uiTrans.contentSize);
+            this.uiTrans.setContentSize(canvasSize);
+            this.gameTrans.setContentSize(canvasSize);
+            this.uiRoot.children.forEach(node => {
+                let trans = node.getComponent(UITransform);
+                if(!trans){
+                    trans = node.addComponent(UITransform);
+                }
+                trans.setContentSize(this.uiTrans.contentSize);
             });
-            cb && cb();
         })
     }
 
@@ -216,6 +248,19 @@ export default class UIPage {
             const PageShow = ui.constructor.prototype['TeaUIPageShow'];
             PageShow && PageShow.call(ui);
             ui.onInit(...uiData);
+        }
+
+        this.loadUI(uiName, fun.bind(this));
+    }
+
+    private ShowCutscene(uiName: string, ...uiData: any) {
+        let fun = (ui: Cutscene) => {
+            if (!ui) return;
+            ui.node.active = true;
+            const PageShow = ui.constructor.prototype['TeaUIPageShow'];
+            PageShow && PageShow.call(ui);
+            ui.onInit(...uiData);
+            ui.openAnim();
         }
 
         this.loadUI(uiName, fun.bind(this));
