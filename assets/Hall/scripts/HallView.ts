@@ -31,14 +31,8 @@ export class HallView extends FullView {
         this.settingBtn.on(Node.EventType.TOUCH_END, this.onClickSettingBtn.bind(this));
     }
 
-    test() {
-        let SymbolBundleName = Symbol.for('BundleName');
-        console.log("test ====>", this[SymbolBundleName]);
-    }
-
     onShow() {
         this.titleStartAnim();
-        this.test();
     }
 
     onHide() {
@@ -47,38 +41,6 @@ export class HallView extends FullView {
 
     onClickOpenListBtn() {
         startGame("T2048");
-        return;
-        console.log("<-------- onClickOpenListBtn -------->");
-
-        // return;
-        this.loading.active = true;
-        Tween.stopAllByTarget(this.animNode);
-        Tween.stopAllByTarget(this.animMask);
-        tween(this.animMask)
-            .set({ segments: 10 })
-            .to(0.8, { segments: 2 })
-            .start();
-
-        tween(this.animNode)
-            .set({ contentSize: size(2000, 2000) })
-            .to(0.8, { contentSize: size(0, 0) })
-            .delay(1)
-            .call(() => {
-                Tween.stopAllByTarget(this.animNode);
-                Tween.stopAllByTarget(this.animMask);
-                tween(this.animMask)
-                    .set({ segments: 3 })
-                    .to(1.2, { segments: 5 })
-                    .start();
-                tween(this.animNode)
-                    .set({ contentSize: size(0, 0) })
-                    .to(1.2, { contentSize: size(2000, 2400) })
-                    .call(() => {
-                        this.loading.active = false;
-                    })
-                    .start();
-            })
-            .start();
     }
 
     onClickQuitBtn() {

@@ -189,7 +189,7 @@ export default class UIPage {
         this.uiRootAdapt();
     }
 
-    private uiRootAdapt(){
+    private uiRootAdapt() {
         const scene = director.getScene();
         const canvas = scene.getComponentInChildren(Canvas).node;
 
@@ -199,7 +199,7 @@ export default class UIPage {
             this.gameTrans.setContentSize(canvasSize);
             this.uiRoot.children.forEach(node => {
                 let trans = node.getComponent(UITransform);
-                if(!trans){
+                if (!trans) {
                     trans = node.addComponent(UITransform);
                 }
                 trans.setContentSize(this.uiTrans.contentSize);
@@ -292,8 +292,11 @@ export default class UIPage {
             fun();
             return;
         }
+        const script = js.getClassByName(uiName);
+        let SymbolBundleName = Symbol.for('BundleName');
+        const bundleName = script["prototype"][SymbolBundleName] || MainBundle;
 
-        TAssetManager.load(UIPath + uiName, MainBundle, (err, assets) => {
+        TAssetManager.load(UIPath + uiName, bundleName, (err, assets) => {
             if (err) {
                 ERROR(err);
                 fun();
@@ -302,7 +305,7 @@ export default class UIPage {
             let node: Node = instantiate(assets as Prefab);
             ui = node.getComponent(uiName) as UIView;
             if (!ui) {
-                ui = node.addComponent(uiName) as UIView;
+                ui = node.addComponent(script as any) as UIView;
             }
             if (!ui) {
                 ERROR("UIView not found");
@@ -334,9 +337,11 @@ export default class UIPage {
         ui.node.active = false;
         const PageHide = ui.constructor.prototype['TeaUIPageHide'];
         PageHide && PageHide.call(ui);
-        let len = this._uiTaskList.length;
-        if (this._uiTaskList[len - 1].name == param) {
-            this._uiTaskList.pop();
+        if (ui instanceof FullView) {
+            let len = this._uiTaskList.length;
+            if (this._uiTaskList[len - 1].name == param) {
+                this._uiTaskList.pop();
+            }
         }
     }
 
@@ -565,10 +570,8 @@ export default class UIPage {
         } else {
             clazz = classType;
         }
-        let name = clazz.prototype['SymbolName'];
         let bundleName = clazz.prototype['SymbolBundleName'];
         let path = clazz.prototype['SymbolPath'];
-        let viewPath = clazz.prototype['SymbolViewPath'];
         let fun = (gameItem: GameItem) => {
             if (!gameItem) return;
             gameItem.node.active = true;
@@ -576,38 +579,6 @@ export default class UIPage {
             PageShow && PageShow.call(gameItem);
             gameItem.onInit(...uiData);
         }
-        let loadView = new Promise((resolve, reject) => {
-            TAssetManager.loadDir(viewPath, bundleName, Prefab, (err, assets) => {
-                if (err) {
-                    ERROR(err);
-                    return;
-                }
-                assets.forEach(asset => {
-                    let node: Node = instantiate(asset as Prefab);
-                    let name = node.name;
-                    node.active = false;
-                    let ui: UIView = node.getComponent(name) as UIView;
-                    let SymbolBundleName = Symbol.for('SymbolBundleName');
-                    if (!ui) {
-                        const clazz = js.getClassByName(asset.name) as any;
-                        ui = node.addComponent(clazz) as UIView;
-                    }
-                    if (!ui) {
-                        ERROR(name + " not found");
-                        return;
-                    }
-                    ui.constructor.prototype[SymbolBundleName] = bundleName;
-                    ui.onCreated();
-                    this.MountCbs[ui.UIType](node);
-                    const Mount = ui.constructor.prototype['TeaUIPageMount'];
-                    Mount && Mount.call(ui);
-                    this._uiCache[name] = ui;
-                })
-                resolve(null);
-            })
-        });
-
-
         let loadGame = new Promise((resolve, reject) => {
             if (this.currGame) {
                 let gameNode = this.currGame.node;
@@ -647,9 +618,6 @@ export default class UIPage {
         });
 
         Promise.resolve().then(() => {
-            LOG("Promise.resolve ====> loadView");
-            return loadView;
-        }).then(() => {
             LOG("Promise.resolve ====> loadGame");
             return loadGame;
         }).catch(err => {

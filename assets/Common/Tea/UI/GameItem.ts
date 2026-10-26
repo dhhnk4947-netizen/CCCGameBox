@@ -89,15 +89,17 @@ export default class GameItem extends Component {
     }
 
     close(cb?): void {
-        // SingletonFactory.getInst(UIPage).stopGame(cb);
+        stopGame(cb);
+    }
+
+    static close(cb?): void {
+        stopGame(cb);
     }
 }
 
-export function GameMapper(name: string, bundleName: string, path: string, viewPath: string) {
+export function GameMapper(bundleName: string, path: string) {
     return function (target) {
-        target.prototype.SymbolName = name;
         target.prototype.SymbolBundleName = bundleName;
         target.prototype.SymbolPath = path;
-        target.prototype.SymbolViewPath = viewPath;
     }
 }

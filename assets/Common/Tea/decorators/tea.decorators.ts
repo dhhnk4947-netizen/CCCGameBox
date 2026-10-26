@@ -66,6 +66,9 @@ export function Path<T extends typeof Component>(path: string, component?: T) {
         // delete target[key];
         const handler: PropertyDescriptor = {
             get: function () {
+                if(this.name == "T2048"){
+                    console.log("this.name == T2048");
+                }
                 if (!this[symbol]) {
                     let parent = this.node;
                     let node = find(path, parent);
