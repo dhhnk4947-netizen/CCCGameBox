@@ -96,6 +96,7 @@ export class T2048 extends GameItem {
             this.currRecord = gameData.currRecord || 0;
             this.maxRecord = gameData.maxRecord || 0;
             this.gameBoxData = gameData.lastData;
+            this.refreshGameBox();
         } else {
             this.maxRecord = gameData.maxRecord || 0;
             this.initGame();
