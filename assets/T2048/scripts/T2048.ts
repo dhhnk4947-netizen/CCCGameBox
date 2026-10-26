@@ -116,6 +116,7 @@ export class T2048 extends GameItem {
         ];
         this.currRecord = 0;
         this.generateRandomNumber();
+        this.generateRandomNumber();
     }
 
     refreshGameBox() {
