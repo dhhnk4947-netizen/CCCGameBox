@@ -37,7 +37,7 @@ export class T2048 extends GameItem {
     @Autowired(EventManager)
     eventManager: EventManager = null;
 
-    storageCache: number[][] = [];
+    storageCache: T2048Data[] = [];
     gameBoxData: number[] = [];
     spriteFrames: SpriteFrame[] = [];
 
@@ -61,6 +61,10 @@ export class T2048 extends GameItem {
 
     onShow(): void {
         this.eventManager.on(T2048GlobalContext.EventMsg.RESTART_GAME, this.onClickRestartBtn.bind(this));
+    }
+
+    onHide(): void {
+        this.eventManager.off(T2048GlobalContext.EventMsg.RESTART_GAME, this.onClickRestartBtn.bind(this));
     }
 
     onMount(): void {
@@ -134,6 +138,7 @@ export class T2048 extends GameItem {
         }
         let len = emptyIndices.length;
         if (len > 0) {
+            this.storageCache.length > 5 && this.storageCache.shift();
             len--;
             const index = ~~(Math.random() * emptyIndices.length);
             let randomIndex = emptyIndices[index];
@@ -142,7 +147,7 @@ export class T2048 extends GameItem {
         }
         if (len == 0 && this.checkGameOver()) {
             this.gameOver();
-        }else{
+        } else {
             this.saveGameData({
                 currRecord: this.currRecord,
                 maxRecord: this.maxRecord,
@@ -169,6 +174,7 @@ export class T2048 extends GameItem {
             maxRecord: this.maxRecord,
             lastData: null,
         });
+        this.storageCache = [];
     }
 
     onTouchGameBoxStart(e: EventTouch) {
@@ -300,6 +306,7 @@ export class T2048 extends GameItem {
     mergeRow(row: number[]): number[] {
         const changes = [false];
         const newRow = [row[0], 0, 0, 0];
+        const currRecord = this.currRecord;
         let x = 0;
         for (let i = 1; i < 4; i++) {
             if (changes[i - 1]) {
@@ -318,7 +325,11 @@ export class T2048 extends GameItem {
                 changes[i] = false;
             }
         }
-        console.log(newRow);
+        this.storageCache.push({
+            currRecord: currRecord,
+            maxRecord: this.maxRecord,
+            lastData: [...this.gameBoxData]
+        })
         return newRow;
     }
 
@@ -359,6 +370,13 @@ export class T2048 extends GameItem {
     }
 
     onClickRevokeBtn(e) {
+        if (this.storageCache.length == 0)
+            return;
+        const data: T2048Data = this.storageCache.pop();
+        this.currRecord = data.currRecord;
+        this.maxRecord = data.maxRecord;
+        this.gameBoxData = data.lastData;
+        this.refreshGameBox();
     }
 
     onClickRestartBtn(e) {
