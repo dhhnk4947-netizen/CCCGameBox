@@ -292,9 +292,9 @@ export default class UIPage {
             fun();
             return;
         }
-        const script = js.getClassByName(uiName);
         let SymbolBundleName = Symbol.for('BundleName');
-        const bundleName = script["prototype"][SymbolBundleName] || MainBundle;
+        let script = js.getClassByName(uiName);
+        const bundleName = script?.prototype[SymbolBundleName] || MainBundle;
 
         TAssetManager.load(UIPath + uiName, bundleName, (err, assets) => {
             if (err) {
@@ -305,13 +305,17 @@ export default class UIPage {
             let node: Node = instantiate(assets as Prefab);
             ui = node.getComponent(uiName) as UIView;
             if (!ui) {
-                ui = node.addComponent(script as any) as UIView;
+                script = js.getClassByName(uiName);
+                if (script) {
+                    ui = node.addComponent(script as any) as UIView;
+                }
             }
             if (!ui) {
-                ERROR("UIView not found");
+                node.destroy();
+                ERROR("UIView not found: " + uiName + " in bundle " + bundleName);
+                fun();
                 return;
             }
-            console.log(ui.onCreated);
             ui.onCreated();
             this.MountCbs[ui.UIType](node);
             const Mount = ui.constructor.prototype['TeaUIPageMount'];
