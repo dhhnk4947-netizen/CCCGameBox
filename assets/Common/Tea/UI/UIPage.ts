@@ -77,6 +77,7 @@ export default class UIPage {
     private currGame: GameItem = null;
 
     private _uiCache: { [key: string]: UIView } = {};
+    private _uiLoadingCache: Cutscene  = null;
 
     private FullLRU: UILRU;
     private PopLRU: UILRU;
@@ -124,6 +125,9 @@ export default class UIPage {
         let tipNode = new Node();
         tipNode.name = "Tip";
         tipNode.parent = this.uiRoot;
+        let LoadingNode = new Node();
+        LoadingNode.name = "Loading";
+        LoadingNode.parent = this.uiRoot;
 
         this.MountCbs[TEA_UI_TYPE.FULL] = (view) => {
             view.setContentSize(this.uiTrans.contentSize);
@@ -205,6 +209,56 @@ export default class UIPage {
                 trans.setContentSize(this.uiTrans.contentSize);
             });
         })
+    }
+
+    initLoading(uiName: string){
+        if(this._uiLoadingCache){
+            ERROR("场视图已加载过", uiName);
+            return;
+        }
+        const script = js.getClassByName(uiName);
+        if(!script){
+            ERROR("initLoading ERROR", uiName);
+            return;
+        }
+        let SymbolBundleName = Symbol.for('BundleName');
+        const bundleName = script?.prototype[SymbolBundleName] || MainBundle;
+
+        TAssetManager.load(UIPath + uiName, bundleName, (err, assets) => {
+            if (err) {
+                ERROR("LOAD ERROR", uiName);
+                return;
+            }
+            let node: Node = instantiate(assets as Prefab);
+            const ui = node.addComponent(script as any) as Cutscene;
+            if (!ui) {
+                node.destroy();
+                ERROR("UIView not found: " + uiName + " in bundle " + bundleName);
+                return;
+            }
+            ui.onCreated();
+            const Mount = ui.constructor.prototype['TeaUIPageMount'];
+            Mount && Mount.call(ui);
+            this._uiLoadingCache = ui;
+        })
+    }
+
+    removeLoading(uiName: string){
+        const ui: Cutscene = this._uiLoadingCache;
+        if(!ui){
+            ERROR("过场视图空", uiName);
+            return;
+        }
+        this._uiLoadingCache = null;
+        ui.node.destroy()
+    }
+
+    private showLoading(){
+        
+    }
+
+    private hideLoading(){
+        
     }
 
     private ShowDialog(uiName: string, ...uiData: any) {

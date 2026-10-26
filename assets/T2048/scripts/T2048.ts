@@ -138,7 +138,6 @@ export class T2048 extends GameItem {
         }
         let len = emptyIndices.length;
         if (len > 0) {
-            this.storageCache.length > 5 && this.storageCache.shift();
             len--;
             const index = ~~(Math.random() * emptyIndices.length);
             let randomIndex = emptyIndices[index];
@@ -188,12 +187,18 @@ export class T2048 extends GameItem {
 
         let newGameBoxData: number[];
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (Math.abs(deltaX) < 100) {
+                return;
+            }
             if (deltaX > 0) {
                 newGameBoxData = this.moveRight();
             } else {
                 newGameBoxData = this.moveLeft();
             }
         } else {
+            if (Math.abs(deltaY) < 100) {
+                return;
+            }
             if (deltaY > 0) {
                 newGameBoxData = this.moveUp();
             } else {
@@ -330,6 +335,7 @@ export class T2048 extends GameItem {
             maxRecord: this.maxRecord,
             lastData: [...this.gameBoxData]
         })
+        this.storageCache.length > 5 && this.storageCache.shift();
         return newRow;
     }
 
