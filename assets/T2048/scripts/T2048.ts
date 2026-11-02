@@ -313,6 +313,7 @@ export class T2048 extends GameItem {
         const changes = [false];
         const newRow = [row[0], 0, 0, 0];
         const currRecord = this.currRecord;
+        let maxNum = 0;
         let x = 0;
         for (let i = 1; i < 4; i++) {
             if (changes[i - 1]) {
@@ -323,6 +324,7 @@ export class T2048 extends GameItem {
             }
             if (row[i] == newRow[x]) {
                 newRow[x]++;
+                maxNum = newRow[x];
                 changes[i] = true;
                 this.currRecord += 2 ** +newRow[x];
             } else {
@@ -337,6 +339,9 @@ export class T2048 extends GameItem {
             lastData: [...this.gameBoxData]
         })
         this.storageCache.length > 5 && this.storageCache.shift();
+        if (maxNum > 17) {
+            requestAnimationFrame(() => this.gameOver());
+        }
         return newRow;
     }
 
