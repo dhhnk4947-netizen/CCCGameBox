@@ -22,7 +22,7 @@
         "__id__": 2
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 16
@@ -218,7 +218,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "7066ef50-7080-442f-8769-7c0b34f42218@f9941",
+      "__uuid__": "6f1ec6e9-fd8f-432d-8c9a-6dc913322762@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -358,6 +358,8 @@
       "__id__": 0
     },
     "fileId": "ackgCpvpxJga7XgyOfEb7p",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {

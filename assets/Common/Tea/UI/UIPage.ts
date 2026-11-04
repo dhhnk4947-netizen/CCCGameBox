@@ -77,7 +77,8 @@ export default class UIPage {
     private currGame: GameItem = null;
 
     private _uiCache: { [key: string]: UIView } = {};
-    private _uiLoadingCache: Cutscene  = null;
+    private _uiLoadingCache: Cutscene = null;
+    private _animTimer: number = 0;
 
     private FullLRU: UILRU;
     private PopLRU: UILRU;
@@ -149,6 +150,11 @@ export default class UIPage {
             residentNode.addChild(view);
             view.setPosition(0, 0);
         }
+        this.MountCbs[TEA_UI_TYPE.CUTSCENE] = (view) => {
+            view.setContentSize(this.uiTrans.contentSize);
+            LoadingNode.addChild(view);
+            view.setPosition(0, 0);
+        }
 
         this.GameMount = (game: Node) => {
             gameNode2D.removeAllChildren();
@@ -211,13 +217,19 @@ export default class UIPage {
         })
     }
 
-    initLoading(uiName: string){
-        if(this._uiLoadingCache){
+    initLoading<T extends Cutscene>(uiLoading: (new (...args) => T) | string) {
+        let uiName: string;
+        if (typeof uiLoading == "string") {
+            uiName = uiLoading;
+        } else {
+            uiName = js.getClassName(uiLoading);
+        }
+        if (this._uiLoadingCache) {
             ERROR("场视图已加载过", uiName);
             return;
         }
         const script = js.getClassByName(uiName);
-        if(!script){
+        if (!script) {
             ERROR("initLoading ERROR", uiName);
             return;
         }
@@ -226,26 +238,59 @@ export default class UIPage {
 
         TAssetManager.load(UIPath + uiName, bundleName, (err, assets) => {
             if (err) {
-                ERROR("LOAD ERROR", uiName);
+                ERROR(err);
                 return;
             }
             let node: Node = instantiate(assets as Prefab);
-            const ui = node.addComponent(script as any) as Cutscene;
+            node.active = false;
+            let ui = node.getComponent(uiName) as Cutscene;
+            if (!ui) {
+                let script = js.getClassByName(uiName);
+                if (script) {
+                    ui = node.addComponent(script as any) as Cutscene;
+                }
+            }
             if (!ui) {
                 node.destroy();
                 ERROR("UIView not found: " + uiName + " in bundle " + bundleName);
                 return;
             }
             ui.onCreated();
+            this.MountCbs[ui.UIType](node);
             const Mount = ui.constructor.prototype['TeaUIPageMount'];
             Mount && Mount.call(ui);
             this._uiLoadingCache = ui;
         })
+        // TAssetManager.load(UIPath + uiName, bundleName, (err, assets) => {
+        //     if (err) {
+        //         ERROR("LOAD ERROR", uiName);
+        //         return;
+        //     }
+        //     let node: Node = instantiate(assets as Prefab);
+        //     const ui = node.addComponent(script as any) as Cutscene;
+        //     if (!ui) {
+        //         node.destroy();
+        //         ERROR("UIView not found: " + uiName + " in bundle " + bundleName);
+        //         return;
+        //     }
+        //     ui.onCreated();
+        //     const Mount = ui.constructor.prototype['TeaUIPageMount'];
+        //     Mount && Mount.call(ui);
+        //     this._uiLoadingCache = ui;
+
+        //     this.showLoading();
+        // })
     }
 
-    removeLoading(uiName: string){
+    removeLoading<T extends Cutscene>(uiLoading: (new (...args) => T) | string) {
+        let uiName: string;
+        if (typeof uiLoading == "string") {
+            uiName = uiLoading;
+        } else {
+            uiName = uiLoading.name;
+        }
         const ui: Cutscene = this._uiLoadingCache;
-        if(!ui){
+        if (!ui) {
             ERROR("过场视图空", uiName);
             return;
         }
@@ -253,12 +298,17 @@ export default class UIPage {
         ui.node.destroy()
     }
 
-    private showLoading(){
-        
+    private showLoading() {
+        if (this._uiLoadingCache) {
+            this._animTimer = Date.now();
+            this._uiLoadingCache.openAnim();
+        }
     }
 
-    private hideLoading(){
-        
+    private hideLoading() {
+        if (this._uiLoadingCache) {
+            this._uiLoadingCache.closeAnim();
+        }
     }
 
     private ShowDialog(uiName: string, ...uiData: any) {
@@ -617,6 +667,8 @@ export default class UIPage {
     startGame<T extends GameItem>(classType: { new(): T }, ...uiData)
     startGame(classType: string, ...uiData)
     async startGame<T extends GameItem>(classType: { new(): T } | string, ...uiData) {
+        this.showLoading();
+
         let clazz = null;
         if (typeof classType == 'string') {
             const bundle = await TAssetManager.getBundle(classType);
@@ -637,50 +689,53 @@ export default class UIPage {
             PageShow && PageShow.call(gameItem);
             gameItem.onInit(...uiData);
         }
-        let loadGame = new Promise((resolve, reject) => {
-            if (this.currGame) {
-                let gameNode = this.currGame.node;
-                let currBundleName = this.currGame['SymbolBundleName'];
-                gameNode.destroy();
-                this.currGame = null;
-                currBundleName == bundleName || setTimeout(() => {
-                    this.clearUIByBundle(currBundleName);
-                }, game.frameTime);
+        if (this.currGame) {
+            let gameNode = this.currGame.node;
+            let currBundleName = this.currGame['SymbolBundleName'];
+            gameNode.destroy();
+            this.currGame = null;
+            currBundleName == bundleName || setTimeout(() => {
+                this.clearUIByBundle(currBundleName);
+            }, game.frameTime);
+        }
+        TAssetManager.load(path, bundleName, Prefab, (err, assets) => {
+            if (err) {
+                ERROR(err);
+                return;
             }
-            TAssetManager.load(path, bundleName, Prefab, (err, assets) => {
-                if (err) {
-                    ERROR(err);
-                    return;
-                }
-                LOG("loadGame", assets);
-                let node: Node = instantiate(assets as Prefab);
-                let gameItem = node.getComponent(GameItem);
-                if (!gameItem) {
-                    gameItem = node.addComponent(clazz) as GameItem;
-                }
-                if (!gameItem) {
-                    ERROR("GameItem not found: " + name);
-                    return;
-                }
+            LOG("loadGame", assets);
+            let node: Node = instantiate(assets as Prefab);
+            let gameItem = node.getComponent(GameItem);
+            if (!gameItem) {
+                gameItem = node.addComponent(clazz) as GameItem;
+            }
+            if (!gameItem) {
+                ERROR("GameItem not found: " + path);
+                return;
+            }
 
+            gameItem.onCreated();
+            let loadingFinish = () => {
                 this.CloseAllUI();
-
-                gameItem.onCreated();
                 this.GameMount(node);
                 const Mount = gameItem.constructor.prototype['TeaUIPageMount'];
                 Mount && Mount.call(gameItem);
                 this.currGame = gameItem;
                 fun(gameItem);
-                resolve(null);
-            })
-        });
+                this.hideLoading();
+            }
+            if (!this._uiLoadingCache) {
+                loadingFinish();
+                return;
+            }
+            const time = Date.now() - this._animTimer;
+            const delay = this._uiLoadingCache.animTime - (time * 1.0 / 1000);
+            delay <= 0 && loadingFinish();
+            delay > 0 && this._uiLoadingCache.scheduleOnce(() => {
+                loadingFinish();
+            }, delay);
+        })
 
-        Promise.resolve().then(() => {
-            LOG("Promise.resolve ====> loadGame");
-            return loadGame;
-        }).catch(err => {
-            ERROR(err);
-        });
     }
 
     stopGame(cb?) {

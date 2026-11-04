@@ -3,6 +3,7 @@ import { MainMapper } from './Tea/decorators/tea.decorators';
 import UIPage from './Tea/UI/UIPage';
 import { Autowired } from './Tea/Util/SingletonFactory';
 import { ViewName } from './tools/Tools';
+import { LoadingView } from './scripts/LoadingView';
 const { ccclass, property } = _decorator;
 
 @ccclass('GameController')
@@ -18,6 +19,7 @@ export class GameController extends Component {
     }
 
     initGame() {
+        this.uiPage.initLoading(LoadingView);
         this.uiPage.init(this.GameStart.bind(this));
     }
     private GameStart() {

@@ -16,6 +16,7 @@ export class LoadingView extends Cutscene {
     }
 
     openAnim(): void {
+        this.node.active = true;
         Tween.stopAllByTarget(this.animNode);
         Tween.stopAllByTarget(this.animMask);
         tween(this.animMask)
