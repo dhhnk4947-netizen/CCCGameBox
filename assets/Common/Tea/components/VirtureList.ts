@@ -206,6 +206,8 @@ export class VirtureList extends ViewGroup {
 
     @property({ type: CCBoolean, tooltip: '是否开启虚拟列表' })
     public virture = true;
+    @property({ type: CCBoolean, tooltip: '是否开启循环列表', visible() { return this.virture } })
+    public itemLoop = false;
 
     @property({ type: Enum(TepItemType), tooltip: '模板项类型' })
     public tepItemType = TepItemType.Item;
@@ -228,7 +230,7 @@ export class VirtureList extends ViewGroup {
     /**
      * 边距 [x: 上] [y: 右] [z: 下] [w: 左]
      */
-    @property({ type: Vec4, tooltip: '边距 [x: 上] [y: 右] [z: 下] [w: 左]' })
+    @property({ type: Vec4, tooltip: '边距 [x: 上] [y: 右] [z: 下] [w: 左] 注：开启循环列表后对应方向的边距会失效' })
     margin: Vec4 = v4(0, 0, 0, 0);
 
     @property({ type: Enum(FlushType), tooltip: '刷新类型 [Frame: 帧刷新] [Timer: 时间刷新]' })
@@ -1038,6 +1040,9 @@ export class VirtureList extends ViewGroup {
     }
 
     protected _getHowMuchOutOfBoundary(addition?: Vec3): Vec3 {
+        if(this.virture && this.itemLoop)
+            return new Vec3();
+        
         if (!addition) {
             addition = Vec3.ZERO;
         }
@@ -1543,7 +1548,7 @@ export class VirtureList extends ViewGroup {
     private generateItem(item: Node) {
         const itemTrans = item.getComponent(UITransform);
         const listTrans = this.node.getComponent(UITransform);
-        this._itemRect = new Rect(itemTrans.anchorX, itemTrans.anchorX, itemTrans.width, itemTrans.height);
+        this._itemRect = new Rect(itemTrans.anchorX, itemTrans.anchorY, itemTrans.width, itemTrans.height);
         let itemCount = 0;
         switch (this.layoutType) {
             case LayoutType.VERTICAL:
@@ -1565,10 +1570,6 @@ export class VirtureList extends ViewGroup {
                 this._colCount = ~~((listWidth + this.spacingX) / (this._itemRect.width + this.spacingX));
                 this._rowCount = Math.ceil((listTrans.height + this.spacingY) / (this._itemRect.height + this.spacingY)) + 1;
                 itemCount = this._colCount * this._rowCount;
-                if (this._itemSize < itemCount) {
-                    itemCount = this._itemSize;
-                    this._colCount = Math.ceil(itemCount / this._rowCount);
-                }
                 this._posRefreshFunc = this._generateGridVertical;
                 break;
             case LayoutType.GRID_HORIZONTAL:
@@ -1576,10 +1577,6 @@ export class VirtureList extends ViewGroup {
                 this._rowCount = ~~((listHeight + this.spacingY) / (this._itemRect.height + this.spacingY));
                 this._colCount = Math.ceil((listTrans.width + this.spacingX) / (this._itemRect.width + this.spacingX)) + 1;
                 itemCount = this._colCount * this._rowCount;
-                if (this._itemSize < itemCount) {
-                    itemCount = this._itemSize;
-                    this._rowCount = Math.ceil(itemCount / this._colCount);
-                }
                 this._posRefreshFunc = this._generateGridHorizontal;
                 break;
         }
@@ -1646,11 +1643,17 @@ export class VirtureList extends ViewGroup {
                 contentTrans.anchorY = this.reverse ? 0 : 1;
                 break;
         }
-        this.content.setPosition(0, 0);
         parentWidget.updateAlignment();
+        this.scheduleOnce(()=>this.content.setPosition(0, 0));
     }
     private _generateGridHorizontal(index: number, item: Node) {
-        const exists = this._itemRefreshFunc(index, item);
+        let dataIndex: number = index;
+        let posIndex: number = index;
+        if(this.virture && this.itemLoop){
+            dataIndex = this._countLoopIndex(index);
+            index < 0 && (posIndex = Math.abs(index) - 1);
+        }
+        const exists = this._itemRefreshFunc(dataIndex, item);
         if (!exists) {
             item.active = false;
             return;
@@ -1659,17 +1662,28 @@ export class VirtureList extends ViewGroup {
         item.active = true;
         item.setParent(this.content);
         const itemTrans = item.getComponent(UITransform);
-        const row = index % this._rowCount;
-        const col = ~~(index / this._rowCount);
-        const margin = this.reverse ? this.margin.y : this.margin.w;
+        const row = posIndex % this._rowCount;
+        const col = ~~(posIndex / this._rowCount);
+        let margin = this.reverse ? this.margin.y : this.margin.w;
+        this.virture && this.itemLoop && (margin = 0);
         let xPos = margin + (this._itemRect.width + this.spacingX) * col + this._itemRect.width * itemTrans.anchorX;
         let yPos = this.margin.x + (this._itemRect.height + this.spacingY) * row + this._itemRect.height * itemTrans.anchorY;
         xPos = this.reverse ? -xPos : xPos;
         yPos = -yPos;
+        if(index < 0 && this.itemLoop){
+            this.reverse && (xPos = -xPos + this.spacingX);
+            !this.reverse && (xPos = -xPos - this.spacingX);
+        }
         item.setPosition(xPos, yPos);
     }
     private _generateGridVertical(index: number, item: Node) {
-        const exists = this._itemRefreshFunc(index, item);
+        let dataIndex: number = index;
+        let posIndex: number = index;
+        if(this.virture && this.itemLoop){
+            dataIndex = this._countLoopIndex(index);
+            index < 0 && (posIndex = Math.abs(index) - 1);
+        }
+        const exists = this._itemRefreshFunc(dataIndex, item);
         if (!exists) {
             item.active = false;
             return;
@@ -1678,16 +1692,27 @@ export class VirtureList extends ViewGroup {
         item.active = true;
         item.setParent(this.content);
         const itemTrans = item.getComponent(UITransform);
-        const row = ~~(index / this._colCount);
-        const col = index % this._colCount;
-        const margin = this.reverse ? this.margin.z : this.margin.x;
+        const row = ~~(posIndex / this._colCount);
+        const col = posIndex % this._colCount;
+        let margin = this.reverse ? this.margin.z : this.margin.x;
+        this.virture && this.itemLoop && (margin = 0);
         let xPos = this.margin.w + (this._itemRect.width + this.spacingX) * col + this._itemRect.width * itemTrans.anchorX;
         let yPos = margin + (this._itemRect.height + this.spacingY) * row + this._itemRect.height * itemTrans.anchorY;
         yPos = this.reverse ? yPos : -yPos;
+        if(index < 0 && this.itemLoop){
+            this.reverse && (yPos = -yPos - this.spacingY);
+            !this.reverse && (yPos = -yPos + this.spacingY);
+        }
         item.setPosition(xPos, yPos);
     }
     private _generateVertical(index: number, item: Node) {
-        const exists = this._itemRefreshFunc(index, item);
+        let dataIndex: number = index;
+        let posIndex: number = index;
+        if(this.virture && this.itemLoop){
+            dataIndex = this._countLoopIndex(index);
+            index < 0 && (posIndex = Math.abs(index) - 1);
+        }
+        const exists = this._itemRefreshFunc(dataIndex, item);
         if (!exists) {
             item.active = false;
             return;
@@ -1696,13 +1721,24 @@ export class VirtureList extends ViewGroup {
         item.active = true;
         item.setParent(this.content);
         const itemTrans = item.getComponent(UITransform);
-        const margin = this.reverse ? this.margin.z : this.margin.x;
-        let colPos = margin + (this._itemRect.height + this.spacingY) * index + this._itemRect.height * itemTrans.anchorY;
+        let margin = this.reverse ? this.margin.z : this.margin.x;
+        this.virture && this.itemLoop && (margin = 0);
+        let colPos = margin + (this._itemRect.height + this.spacingY) * posIndex + this._itemRect.height * itemTrans.anchorY;
         colPos = this.reverse ? colPos : -colPos;
+        if(index < 0 && this.itemLoop){
+            this.reverse && (colPos = -colPos - this.spacingY);
+            !this.reverse && (colPos = -colPos + this.spacingY);
+        }
         item.setPosition(0, colPos);
     }
     private _generateHorizontal(index: number, item: Node) {
-        const exists = this._itemRefreshFunc(index, item);
+        let dataIndex: number = index;
+        let posIndex: number = index;
+        if(this.virture && this.itemLoop){
+            dataIndex = this._countLoopIndex(index);
+            index < 0 && (posIndex = Math.abs(index) - 1);
+        }
+        const exists = this._itemRefreshFunc(dataIndex, item);
         if (!exists) {
             item.active = false;
             return;
@@ -1711,10 +1747,21 @@ export class VirtureList extends ViewGroup {
         item.active = true;
         item.setParent(this.content);
         const itemTrans = item.getComponent(UITransform);
-        const margin = this.reverse ? this.margin.y : this.margin.w;
-        let rowPos = margin + (this._itemRect.width + this.spacingX) * index + this._itemRect.width * itemTrans.anchorX;
+        let margin = this.reverse ? this.margin.y : this.margin.w;
+        this.virture && this.itemLoop && (margin = 0);
+        let rowPos = margin + (this._itemRect.width + this.spacingX) * posIndex + this._itemRect.width * itemTrans.anchorX;
         rowPos = this.reverse ? -rowPos : rowPos;
+        if(index < 0 && this.itemLoop){
+            this.reverse && (rowPos = -rowPos + this.spacingX);
+            !this.reverse && (rowPos = -rowPos - this.spacingX);
+        }
         item.setPosition(rowPos, 0);
+    }
+
+    private _countLoopIndex(index: number): number{
+        if(index >= 0) return index % this._itemSize;
+        const reverseIndex = Math.abs(index) % this._itemSize;
+        return this._itemSize - reverseIndex - 1;
     }
 
     private _refreshVirtualList(deltaMove: Vec3) {
@@ -1758,7 +1805,7 @@ export class VirtureList extends ViewGroup {
                     break;
                 }
                 itemIndex = +itemNode.name + increment;
-                if (itemIndex >= this._itemSize || itemIndex < 0) {
+                if (!this.itemLoop && (itemIndex >= this._itemSize || itemIndex < 0)) {
                     flag = false;
                     break;
                 }
@@ -1780,7 +1827,7 @@ export class VirtureList extends ViewGroup {
                     break;
                 }
                 itemIndex = +itemNode.name + increment;
-                if (itemIndex >= this._itemSize || itemIndex < 0) {
+                if (!this.itemLoop && (itemIndex >= this._itemSize || itemIndex < 0)) {
                     flag = false;
                     break;
                 }
@@ -1801,7 +1848,7 @@ export class VirtureList extends ViewGroup {
                     break;
                 }
                 itemIndex = +itemNode.name + increment;
-                if (itemIndex >= this._itemSize || itemIndex < 0) {
+                if (!this.itemLoop && (itemIndex >= this._itemSize || itemIndex < 0)) {
                     flag = false;
                     break;
                 }
@@ -1823,7 +1870,7 @@ export class VirtureList extends ViewGroup {
                     break;
                 }
                 itemIndex = +itemNode.name + increment;
-                if (itemIndex >= this._itemSize || itemIndex < 0) {
+                if (!this.itemLoop && (itemIndex >= this._itemSize || itemIndex < 0)) {
                     flag = false;
                     break;
                 }

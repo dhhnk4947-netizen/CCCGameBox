@@ -698,12 +698,13 @@
       "__id__": 32
     },
     "virture": true,
+    "itemLoop": true,
     "tepItemType": 0,
     "tepItem": {
       "__id__": 33
     },
     "tepPrefab": null,
-    "layoutType": 3,
+    "layoutType": 2,
     "spacingX": 10,
     "spacingY": 20,
     "margin": {
@@ -721,8 +722,8 @@
     "brake": 0.75,
     "elastic": true,
     "inertia": true,
-    "horizontal": false,
-    "vertical": true,
+    "horizontal": true,
+    "vertical": false,
     "cancelInnerEvents": true,
     "scrollEvents": [],
     "_content": {
@@ -1030,7 +1031,7 @@
     "_spriteFrame": null,
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,

@@ -8,6 +8,35 @@ const { ccclass, property } = _decorator;
 
 const GameList = [
     {icon: "10001", name: "T2048"},
+    {icon: "10002", name: "T2048"},
+    {icon: "10003", name: "T2048"},
+    {icon: "10004", name: "T2048"},
+    {icon: "10005", name: "T2048"},
+    {icon: "10001", name: "T2048"},
+    {icon: "10002", name: "T2048"},
+    {icon: "10003", name: "T2048"},
+    {icon: "10004", name: "T2048"},
+    {icon: "10005", name: "T2048"},
+    // {icon: "10001", name: "T2048"},
+    // {icon: "10002", name: "T2048"},
+    // {icon: "10003", name: "T2048"},
+    // {icon: "10004", name: "T2048"},
+    // {icon: "10005", name: "T2048"},
+    // {icon: "10001", name: "T2048"},
+    // {icon: "10002", name: "T2048"},
+    // {icon: "10003", name: "T2048"},
+    // {icon: "10004", name: "T2048"},
+    // {icon: "10005", name: "T2048"},
+    // {icon: "10001", name: "T2048"},
+    // {icon: "10002", name: "T2048"},
+    // {icon: "10003", name: "T2048"},
+    // {icon: "10004", name: "T2048"},
+    // {icon: "10005", name: "T2048"},
+    // {icon: "10001", name: "T2048"},
+    // {icon: "10002", name: "T2048"},
+    // {icon: "10003", name: "T2048"},
+    // {icon: "10004", name: "T2048"},
+    // {icon: "10005", name: "T2048"},
 ]
 
 @ccclass('GameListView')
@@ -37,6 +66,7 @@ export class GameListView extends FullView {
             let iconNode = item.getChildByName("icon").getComponent(Sprite);
             let unload = item.getChildByName("unload");
             unload.active = false;
+            item.off(Node.EventType.TOUCH_END);
             item.on(Node.EventType.TOUCH_END, () => {
                 startGame(data.name);
             }, this);
