@@ -1,4 +1,4 @@
-import { v3, v2, UITransform, ViewGroup, logID, ScrollBar, Vec2, Vec3, director, DirectorEvent, NodeEventType, EventTouch, SystemEventType, Layout, approx, Size, TransformBit, Node, EventHandler, _decorator, CCFloat, CCBoolean, Enum, Prefab, Vec4, v4, instantiate, Rect, Widget } from 'cc';
+import { v3, v2, UITransform, ViewGroup, logID, Vec2, Vec3, director, DirectorEvent, NodeEventType, Event, EventTouch, SystemEventType, Layout, Size, TransformBit, Node, EventHandler, _decorator, CCFloat, CCBoolean, Enum, Prefab, Vec4, v4, instantiate, Rect, Widget, CCInteger } from 'cc';
 import { EDITOR_NOT_IN_PREVIEW } from 'cc/env';
 const { ccclass, property } = _decorator;
 
@@ -38,6 +38,23 @@ const eventMap = {
     'scroll-began': 12,
 };
 
+enum VirtureListEventType {
+    NONE = '',
+    SCROLL_TO_TOP = 'scroll-to-top',
+    SCROLL_TO_BOTTOM = 'scroll-to-bottom',
+    SCROLL_TO_LEFT = 'scroll-to-left',
+    SCROLL_TO_RIGHT = 'scroll-to-right',
+    SCROLL_BEGAN = 'scroll-began',
+    SCROLL_ENDED = 'scroll-ended',
+    BOUNCE_TOP = 'bounce-top',
+    BOUNCE_BOTTOM = 'bounce-bottom',
+    BOUNCE_LEFT = 'bounce-left',
+    BOUNCE_RIGHT = 'bounce-right',
+    SCROLLING = 'scrolling',
+    SCROLL_ENG_WITH_THRESHOLD = 'scroll-ended-with-threshold',
+    TOUCH_UP = 'touch-up',
+}
+
 const _moveDeltaOptions = {
     anchor: v2(),
     applyToHorizontal: false,
@@ -67,142 +84,15 @@ enum FlushType {
     Timer
 }
 
-/**
- * @en
- * Enum for ScrollView event type.
- *
- * @zh
- * 滚动视图事件类型。
- */
-export enum ScrollViewEventType {
-    /**
-     * @en
-     * It means an invalid event type or "default empty value" of EventType.
-     *
-     * @zh
-     * 代表无效事件, 或者EventType的默认空值。
-     */
-    NONE = '',
-
-    /**
-     * @en
-     * The event emitted when ScrollView scroll to the top boundary of inner container.
-     *
-     * @zh
-     * 滚动视图滚动到顶部边界事件。
-     */
-    SCROLL_TO_TOP = 'scroll-to-top',
-    /**
-     * @en
-     * The event emitted when ScrollView scroll to the bottom boundary of inner container.
-     *
-     * @zh
-     * 滚动视图滚动到底部边界事件。
-     */
-    SCROLL_TO_BOTTOM = 'scroll-to-bottom',
-    /**
-     * @en
-     * The event emitted when ScrollView scroll to the left boundary of inner container.
-     *
-     * @zh
-     * 滚动视图滚动到左边界事件。
-     */
-    SCROLL_TO_LEFT = 'scroll-to-left',
-    /**
-     * @en
-     * The event emitted when ScrollView scroll to the right boundary of inner container.
-     *
-     * @zh
-     * 滚动视图滚动到右边界事件。
-     */
-    SCROLL_TO_RIGHT = 'scroll-to-right',
-    /**
-     * @en
-     * The event emitted when ScrollView scroll began.
-     *
-     * @zh
-     * 滚动视图滚动开始时发出的事件。
-     */
-    SCROLL_BEGAN = 'scroll-began',
-    /**
-     * @en
-     * The event emitted when ScrollView auto scroll ended.
-     *
-     * @zh
-     * 滚动视图滚动结束的时候发出的事件。
-     */
-    SCROLL_ENDED = 'scroll-ended',
-    /**
-     * @en
-     * The event emitted when ScrollView scroll to the top boundary of inner container and start bounce.
-     *
-     * @zh
-     * 滚动视图滚动到顶部边界并且开始回弹时发出的事件。
-     */
-    BOUNCE_TOP = 'bounce-top',
-    /**
-     * @en
-     * The event emitted when ScrollView scroll to the bottom boundary of inner container and start bounce.
-     *
-     * @zh
-     * 滚动视图滚动到底部边界并且开始回弹时发出的事件。
-     */
-    BOUNCE_BOTTOM = 'bounce-bottom',
-    /**
-     * @en
-     * The event emitted when ScrollView scroll to the left boundary of inner container and start bounce.
-     *
-     * @zh
-     * 滚动视图滚动到左边界并且开始回弹时发出的事件。
-     */
-    BOUNCE_LEFT = 'bounce-left',
-    /**
-     * @en
-     * The event emitted when ScrollView scroll to the right boundary of inner container and start bounce.
-     *
-     * @zh
-     * 滚动视图滚动到右边界并且开始回弹时发出的事件。
-     */
-    BOUNCE_RIGHT = 'bounce-right',
-    /**
-     * @en
-     * The event emitted when ScrollView is scrolling.
-     *
-     * @zh
-     * 滚动视图正在滚动时发出的事件。
-     */
-    SCROLLING = 'scrolling',
-    /**
-     * @en
-     * The event emitted when ScrollView auto scroll ended with a threshold.
-     *
-     * @zh
-     * 滚动视图自动滚动快要结束的时候发出的事件。
-     */
-    SCROLL_ENG_WITH_THRESHOLD = 'scroll-ended-with-threshold',
-    /**
-     * @en
-     * The event emitted when user release the touch.
-     *
-     * @zh
-     * 当用户松手的时候会发出一个事件。
-     */
-    TOUCH_UP = 'touch-up',
+interface ListItemLink {
+    node: Node;
+    prev: ListItemLink | null;
+    next: ListItemLink | null;
 }
-
-
-/**
- * @en
- * Layout container for a view hierarchy that can be scrolled by the user,
- * allowing it to be larger than the physical display.
- *
- * @zh
- * 滚动视图组件。
- */
 
 @ccclass('VirtureList')
 export class VirtureList extends ViewGroup {
-    public static EventType = ScrollViewEventType;
+    public static EventType = VirtureListEventType;
 
     @property({ type: CCBoolean, tooltip: '是否开启虚拟列表' })
     public virture = true;
@@ -217,6 +107,12 @@ export class VirtureList extends ViewGroup {
 
     @property({ type: Prefab, tooltip: '模板Prefab', visible() { return this.tepItemType === TepItemType.Prefab; } })
     public tepPrefab = null;
+
+    @property({ type: CCBoolean, tooltip: '是否开启分帧渲染' })
+    public frameRender = false;
+
+    @property({ type: CCInteger, min: 1, tooltip: '每帧创建item数量', visible() { return this.frameRender; } })
+    public generatedItemCount = 1;
 
     @property({ type: Enum(LayoutType), tooltip: '布局类型 [HORIZONTAL: 横向] [VERTICAL: 纵向] [GRID_HORIZONTAL: 网格横向] [GRID_VERTICAL: 网格纵向]', visible() { return this.tepItemType === TepItemType.Item; } })
     public layoutType = LayoutType.VERTICAL;
@@ -263,6 +159,9 @@ export class VirtureList extends ViewGroup {
      */
     @property({ type: CCFloat, tooltip: '滑动阻尼' })
     public brake = 0.75;
+
+    @property({ type: CCFloat, min: 0, tooltip: '最大滑动速度（UI单位/秒），0表示不限速；作用于拖拽、滚轮、惯性和程序跳转' })
+    public maxScrollSpeed = 8000;
 
     /**
      * @en
@@ -316,8 +215,9 @@ export class VirtureList extends ViewGroup {
      * @zh
      * 是否开启水平滚动。
      */
-    @property({ type: CCBoolean, tooltip: '是否开启水平滚动' })
-    public horizontal = false;
+    public get horizontal() {
+        return this.layoutType == LayoutType.GRID_HORIZONTAL || this.layoutType == LayoutType.HORIZONTAL;
+    }
 
     /**
      * @en
@@ -326,9 +226,10 @@ export class VirtureList extends ViewGroup {
      * @zh
      * 是否开启垂直滚动。
      */
-    @property({ type: CCBoolean, tooltip: '是否开启垂直滚动' })
-    public vertical = true;
 
+    public get vertical() {
+        return this.layoutType == LayoutType.GRID_VERTICAL || this.layoutType == LayoutType.VERTICAL;
+    }
     /**
      * @en
      * If cancelInnerEvents is set to true, the scroll behavior will cancel touch events on inner content nodes
@@ -399,18 +300,23 @@ export class VirtureList extends ViewGroup {
     protected _deltaAmount = new Vec3();
 
     // #region 虚拟列表相关
+    private _item: Node = null;
     private _flushTimer: number = 0;
+    private _pendingVirtualListDelta = new Vec3();
     private _itemRefreshFunc: (...params: any[]) => boolean;
     private _posRefreshFunc: (index: number, item: Node) => void;
+    private _getItemPos: (index: number) => Vec2;
     private _itemRect: Rect;
     private _itemSize: number = 0;
     private _colCount: number = 0;
     private _rowCount: number = 0;
-    // #endregion
+    private _itemMaxCount: number = 0;
 
-    constructor() {
-        super();
-    }
+    private _itemHead: ListItemLink | null = null;
+    private _itemTail: ListItemLink | null = null;
+    private _itemCount: number = 0;
+    private _isGenerating: boolean = false;
+    // #endregion
 
     // #region 视图滚动方法
     public scrollToBottom(timeInSecond?: number, attenuated = true): void {
@@ -483,16 +389,44 @@ export class VirtureList extends ViewGroup {
     public scrollToPercentVertical(percent: number, timeInSecond?: number, attenuated?: boolean): void {
         this._doScroll(0, percent, false, true, timeInSecond, attenuated);
     }
-    // #endregion
+
+    public scrollToIndex(index: number, timeInSecond?: number, attenuated?: boolean): void {
+        if (this._isGenerating || !this._content || !this._getItemPos || this._itemSize <= 0 || !Number.isInteger(index)) return;
+
+        const itemPos = this._getItemPos(index);
+        const firstItemPos = this._getItemPos(0);
+        if (!itemPos || !firstItemPos) return;
+
+        const contentTrans = this._content.getComponent(UITransform);
+        const view = this.view;
+        const maxScrollOffset = this.getMaxScrollOffset();
+        const x = maxScrollOffset.x > 0
+            ? (contentTrans.width * contentTrans.anchorX - view.width * view.anchorX + itemPos.x - firstItemPos.x) / maxScrollOffset.x
+            : 0;
+        const y = maxScrollOffset.y > 0
+            ? (contentTrans.height * contentTrans.anchorY - view.height * view.anchorY + itemPos.y - firstItemPos.y) / maxScrollOffset.y
+            : 1;
+        this._doScroll(x, y, this.horizontal, this.vertical, timeInSecond, attenuated);
+    }
 
     private _doScroll(x: number, y: number, applyToHorizontal: boolean, applyToVertical: boolean, timeInSecond?: number, attenuated = true): void {
+        if (this._isGenerating) return;
+
+        this.stopAutoScroll();
+        this._deltaAmount.set(0, 0, 0);
+
         assignMoveDeltaOption(x, y, applyToHorizontal, applyToVertical);
         const moveDelta = this._calculateMovePercentDelta(_moveDeltaOptions);
 
-        if (timeInSecond) {
-            this._startAutoScroll(moveDelta, timeInSecond, attenuated);
+        let duration = timeInSecond;
+        if (!duration && this.maxScrollSpeed > 0) {
+            duration = this._flattenVectorByDirection(moveDelta).length() / this.maxScrollSpeed;
+        }
+        if (duration) {
+            this._startAutoScroll(moveDelta, duration, attenuated);
         } else {
             this._moveContent(moveDelta);
+            this._flushPendingVirtualList();
         }
     }
 
@@ -506,7 +440,9 @@ export class VirtureList extends ViewGroup {
     public stopAutoScroll(): void {
         this._autoScrolling = false;
         this._autoScrollAccumulatedTime = this._autoScrollTotalTime;
+        this._flushPendingVirtualList();
     }
+    // #endregion
 
     /**
      * @en
@@ -624,17 +560,23 @@ export class VirtureList extends ViewGroup {
             self._calculateBoundary();
         }
     }
-
     public update(dt: number): void {
+        if (this._isGenerating) {
+            this._instantiateItem(this.generatedItemCount);
+            return;
+        }
+
         const deltaAmount = this._deltaAmount;
         if (this._autoScrolling) {
             this._processAutoScrolling(dt);
             deltaAmount.x = 0;
             deltaAmount.y = 0;
         } else if (deltaAmount.x !== 0 || deltaAmount.y !== 0) {
-            this._processDeltaMove(deltaAmount);
+            this._processDeltaMove(deltaAmount, dt);
             deltaAmount.x = 0;
             deltaAmount.y = 0;
+        } else {
+            this._flushPendingVirtualList();
         }
     }
 
@@ -671,6 +613,8 @@ export class VirtureList extends ViewGroup {
         node.on(NodeEventType.TOUCH_END, self._onTouchEnded, self, true);
         node.on(NodeEventType.TOUCH_CANCEL, self._onTouchCancelled, self, true);
         node.on(NodeEventType.MOUSE_WHEEL, self._onMouseWheel, self, true);
+        node.on(NodeEventType.MOUSE_DOWN, self._blockInputWhileGenerating, self, true);
+        node.on(NodeEventType.MOUSE_UP, self._blockInputWhileGenerating, self, true);
     }
 
     protected _unregisterEvent(): void {
@@ -682,15 +626,29 @@ export class VirtureList extends ViewGroup {
         node.off(NodeEventType.TOUCH_END, self._onTouchEnded, self, true);
         node.off(NodeEventType.TOUCH_CANCEL, self._onTouchCancelled, self, true);
         node.off(NodeEventType.MOUSE_WHEEL, self._onMouseWheel, self, true);
+        node.off(NodeEventType.MOUSE_DOWN, self._blockInputWhileGenerating, self, true);
+        node.off(NodeEventType.MOUSE_UP, self._blockInputWhileGenerating, self, true);
+    }
+
+    private _blockInputWhileGenerating(event: Event): boolean {
+        if (!this._isGenerating || !event) {
+            return false;
+        }
+
+        // 捕获阶段阻断事件，禁止 item 及其子节点的触摸、鼠标和 Button 点击。
+        event.propagationStopped = true;
+        event.propagationImmediateStopped = true;
+        return true;
     }
 
     protected _onMouseWheel(event, captureListeners?: Node[]): void {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
 
-        if (!self.enabledInHierarchy) {
+        if (self._blockInputWhileGenerating(event) || !self.enabledInHierarchy) {
             return;
         }
+
 
         if (self._hasNestedViewGroup(event, captureListeners)) {
             return;
@@ -722,9 +680,10 @@ export class VirtureList extends ViewGroup {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
 
-        if (!self.enabledInHierarchy || !self._content) {
+        if (self._blockInputWhileGenerating(event) || !self.enabledInHierarchy || !self._content) {
             return;
         }
+
         if (self._hasNestedViewGroup(event, captureListeners)) {
             return;
         }
@@ -739,9 +698,10 @@ export class VirtureList extends ViewGroup {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
 
-        if (!self.enabledInHierarchy || !self._content) {
+        if (self._blockInputWhileGenerating(event) || !self.enabledInHierarchy || !self._content) {
             return;
         }
+
         if (self._hasNestedViewGroup(event, captureListeners)) {
             return;
         }
@@ -774,14 +734,15 @@ export class VirtureList extends ViewGroup {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
 
-        if (!self.enabledInHierarchy || !self._content || !event) {
+        if (self._blockInputWhileGenerating(event) || !self.enabledInHierarchy || !self._content || !event) {
             return;
         }
+
         if (self._hasNestedViewGroup(event, captureListeners)) {
             return;
         }
 
-        self._dispatchEvent(ScrollViewEventType.TOUCH_UP);
+        self._dispatchEvent(VirtureListEventType.TOUCH_UP);
 
         const touch = event.touch!;
         self._handleReleaseLogic(touch);
@@ -797,7 +758,7 @@ export class VirtureList extends ViewGroup {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
 
-        if (!self.enabledInHierarchy || !self._content) {
+        if (self._blockInputWhileGenerating(event) || !self.enabledInHierarchy || !self._content) {
             return;
         }
         if (self._hasNestedViewGroup(event, captureListeners)) {
@@ -924,6 +885,9 @@ export class VirtureList extends ViewGroup {
     }
 
     protected _startAutoScroll(deltaMove: Vec3, timeInSecond: number, attenuated = false): void {
+
+        if (this._isGenerating) return;
+
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
 
@@ -966,6 +930,7 @@ export class VirtureList extends ViewGroup {
                 totalMovement.z,
             );
         }
+        this._limitScrollSpeed(this._flattenVectorByDirection(out), 1);
         return out;
     }
 
@@ -975,7 +940,21 @@ export class VirtureList extends ViewGroup {
         return vector;
     }
 
+    private _limitScrollSpeed(deltaMove: Vec3, dt: number): boolean {
+        if (!(this.maxScrollSpeed > 0)) {
+            return false;
+        }
+        const maxDistance = this.maxScrollSpeed * Math.max(0, dt);
+        const distanceSquared = deltaMove.lengthSqr();
+        if (distanceSquared > maxDistance * maxDistance) {
+            deltaMove.multiplyScalar(maxDistance / Math.sqrt(distanceSquared));
+            return true;
+        }
+        return false;
+    }
+
     protected _moveContent(deltaMove: Vec3, canStartBounceBack?: boolean): void {
+        if (this._isGenerating) return;
         const adjustedMove = this._flattenVectorByDirection(deltaMove);
 
         _tempVec3.set(this._getContentPosition());
@@ -994,6 +973,7 @@ export class VirtureList extends ViewGroup {
             return;
         }
 
+        this._pendingVirtualListDelta.add(adjustedMove);
         let flag = false;
         if (this.flushType === FlushType.Timer) {
             flag = (Date.now() - this._flushTimer) * 0.001 >= this.flushTimer;
@@ -1002,7 +982,17 @@ export class VirtureList extends ViewGroup {
             flag = director.getTotalFrames() % this.flushFrame === 0;
         }
 
-        flag && this._refreshVirtualList(adjustedMove);
+        flag && this._flushPendingVirtualList();
+    }
+
+    private _flushPendingVirtualList(): void {
+        if (this._isGenerating) return;
+
+        const deltaMove = this._pendingVirtualListDelta;
+        if (this.virture && (deltaMove.x !== 0 || deltaMove.y !== 0)) {
+            this._refreshVirtualList(deltaMove);
+        }
+        deltaMove.set(0, 0, 0);
     }
 
     protected _getContentLeftBoundary(): number {
@@ -1040,9 +1030,9 @@ export class VirtureList extends ViewGroup {
     }
 
     protected _getHowMuchOutOfBoundary(addition?: Vec3): Vec3 {
-        if(this.virture && this.itemLoop)
+        if (this.virture && this.itemLoop)
             return new Vec3();
-        
+
         if (!addition) {
             addition = Vec3.ZERO;
         }
@@ -1077,12 +1067,13 @@ export class VirtureList extends ViewGroup {
     }
 
     protected _dispatchEvent(event: string): void {
-        if (event === ScrollViewEventType.SCROLL_ENDED as string) {
+        if (event === VirtureListEventType.SCROLL_ENDED as string) {
+            this._flushPendingVirtualList();
             this._scrollEventEmitMask = 0;
-        } else if (event === ScrollViewEventType.SCROLL_TO_TOP as string
-            || event === ScrollViewEventType.SCROLL_TO_BOTTOM as string
-            || event === ScrollViewEventType.SCROLL_TO_LEFT as string
-            || event === ScrollViewEventType.SCROLL_TO_RIGHT as string) {
+        } else if (event === VirtureListEventType.SCROLL_TO_TOP as string
+            || event === VirtureListEventType.SCROLL_TO_BOTTOM as string
+            || event === VirtureListEventType.SCROLL_TO_LEFT as string
+            || event === VirtureListEventType.SCROLL_TO_RIGHT as string) {
             const flag = 1 << eventMap[event];
             if (this._scrollEventEmitMask & flag) {
                 return;
@@ -1121,7 +1112,8 @@ export class VirtureList extends ViewGroup {
         }
     }
 
-    protected _processDeltaMove(deltaMove: Vec3): void {
+    protected _processDeltaMove(deltaMove: Vec3, dt: number): void {
+        this._limitScrollSpeed(this._flattenVectorByDirection(deltaMove), dt);
         this._scrollChildren(deltaMove);
         this._gatherTouchMove(deltaMove);
     }
@@ -1142,7 +1134,7 @@ export class VirtureList extends ViewGroup {
         if (self._scrolling) {
             self._scrolling = false;
             if (!self._autoScrolling) {
-                self._dispatchEvent(ScrollViewEventType.SCROLL_ENDED);
+                self._dispatchEvent(VirtureListEventType.SCROLL_ENDED);
             }
         }
     }
@@ -1175,13 +1167,13 @@ export class VirtureList extends ViewGroup {
             realMove.y *= outOfBoundary.y === 0 ? 1 : 0.5;
         }
 
-        if (!self.elastic) {
+        if (self._isGenerating || !self.elastic) {
             outOfBoundary = self._getHowMuchOutOfBoundary(realMove);
             realMove.add(outOfBoundary);
         }
 
-        let verticalScrollEventType: ScrollViewEventType = ScrollViewEventType.NONE;
-        let horizontalScrollEventType: ScrollViewEventType = ScrollViewEventType.NONE;
+        let verticalScrollEventType = VirtureListEventType.NONE;
+        let horizontalScrollEventType = VirtureListEventType.NONE;
         if (self._content) {
             const { anchorX, anchorY, width, height } = self._content.getComponent(UITransform)!;
             const pos = self._content.position || Vec3.ZERO;
@@ -1191,13 +1183,13 @@ export class VirtureList extends ViewGroup {
                     const icBottomPos = pos.y - anchorY * height;
 
                     if (icBottomPos + realMove.y >= self._bottomBoundary) {
-                        verticalScrollEventType = ScrollViewEventType.SCROLL_TO_BOTTOM;
+                        verticalScrollEventType = VirtureListEventType.SCROLL_TO_BOTTOM;
                     }
                 } else if (realMove.y < 0) { // down
                     const icTopPos = pos.y - anchorY * height + height;
 
                     if (icTopPos + realMove.y <= self._topBoundary) {
-                        verticalScrollEventType = ScrollViewEventType.SCROLL_TO_TOP;
+                        verticalScrollEventType = VirtureListEventType.SCROLL_TO_TOP;
                     }
                 }
             }
@@ -1206,12 +1198,12 @@ export class VirtureList extends ViewGroup {
                 if (realMove.x < 0) { // left
                     const icRightPos = pos.x - anchorX * width + width;
                     if (icRightPos + realMove.x <= self._rightBoundary) {
-                        horizontalScrollEventType = ScrollViewEventType.SCROLL_TO_RIGHT;
+                        horizontalScrollEventType = VirtureListEventType.SCROLL_TO_RIGHT;
                     }
                 } else if (realMove.x > 0) { // right
                     const icLeftPos = pos.x - anchorX * width;
                     if (icLeftPos + realMove.x >= self._leftBoundary) {
-                        horizontalScrollEventType = ScrollViewEventType.SCROLL_TO_LEFT;
+                        horizontalScrollEventType = VirtureListEventType.SCROLL_TO_LEFT;
                     }
                 }
             }
@@ -1222,15 +1214,15 @@ export class VirtureList extends ViewGroup {
         if ((self.horizontal && realMove.x !== 0) || (self.vertical && realMove.y !== 0)) {
             if (!self._scrolling) {
                 self._scrolling = true;
-                self._dispatchEvent(ScrollViewEventType.SCROLL_BEGAN);
+                self._dispatchEvent(VirtureListEventType.SCROLL_BEGAN);
             }
-            self._dispatchEvent(ScrollViewEventType.SCROLLING);
+            self._dispatchEvent(VirtureListEventType.SCROLLING);
         }
 
-        if (verticalScrollEventType !== ScrollViewEventType.NONE) {
+        if (verticalScrollEventType !== VirtureListEventType.NONE) {
             self._dispatchEvent(verticalScrollEventType);
         }
-        if (horizontalScrollEventType !== ScrollViewEventType.NONE) {
+        if (horizontalScrollEventType !== VirtureListEventType.NONE) {
             self._dispatchEvent(horizontalScrollEventType);
         }
     }
@@ -1240,7 +1232,7 @@ export class VirtureList extends ViewGroup {
         const self = this;
 
         if (self._autoScrolling) {
-            self._dispatchEvent(ScrollViewEventType.SCROLL_ENDED);
+            self._dispatchEvent(VirtureListEventType.SCROLL_ENDED);
         }
 
         self._autoScrolling = false;
@@ -1303,16 +1295,16 @@ export class VirtureList extends ViewGroup {
 
         if (!self._isBouncing) {
             if (bounceBackAmount.y > 0) {
-                self._dispatchEvent(ScrollViewEventType.BOUNCE_TOP);
+                self._dispatchEvent(VirtureListEventType.BOUNCE_TOP);
             }
             if (bounceBackAmount.y < 0) {
-                self._dispatchEvent(ScrollViewEventType.BOUNCE_BOTTOM);
+                self._dispatchEvent(VirtureListEventType.BOUNCE_BOTTOM);
             }
             if (bounceBackAmount.x > 0) {
-                self._dispatchEvent(ScrollViewEventType.BOUNCE_RIGHT);
+                self._dispatchEvent(VirtureListEventType.BOUNCE_RIGHT);
             }
             if (bounceBackAmount.x < 0) {
-                self._dispatchEvent(ScrollViewEventType.BOUNCE_LEFT);
+                self._dispatchEvent(VirtureListEventType.BOUNCE_LEFT);
             }
             self._isBouncing = true;
         }
@@ -1376,12 +1368,6 @@ export class VirtureList extends ViewGroup {
         clonedAutoScrollStartPosition.add(clonedAutoScrollTargetDelta);
         let reachedEnd = Math.abs(percentage - 1) <= EPSILON;
 
-        const fireEvent = Math.abs(percentage - 1) <= self.getScrollEndedEventTiming();
-        if (fireEvent && !self._isScrollEndedWithThresholdEventFired) {
-            self._dispatchEvent(ScrollViewEventType.SCROLL_ENG_WITH_THRESHOLD);
-            self._isScrollEndedWithThresholdEventFired = true;
-        }
-
         if (self.elastic) {
             const brakeOffsetPosition = clonedAutoScrollStartPosition.clone();
             brakeOffsetPosition.subtract(self._autoScrollBrakingStartPosition);
@@ -1400,26 +1386,41 @@ export class VirtureList extends ViewGroup {
             }
         }
 
+        const deltaMove = clonedAutoScrollStartPosition.clone();
+        deltaMove.subtract(self._getContentPosition());
+        self._clampDelta(deltaMove);
+        const speedLimited = self._limitScrollSpeed(deltaMove, dt);
+        // 限速后继续追赶原目标，实际到达前不结束滚动。
+        reachedEnd = reachedEnd && !speedLimited;
+
+        const fireEvent = !speedLimited && Math.abs(percentage - 1) <= self.getScrollEndedEventTiming();
+        if (fireEvent && !self._isScrollEndedWithThresholdEventFired) {
+            self._dispatchEvent(VirtureListEventType.SCROLL_ENG_WITH_THRESHOLD);
+            self._isScrollEndedWithThresholdEventFired = true;
+        }
         if (reachedEnd) {
             self._autoScrolling = false;
         }
 
-        const deltaMove = clonedAutoScrollStartPosition.clone();
-        deltaMove.subtract(self._getContentPosition());
-        self._clampDelta(deltaMove);
         self._moveContent(deltaMove, reachedEnd);
-        self._dispatchEvent(ScrollViewEventType.SCROLLING);
+        self._dispatchEvent(VirtureListEventType.SCROLLING);
 
         if (!self._autoScrolling) {
             self._isBouncing = false;
             self._scrolling = false;
-            self._dispatchEvent(ScrollViewEventType.SCROLL_ENDED);
+            self._dispatchEvent(VirtureListEventType.SCROLL_ENDED);
         }
     }
 
     protected _checkMouseWheel(dt: number): void {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
+
+        if (self._isGenerating) {
+            self.unschedule(self._checkMouseWheel);
+            self._stopMouseWheel = false;
+            return;
+        }
 
         const currentOutOfBoundary = self._getHowMuchOutOfBoundary();
         const maxElapsedTime = 0.1;
@@ -1429,7 +1430,7 @@ export class VirtureList extends ViewGroup {
             if (self._scrolling) {
                 self._scrolling = false;
                 if (!self._autoScrolling) {
-                    self._dispatchEvent(ScrollViewEventType.SCROLL_ENDED);
+                    self._dispatchEvent(VirtureListEventType.SCROLL_ENDED);
                 }
             }
             self.unschedule(self._checkMouseWheel);
@@ -1444,7 +1445,7 @@ export class VirtureList extends ViewGroup {
             if (self._scrolling) {
                 self._scrolling = false;
                 if (!self._autoScrolling) {
-                    self._dispatchEvent(ScrollViewEventType.SCROLL_ENDED);
+                    self._dispatchEvent(VirtureListEventType.SCROLL_ENDED);
                 }
             }
             self.unschedule(self._checkMouseWheel);
@@ -1460,7 +1461,7 @@ export class VirtureList extends ViewGroup {
         const self = this;
         self._calculateBoundary();
 
-        anchor.clampf(Vec2.ZERO, Vec2.ONE);
+        if (!self.virture || !self.itemLoop) anchor.clampf(Vec2.ZERO, Vec2.ONE);
 
         let bottomDelta = self._getContentBottomBoundary() - self._bottomBoundary;
         bottomDelta = -bottomDelta;
@@ -1533,60 +1534,65 @@ export class VirtureList extends ViewGroup {
      * @param item 
      */
     public initList(size: number, refreshFunc: (...params) => boolean, item?: Node) {
+        this._pendingVirtualListDelta.set(0, 0, 0);
         this._itemSize = size;
+        this._itemHead = null;
+        this._itemTail = null;
+        this._itemCount = 0;
+        const oldItems = this.content.children;
         this.content.removeAllChildren();
+        oldItems.forEach(item => item.destroy());
         this._itemRefreshFunc = refreshFunc;
-        let _item = item;
-        if (!_item) {
-            this.tepItemType == TepItemType.Item ? (_item = this.tepItem) : (_item = instantiate(this.tepPrefab));
+        this._item = item;
+        if (!this._item) {
+            this.tepItemType == TepItemType.Item ? (this._item = this.tepItem) : (this._item = instantiate(this.tepPrefab));
         }
 
         this.initAnchor();
-        this.generateItem(_item);
+        this.generateItem();
     }
 
-    private generateItem(item: Node) {
-        const itemTrans = item.getComponent(UITransform);
+    private generateItem() {
+        const itemTrans = this._item.getComponent(UITransform);
         const listTrans = this.node.getComponent(UITransform);
         this._itemRect = new Rect(itemTrans.anchorX, itemTrans.anchorY, itemTrans.width, itemTrans.height);
-        let itemCount = 0;
+        this._itemMaxCount = 0;
         switch (this.layoutType) {
             case LayoutType.VERTICAL:
-                itemCount = Math.ceil((listTrans.height + this.spacingY) / (this._itemRect.height + this.spacingY)) + 1;
+                this._itemMaxCount = Math.ceil((listTrans.height + this.spacingY) / (this._itemRect.height + this.spacingY)) + 1;
                 this._colCount = 1;
-                itemCount = Math.min(itemCount, this._itemSize);
-                this._rowCount = itemCount;
+                this._itemMaxCount = Math.min(this._itemMaxCount, this._itemSize);
+                this._rowCount = this._itemMaxCount;
                 this._posRefreshFunc = this._generateVertical;
+                this._getItemPos = this._getVerticalPos;
                 break;
             case LayoutType.HORIZONTAL:
-                itemCount = Math.ceil((listTrans.width + this.spacingX) / (this._itemRect.width + this.spacingX)) + 1;
+                this._itemMaxCount = Math.ceil((listTrans.width + this.spacingX) / (this._itemRect.width + this.spacingX)) + 1;
                 this._rowCount = 1;
-                itemCount = Math.min(itemCount, this._itemSize);
-                this._colCount = itemCount;
+                this._itemMaxCount = Math.min(this._itemMaxCount, this._itemSize);
+                this._colCount = this._itemMaxCount;
                 this._posRefreshFunc = this._generateHorizontal;
+                this._getItemPos = this._getHorizontalPos;
                 break;
             case LayoutType.GRID_VERTICAL:
                 const listWidth = listTrans.width - this.margin.w - this.margin.y;
                 this._colCount = ~~((listWidth + this.spacingX) / (this._itemRect.width + this.spacingX));
                 this._rowCount = Math.ceil((listTrans.height + this.spacingY) / (this._itemRect.height + this.spacingY)) + 1;
-                itemCount = this._colCount * this._rowCount;
+                this._itemMaxCount = this._colCount * this._rowCount;
                 this._posRefreshFunc = this._generateGridVertical;
+                this._getItemPos = this._getGridVerticalPos;
                 break;
             case LayoutType.GRID_HORIZONTAL:
                 const listHeight = listTrans.height - this.margin.z - this.margin.x;
                 this._rowCount = ~~((listHeight + this.spacingY) / (this._itemRect.height + this.spacingY));
                 this._colCount = Math.ceil((listTrans.width + this.spacingX) / (this._itemRect.width + this.spacingX)) + 1;
-                itemCount = this._colCount * this._rowCount;
+                this._itemMaxCount = this._colCount * this._rowCount;
                 this._posRefreshFunc = this._generateGridHorizontal;
+                this._getItemPos = this._getGridHorizontalPos;
                 break;
         }
 
-        !this.virture && (itemCount = this._itemSize);
-
-        for (let i = 0; i < itemCount; i++) {
-            const itemNode = instantiate(item);
-            this._posRefreshFunc(i, itemNode);
-        }
+        !this.virture && (this._itemMaxCount = this._itemSize);
 
         const contentTrans = this.content.getComponent(UITransform);
         if (this.layoutType == LayoutType.VERTICAL || this.layoutType == LayoutType.GRID_VERTICAL) {
@@ -1599,7 +1605,38 @@ export class VirtureList extends ViewGroup {
             contentTrans.width = contentWidth;
             contentTrans.height = listTrans.height;
         }
+
+        this._itemCount = 0;
+        if (this.frameRender) {
+            this._isGenerating = true;
+            return;
+        };
+
+        this._isGenerating = false;
+        this._instantiateItem(this._itemMaxCount);
     }
+
+    private _instantiateItem(count: number) {
+        for (let i = 0; i < count; i++) {
+            if (this._itemCount >= this._itemMaxCount) {
+                this._isGenerating = false;
+                return;
+            }
+            const itemNode = instantiate(this._item);
+            this._posRefreshFunc(this._itemCount, itemNode);
+            if (itemNode.parent === this.content) {
+                const link: ListItemLink = { node: itemNode, prev: this._itemTail, next: null };
+                if (this._itemTail) {
+                    this._itemTail.next = link;
+                } else {
+                    this._itemHead = link;
+                }
+                this._itemTail = link;
+                this._itemCount++;
+            }
+        }
+    }
+
     private initAnchor() {
         const contentTrans = this.content.getComponent(UITransform);
         const parentNode = this.content.parent;
@@ -1644,12 +1681,12 @@ export class VirtureList extends ViewGroup {
                 break;
         }
         parentWidget.updateAlignment();
-        this.scheduleOnce(()=>this.content.setPosition(0, 0));
+        this.scheduleOnce(() => this.content.setPosition(0, 0));
     }
     private _generateGridHorizontal(index: number, item: Node) {
         let dataIndex: number = index;
         let posIndex: number = index;
-        if(this.virture && this.itemLoop){
+        if (this.virture && this.itemLoop) {
             dataIndex = this._countLoopIndex(index);
             index < 0 && (posIndex = Math.abs(index) - 1);
         }
@@ -1670,7 +1707,7 @@ export class VirtureList extends ViewGroup {
         let yPos = this.margin.x + (this._itemRect.height + this.spacingY) * row + this._itemRect.height * itemTrans.anchorY;
         xPos = this.reverse ? -xPos : xPos;
         yPos = -yPos;
-        if(index < 0 && this.itemLoop){
+        if (index < 0 && this.itemLoop) {
             this.reverse && (xPos = -xPos + this.spacingX);
             !this.reverse && (xPos = -xPos - this.spacingX);
         }
@@ -1679,7 +1716,7 @@ export class VirtureList extends ViewGroup {
     private _generateGridVertical(index: number, item: Node) {
         let dataIndex: number = index;
         let posIndex: number = index;
-        if(this.virture && this.itemLoop){
+        if (this.virture && this.itemLoop) {
             dataIndex = this._countLoopIndex(index);
             index < 0 && (posIndex = Math.abs(index) - 1);
         }
@@ -1699,7 +1736,7 @@ export class VirtureList extends ViewGroup {
         let xPos = this.margin.w + (this._itemRect.width + this.spacingX) * col + this._itemRect.width * itemTrans.anchorX;
         let yPos = margin + (this._itemRect.height + this.spacingY) * row + this._itemRect.height * itemTrans.anchorY;
         yPos = this.reverse ? yPos : -yPos;
-        if(index < 0 && this.itemLoop){
+        if (index < 0 && this.itemLoop) {
             this.reverse && (yPos = -yPos - this.spacingY);
             !this.reverse && (yPos = -yPos + this.spacingY);
         }
@@ -1708,7 +1745,7 @@ export class VirtureList extends ViewGroup {
     private _generateVertical(index: number, item: Node) {
         let dataIndex: number = index;
         let posIndex: number = index;
-        if(this.virture && this.itemLoop){
+        if (this.virture && this.itemLoop) {
             dataIndex = this._countLoopIndex(index);
             index < 0 && (posIndex = Math.abs(index) - 1);
         }
@@ -1725,7 +1762,7 @@ export class VirtureList extends ViewGroup {
         this.virture && this.itemLoop && (margin = 0);
         let colPos = margin + (this._itemRect.height + this.spacingY) * posIndex + this._itemRect.height * itemTrans.anchorY;
         colPos = this.reverse ? colPos : -colPos;
-        if(index < 0 && this.itemLoop){
+        if (index < 0 && this.itemLoop) {
             this.reverse && (colPos = -colPos - this.spacingY);
             !this.reverse && (colPos = -colPos + this.spacingY);
         }
@@ -1734,7 +1771,7 @@ export class VirtureList extends ViewGroup {
     private _generateHorizontal(index: number, item: Node) {
         let dataIndex: number = index;
         let posIndex: number = index;
-        if(this.virture && this.itemLoop){
+        if (this.virture && this.itemLoop) {
             dataIndex = this._countLoopIndex(index);
             index < 0 && (posIndex = Math.abs(index) - 1);
         }
@@ -1751,24 +1788,133 @@ export class VirtureList extends ViewGroup {
         this.virture && this.itemLoop && (margin = 0);
         let rowPos = margin + (this._itemRect.width + this.spacingX) * posIndex + this._itemRect.width * itemTrans.anchorX;
         rowPos = this.reverse ? -rowPos : rowPos;
-        if(index < 0 && this.itemLoop){
+        if (index < 0 && this.itemLoop) {
             this.reverse && (rowPos = -rowPos + this.spacingX);
             !this.reverse && (rowPos = -rowPos - this.spacingX);
         }
         item.setPosition(rowPos, 0);
     }
 
-    private _countLoopIndex(index: number): number{
-        if(index >= 0) return index % this._itemSize;
+    private _getGridHorizontalPos(index: number): Vec2{
+        let dataIndex: number = index;
+        let posIndex: number = index;
+        if (this.virture && this.itemLoop) {
+            dataIndex = this._countLoopIndex(index);
+            index < 0 && (posIndex = Math.abs(index) - 1);
+        }
+        if(dataIndex < 0 || dataIndex >= this._itemSize){
+            return;
+        }
+        const itemTrans = this._item.getComponent(UITransform);
+        const row = posIndex % this._rowCount;
+        const col = ~~(posIndex / this._rowCount);
+        let margin = this.reverse ? this.margin.y : this.margin.w;
+        this.virture && this.itemLoop && (margin = 0);
+        let xPos = margin + (this._itemRect.width + this.spacingX) * col + this._itemRect.width * itemTrans.anchorX;
+        xPos = this.reverse ? -xPos : xPos;
+        if (index < 0 && this.itemLoop) {
+            this.reverse && (xPos = -xPos + this.spacingX);
+            !this.reverse && (xPos = -xPos - this.spacingX);
+        }
+        return v2(xPos, 0);
+    }
+    private _getGridVerticalPos(index: number) {
+        let dataIndex: number = index;
+        let posIndex: number = index;
+        if (this.virture && this.itemLoop) {
+            dataIndex = this._countLoopIndex(index);
+            index < 0 && (posIndex = Math.abs(index) - 1);
+        }
+        if(dataIndex < 0 || dataIndex >= this._itemSize){
+            return;
+        }
+        const itemTrans = this._item.getComponent(UITransform);
+        const row = ~~(posIndex / this._colCount);
+        let margin = this.reverse ? this.margin.z : this.margin.x;
+        this.virture && this.itemLoop && (margin = 0);
+        let yPos = margin + (this._itemRect.height + this.spacingY) * row + this._itemRect.height * itemTrans.anchorY;
+        yPos = this.reverse ? yPos : -yPos;
+        if (index < 0 && this.itemLoop) {
+            this.reverse && (yPos = -yPos - this.spacingY);
+            !this.reverse && (yPos = -yPos + this.spacingY);
+        }
+        return v2(0, yPos);
+    }
+    private _getVerticalPos(index: number) {
+        let dataIndex: number = index;
+        let posIndex: number = index;
+        if (this.virture && this.itemLoop) {
+            dataIndex = this._countLoopIndex(index);
+            index < 0 && (posIndex = Math.abs(index) - 1);
+        }
+        if(dataIndex < 0 || dataIndex >= this._itemSize){
+            return;
+        }
+        const itemTrans = this._item.getComponent(UITransform);
+        let margin = this.reverse ? this.margin.z : this.margin.x;
+        this.virture && this.itemLoop && (margin = 0);
+        let colPos = margin + (this._itemRect.height + this.spacingY) * posIndex + this._itemRect.height * itemTrans.anchorY;
+        colPos = this.reverse ? colPos : -colPos;
+        if (index < 0 && this.itemLoop) {
+            this.reverse && (colPos = -colPos - this.spacingY);
+            !this.reverse && (colPos = -colPos + this.spacingY);
+        }
+        return v2(0, colPos);
+    }
+    private _getHorizontalPos(index: number) {
+        let dataIndex: number = index;
+        let posIndex: number = index;
+        if (this.virture && this.itemLoop) {
+            dataIndex = this._countLoopIndex(index);
+            index < 0 && (posIndex = Math.abs(index) - 1);
+        }
+        if(dataIndex < 0 || dataIndex >= this._itemSize){
+            return;
+        }
+        const itemTrans = this._item.getComponent(UITransform);
+        let margin = this.reverse ? this.margin.y : this.margin.w;
+        this.virture && this.itemLoop && (margin = 0);
+        let rowPos = margin + (this._itemRect.width + this.spacingX) * posIndex + this._itemRect.width * itemTrans.anchorX;
+        rowPos = this.reverse ? -rowPos : rowPos;
+        if (index < 0 && this.itemLoop) {
+            this.reverse && (rowPos = -rowPos + this.spacingX);
+            !this.reverse && (rowPos = -rowPos - this.spacingX);
+        }
+        return v2(rowPos, 0);
+    }
+
+    private _countLoopIndex(index: number): number {
+        if (index >= 0) return index % this._itemSize;
         const reverseIndex = Math.abs(index) % this._itemSize;
         return this._itemSize - reverseIndex - 1;
     }
 
+    private _moveItemToEnd(toTail: boolean): void {
+        if (!this._itemHead || this._itemHead === this._itemTail) return;
+        if (toTail) {
+            const link = this._itemHead;
+            this._itemHead = link.next;
+            this._itemHead.prev = null;
+            link.prev = this._itemTail;
+            link.next = null;
+            this._itemTail.next = link;
+            this._itemTail = link;
+        } else {
+            const link = this._itemTail;
+            this._itemTail = link.prev;
+            this._itemTail.next = null;
+            link.prev = null;
+            link.next = this._itemHead;
+            this._itemHead.prev = link;
+            this._itemHead = link;
+        }
+    }
+
     private _refreshVirtualList(deltaMove: Vec3) {
-        if(!this.content || !this._itemRect) return;
-        const len = this.content.children.length;
+        if (!this.content || !this._itemRect) return;
+        const len = this._itemCount;
         const capacity = this._rowCount * this._colCount;
-        if (len < capacity) {
+        if (len === 0 || len < capacity) {
             return;
         }
         const pos = this.content.position;
@@ -1783,99 +1929,81 @@ export class VirtureList extends ViewGroup {
         const anchorX = this._itemRect.x;
         const anchorY = this._itemRect.y;
 
-        let flag: boolean = false;
         let itemNode: Node = null;
         let itemX: number = 0;
         let itemY: number = 0;
         let itemIndex: number = 0;
-        let currIndex: number = 0;
-        let newIndex: number = 0;
+        let toTail: boolean = false;
         let increment: number = 0;
 
         if (deltaMove.x < 0) {
-            flag = true;
-            currIndex = this.reverse ? len - 1 : 0;
-            newIndex = this.reverse ? 0 : len - 1;
+            toTail = !this.reverse;
             increment = this.reverse ? -capacity : capacity;
-            while (flag) {
-                itemNode = this.content.children[currIndex];
+            while (true) {
+                itemNode = (toTail ? this._itemHead : this._itemTail).node;
                 itemX = itemNode.x + width * (1 - anchorX);
                 if (itemX >= left) {
-                    flag = false;
                     break;
                 }
                 itemIndex = +itemNode.name + increment;
                 if (!this.itemLoop && (itemIndex >= this._itemSize || itemIndex < 0)) {
-                    flag = false;
                     break;
                 }
                 this._posRefreshFunc(itemIndex, itemNode);
-                itemNode.setSiblingIndex(newIndex);
+                this._moveItemToEnd(toTail);
             }
         }
 
         if (deltaMove.x > 0) {
-            flag = true;
-            currIndex = this.reverse ? 0 : len - 1;
-            newIndex = this.reverse ? len - 1 : 0;
+            toTail = this.reverse;
             increment = this.reverse ? capacity : -capacity;
-            while (flag) {
-                itemNode = this.content.children[currIndex];
+            while (true) {
+                itemNode = (toTail ? this._itemHead : this._itemTail).node;
                 itemX = itemNode.x - width * anchorX;
                 if (itemX <= right) {
-                    flag = false;
                     break;
                 }
                 itemIndex = +itemNode.name + increment;
                 if (!this.itemLoop && (itemIndex >= this._itemSize || itemIndex < 0)) {
-                    flag = false;
                     break;
                 }
                 this._posRefreshFunc(itemIndex, itemNode);
-                itemNode.setSiblingIndex(newIndex);
+                this._moveItemToEnd(toTail);
             }
         }
         if (deltaMove.y > 0) {
-            flag = true;
-            currIndex = this.reverse ? len - 1 : 0;
-            newIndex = this.reverse ? 0 : len - 1;
+            toTail = !this.reverse;
             increment = this.reverse ? -capacity : capacity;
-            while (flag) {
-                itemNode = this.content.children[currIndex];
+            while (true) {
+                itemNode = (toTail ? this._itemHead : this._itemTail).node;
                 itemY = itemNode.y - height * (1 - anchorY);
                 if (itemY <= top) {
-                    flag = false;
                     break;
                 }
                 itemIndex = +itemNode.name + increment;
                 if (!this.itemLoop && (itemIndex >= this._itemSize || itemIndex < 0)) {
-                    flag = false;
                     break;
                 }
                 this._posRefreshFunc(itemIndex, itemNode);
-                itemNode.setSiblingIndex(newIndex);
+                this._moveItemToEnd(toTail);
             }
         };
 
         if (deltaMove.y < 0) {
-            flag = true;
-            currIndex = this.reverse ? 0 : len - 1;
-            newIndex = this.reverse ? len - 1 : 0;
+            toTail = this.reverse;
             increment = this.reverse ? capacity : -capacity;
-            while (flag) {
-                itemNode = this.content.children[currIndex];
+            while (true) {
+                itemNode = (toTail ? this._itemHead : this._itemTail).node;
                 itemY = itemNode.y + height * anchorY;
                 if (itemY >= bottom) {
-                    flag = false;
                     break;
                 }
                 itemIndex = +itemNode.name + increment;
                 if (!this.itemLoop && (itemIndex >= this._itemSize || itemIndex < 0)) {
-                    flag = false;
                     break;
                 }
                 this._posRefreshFunc(itemIndex, itemNode);
-                itemNode.setSiblingIndex(newIndex);
+                this._moveItemToEnd(toTail);
             }
         };
     }

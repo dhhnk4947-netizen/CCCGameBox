@@ -704,7 +704,9 @@
       "__id__": 33
     },
     "tepPrefab": null,
-    "layoutType": 2,
+    "frameRender": true,
+    "generatedItemCount": 4,
+    "layoutType": 3,
     "spacingX": 10,
     "spacingY": 20,
     "margin": {
@@ -716,14 +718,13 @@
     },
     "flushType": 0,
     "flushTimer": 0.1,
-    "flushFrame": 1,
+    "flushFrame": 2,
     "reverse": false,
     "bounceDuration": 1,
     "brake": 0.75,
+    "maxScrollSpeed": 8000,
     "elastic": true,
     "inertia": true,
-    "horizontal": true,
-    "vertical": false,
     "cancelInnerEvents": true,
     "scrollEvents": [],
     "_content": {
