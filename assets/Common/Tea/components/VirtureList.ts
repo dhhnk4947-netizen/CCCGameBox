@@ -1526,6 +1526,7 @@ export class VirtureList extends ViewGroup {
         }
     }
 
+    //#region 虚拟列表相关逻辑
     public initList(size: number, refreshFunc: (...params) => boolean);
     public initList(size: number, refreshFunc: (...params) => boolean, item: Node);
     /**
@@ -2007,4 +2008,5 @@ export class VirtureList extends ViewGroup {
             }
         };
     }
+    //#endregion
 }
