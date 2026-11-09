@@ -86,6 +86,8 @@ export default class UIPage {
     private gameTrans: UITransform;
     private uiRoot: Node;
     private uiTrans: UITransform;
+
+    private _stopGameCb: Function = null;
     init(cb?) {
         this.FullLRU = new UILRU(MaxFullPage);
         this.PopLRU = new UILRU(MaxPopPage);
@@ -743,10 +745,19 @@ export default class UIPage {
             cb && cb();
             return;
         }
-        let gameNode = this.currGame.node;
-        gameNode.active = false;
-        this.currGame['TeaUIPageHide']();
-        cb && cb();
+        this.showLoading();
+        this._uiLoadingCache.scheduleOnce(() => {
+            let gameNode = this.currGame.node;
+            gameNode.active = false;
+            this.currGame['TeaUIPageHide']();
+            cb && cb();
+            this._stopGameCb && this._stopGameCb();
+            this.hideLoading();
+        }, this._uiLoadingCache.animTime);
+    }
+
+    registerStopGameCb(func: Function) {
+        this._stopGameCb = func;
     }
 
     clearUIByBundle(bundleName: string) {

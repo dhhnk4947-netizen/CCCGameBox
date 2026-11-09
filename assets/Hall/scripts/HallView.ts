@@ -2,6 +2,8 @@ import { _decorator, easing, game, Mask, Node, Quat, size, tween, Tween, UITrans
 import { Path } from '../../Common/Tea/decorators/tea.decorators';
 import { TBundleName, FullView, onMount } from '../../Common/Tea/UI/UIView';
 import { GameListView } from './GameListView';
+import { Autowired } from '../../Common/Tea/Util/SingletonFactory';
+import UIPage from '../../Common/Tea/UI/UIPage';
 const { ccclass, property } = _decorator;
 
 @ccclass('HallView')
@@ -17,17 +19,20 @@ export class HallView extends FullView {
     helpBtn: Node = null;
     @Path('btns/SettingBtn')
     settingBtn: Node = null;
-    @Path('loading/Mask', UITransform)
-    animNode: UITransform = null;
-    @Path('loading/Mask', Mask)
-    animMask: Mask = null;
-    @Path('loading')
+
+    @Autowired(UIPage)
+    uiPage: UIPage = null;
+
     @onMount
     mount() {
         this.openListBtn.on(Node.EventType.TOUCH_END, this.onClickOpenListBtn.bind(this));
         this.quitBtn.on(Node.EventType.TOUCH_END, this.onClickQuitBtn.bind(this));
         this.helpBtn.on(Node.EventType.TOUCH_END, this.onClickHelpBtn.bind(this));
         this.settingBtn.on(Node.EventType.TOUCH_END, this.onClickSettingBtn.bind(this));
+    
+        this.uiPage.registerStopGameCb(()=>{
+            HallView.resetTo();
+        })
     }
 
     test() {
@@ -44,7 +49,6 @@ export class HallView extends FullView {
 
     onClickOpenListBtn() {
         GameListView.resetTo();
-        // startGame("T2048");
     }
 
     onClickQuitBtn() {

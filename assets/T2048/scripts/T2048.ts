@@ -6,7 +6,7 @@ import { Autowired } from '../../Common/Tea/Util/SingletonFactory';
 import TAssetManager from '../../Common/Tea/Util/TAssetManager';
 import EventManager from '../../Common/Tea/Util/EventManager';
 import { T2048GlobalContext } from './T2048GlobalContext';
-import { SettlementView } from './SettlementView';
+import { T2048SettlementView } from './view/T2048SettlementView';
 const { ccclass, property } = _decorator;
 
 const T2048DataKey = "T2048Data";
@@ -160,7 +160,7 @@ export class T2048 extends GameItem {
         const maxRecord = Math.max(this.currRecord, this.maxRecord);
         this.maxRecord = maxRecord;
 
-        SettlementView.show(this.currRecord, this.maxRecord);
+        T2048SettlementView.show(this.currRecord, this.maxRecord);
 
         this.currRecord = 0;
         this.gameBoxData = [
@@ -373,9 +373,7 @@ export class T2048 extends GameItem {
     }
 
     onClickQuitBtn(e) {
-        this.close(() => {
-            ResetTo("HallView");
-        });
+        this.close();
     }
 
     onClickSettingBtn(e) {
