@@ -1,9 +1,9 @@
 import { _decorator, Label, Node } from 'cc';
-import { Path } from 'db://assets/Common/Tea/decorators/tea.decorators';
-import { TBundleName, PopView } from 'db://assets/Common/Tea/UI/UIView';
-import EventManager from 'db://assets/Common/Tea/Util/EventManager';
-import { Autowired } from 'db://assets/Common/Tea/Util/SingletonFactory';
 import { T2048GlobalContext } from '../T2048GlobalContext';
+import { Path } from '../../../Common/Tea/decorators/tea.decorators';
+import { TBundleName, PopView } from '../../../Common/Tea/UI/UIView';
+import EventManager from '../../../Common/Tea/Util/EventManager';
+import { Autowired } from '../../../Common/Tea/Util/SingletonFactory';
 const { ccclass, property } = _decorator;
 
 @ccclass('T2048SettlementView')

@@ -40,8 +40,8 @@
         "progress": 1,
         "state": "success",
         "stage": "build",
-        "message": "2026-11-4 21:51:41 build success in 12 s!",
-        "detailMessage": "// ---- build task cocos-service：onAfterBuild ----\r",
+        "message": "2026-11-10 15:31:40 build success in 12 s!",
+        "detailMessage": "// ---- build task adsense-h5g-plugin：onAfterBuild ----\r",
         "options": {
           "name": "GameBox",
           "server": "",
@@ -101,11 +101,11 @@
           "packages": {},
           "__version__": "1.3.9",
           "logDest": "project://temp/builder/log/web-mobile9-15-2026 16-29.log",
-          "__builderUiTaskNavigation": "mw2489jl-hxawzmcewr:2",
-          "__builderUiTaskTime": 1793796689069,
+          "__builderUiTaskNavigation": "mwaak7h4-5ke4loqq0j9:3",
+          "__builderUiTaskTime": 1794292288115,
           "taskId": "1789457391790"
         },
-        "time": "11-4-2026 21:51:29",
+        "time": "11-10-2026 15:31:28",
         "dirty": false
       },
       "1789558187326": {
@@ -114,7 +114,7 @@
         "progress": 1,
         "state": "success",
         "stage": "build",
-        "message": "2026-11-4 21:52:17 build success in 34 s!",
+        "message": "2026-11-10 16:31:10 build success in 12 s!",
         "detailMessage": "// ---- build task adsense-h5g-plugin：onAfterBuild ----\r",
         "options": {
           "name": "GameBox",
@@ -175,11 +175,11 @@
           "packages": {},
           "__version__": "1.3.9",
           "logDest": "project://temp/builder/log/android9-16-2026 20-29.log",
-          "__builderUiTaskNavigation": "mw2489jl-hxawzmcewr:2",
-          "taskId": "1789558187326",
-          "__builderUiTaskTime": 1793796690101
+          "__builderUiTaskNavigation": "mwaak7h4-5ke4loqq0j9:5",
+          "__builderUiTaskTime": 1794295858072,
+          "taskId": "1789558187326"
         },
-        "time": "11-4-2026 21:51:42",
+        "time": "11-10-2026 16:30:58",
         "dirty": false
       },
       "1789562554356": {
@@ -188,8 +188,8 @@
         "progress": 1,
         "state": "success",
         "stage": "build",
-        "message": "2026-11-4 21:52:52 build success in 33 s!",
-        "detailMessage": "// ---- build task cocos-service：onAfterBuild ----\r",
+        "message": "2026-11-10 15:13:50 build success in 29 s!",
+        "detailMessage": "Copy remote build files success:\r/Users/byron/custom-proj/CaterpillarGameBox/build/remote/ios\r",
         "options": {
           "name": "GameBox",
           "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/remote/",
@@ -249,11 +249,11 @@
           "packages": {},
           "__version__": "1.3.9",
           "logDest": "project://temp/builder/log/ios9-16-2026 21-42.log",
-          "__builderUiTaskNavigation": "mw2489jl-hxawzmcewr:2",
-          "taskId": "1789562554356",
-          "__builderUiTaskTime": 1793796691410
+          "__builderUiTaskNavigation": "mwaak7h4-5ke4loqq0j9:2",
+          "__builderUiTaskTime": 1794291154358,
+          "taskId": "1789562554356"
         },
-        "time": "11-4-2026 21:52:18",
+        "time": "11-10-2026 15:13:20",
         "dirty": false
       }
     }

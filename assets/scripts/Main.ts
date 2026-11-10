@@ -15,7 +15,8 @@ export class Main extends Component {
     progressBar: Sprite = null;
     progressLabel: Label = null;
 
-    timeStep: number = 0.05;
+    timeStep: number = 1;
+    lastProgressVal: number = 0;
     progressVal: number = 0;
     finished: boolean = false;
 
@@ -47,10 +48,12 @@ export class Main extends Component {
         this.loadingLayer.active = true;
         this.progressBar.fillRange = 0;
         this.progressLabel.string = "0%";
+        this.lastProgressVal = 0;
         this.progressVal = 0;
-        this.timeStep = 0.05;
+        this.timeStep = 50;
         this.finished = false;
 
+        this.updateProgress();
         const bundleName = "Common";
         let bundleUrl = bundleName;
         if (globalThis.RemoteMD5[bundleName] && globalThis.RemoteMD5[bundleName].length > 0) {
@@ -62,7 +65,7 @@ export class Main extends Component {
                 return console.error(err);
             }
             this.finished = true;
-            this.timeStep = 0.3;
+            this.timeStep = 200;
         });
     }
 
@@ -149,18 +152,28 @@ export class Main extends Component {
         })
     }
 
-    protected update(dt: number): void {
-        if (this.progressVal < 1) {
-            this.progressVal += dt * this.timeStep;
-            this.progressBar.fillRange = this.progressVal;
-            this.progressLabel.string = `${~~(this.progressVal * 100)}%`;
+    updateProgress() {
+        if (this.progressVal < 51200) {
+            this.progressVal += this.timeStep;
+            let progress = this.progressVal >> 9;
+            progress = Math.min(progress, 100);
+            progress = Math.max(progress, 0);
+            this.progressBar.fillRange = progress * 0.01;
+            if (+progress > this.lastProgressVal) {
+                this.progressLabel.string = `${progress}%`;
+                this.lastProgressVal = +progress;
+            }
+            requestAnimationFrame(this.updateProgress.bind(this));
+            return;
         }
-        if (this.finished && this.progressVal >= 1) {
-            this.finished = false;
-            this.node.addComponent("GameController");
+        if (!this.finished) return;
 
+        this.finished = false;
+        this.scheduleOnce(() => {
+            this.node.addComponent("GameController");
             this.dafaultPanel.destroy();
             this.destroy();
-        }
+        }, 0.5)
+
     }
 }
