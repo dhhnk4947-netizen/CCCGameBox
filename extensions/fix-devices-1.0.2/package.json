@@ -1,9 +1,0 @@
-{
-    "name": "fix-device",
-    "title": "i18n:device.title",
-    "version": "1.0.2",
-    "package_version": 2,
-    "editor": "3.8.3",
-    "author": "Cocos Creator",
-    "main": "./main"
-}
