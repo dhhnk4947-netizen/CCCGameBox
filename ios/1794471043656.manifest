@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "bundles": {
-        "Common": "e359bcd03bbdac97a4e66409eea38cf9",
+        "Common": "44a1c4ce12a745a1c91c1b4abff950d9",
         "Hall": "64eefacfdf9cffad1c5f04248d0b6698",
         "InsectXiaoxiaole": "1893b6d52aefb4086160dba09c12778d",
         "JapenStudent": "f5d205582dc358856f1fefc5fbe8e864",
