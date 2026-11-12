@@ -3,23 +3,6 @@ import { Asset, AssetManager, assetManager, resources, sys } from "cc";
 // const bundleMD5Key = "LOCAL_BUNDLE_MD5_KEY";
 export default class TAssetManager {
     private static bundleCanche: { [key: string]: AssetManager.Bundle } = {};
-    // private static _localBundleMD5: { [key: string]: string } = null;
-    // private static get localBundleMD5(){
-    //     if(this._localBundleMD5 == null){
-    //         const bundleStorage = localStorage.getItem(bundleMD5Key);
-    //         this._localBundleMD5 = bundleStorage ? JSON.parse(bundleStorage) : {};
-    //     }
-    //     return this._localBundleMD5;
-    // }
-
-    // static setRemoteMD5(md5: string){
-    //     if(!md5 && md5.length == 0){
-    //         return;
-    //     }
-    //     const config = JSON.parse(md5);
-    //     this.remoteBundleMD5 = config.bundles;
-    //     console.log("setRemoteMD5 ====>", md5);
-    // }
 
     static load(path: string, abPackage: string, type: typeof Asset, onProgress: ((finish: number, total: number, item: AssetManager.RequestItem) => void), onComplete: (error: Error, assets: Asset) => void): void
     static load(path: string, abPackage: string, onProgress: ((finish: number, total: number, item: AssetManager.RequestItem) => void), onComplete: (error: Error, assets: Asset) => void): void
