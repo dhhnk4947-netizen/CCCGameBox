@@ -1,9 +1,10 @@
-import { _decorator, easing, game, Mask, Node, Quat, size, tween, Tween, UITransform } from 'cc';
-import { Path } from '../../Common/Tea/decorators/tea.decorators';
-import { TBundleName, FullView, onMount } from '../../Common/Tea/UI/UIView';
+import { _decorator, assetManager, AudioClip, easing, game, Mask, Node, Quat, size, tween, Tween, UITransform } from 'cc';
+import { Path } from '../../../Common/Tea/decorators/tea.decorators';
+import UIPage from '../../../Common/Tea/UI/UIPage';
+import { TBundleName, FullView, onMount } from '../../../Common/Tea/UI/UIView';
+import { Autowired } from '../../../Common/Tea/Util/SingletonFactory';
 import { GameListView } from './GameListView';
-import { Autowired } from '../../Common/Tea/Util/SingletonFactory';
-import UIPage from '../../Common/Tea/UI/UIPage';
+import TAssetManager from '../../../Common/Tea/Util/TAssetManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('HallView')
@@ -35,11 +36,7 @@ export class HallView extends FullView {
         })
     }
 
-    test() {
-    }
-
     onShow() {
-        this.test();
         this.titleStartAnim();
     }
 
@@ -56,6 +53,14 @@ export class HallView extends FullView {
     }
 
     onClickSettingBtn() {
+        // const url = `${assetManager.downloader.remoteServerAddress}resources/JPS_AUDIOS/${"JPS00001_31_1"}.mp3`
+        // TAssetManager.loadRemote<AudioClip>(url, (err, clip)=>{
+        //     if(err){
+        //         ERROR(err)
+        //         return;
+        //     }
+        //     this.playAudio(clip);
+        // })
     }
 
     onClickHelpBtn() {

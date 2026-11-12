@@ -1,13 +1,7 @@
 import { Camera, Component, UITransform, Node, director } from "cc";
-import ProxyData from "../data/ProxyData";
+import { UIBase } from "./UIBase";
 
-export default class GameItem extends Component {
-    onMount(): void { };
-    onInit(...params: any[]): void { };
-    onShow(): void { };
-    onHide(): void { };
-    onCreated(): void { };
-
+export default class GameItem extends UIBase {
     is3D() {
         return this.node.getComponent(UITransform) == null;
     }
@@ -31,61 +25,6 @@ export default class GameItem extends Component {
             this[symbol] = this[cameraNodeSymbol].getComponent(Camera);
         }
         return this[symbol];
-    }
-
-    private TeaUIPageMount() {
-        let onMounts = Symbol.for('TeaMounts');
-        let onShows = Symbol.for('TeaShows');
-        let onHides = Symbol.for('TeaHides');
-        this[onMounts] = this[onMounts] || [];
-        this[onShows] = this[onShows] || [];
-        this[onHides] = this[onHides] || [];
-
-        this[onMounts].push(this.onMount.bind(this));
-        this[onShows].push(this.onShow.bind(this));
-        this[onHides].push(this.onHide.bind(this));
-
-        this[onMounts].forEach((fun) => {
-            fun();
-        });
-    }
-    private TeaUIPageShow() {
-        let symbol = Symbol.for('observers');
-        let TargetClass = this.constructor;
-        if (TargetClass.prototype[symbol]) {
-            let map: Map<string, Array<string>> = TargetClass.prototype[symbol];
-            let keys = Array.from(map.keys());
-            keys.forEach((key) => {
-                let list = TargetClass.prototype[symbol].get(key);
-                let val = ProxyData.getDataSource(key);
-                list.forEach((prop) => {
-                    ProxyData.addObserver(key, this, prop);
-                    this[prop] = val;
-                });
-            });
-        }
-        let onShows = Symbol.for('TeaShows');
-        this[onShows].forEach((fun) => {
-            fun();
-        });
-    }
-    private TeaUIPageHide() {
-        let symbol = Symbol.for('observers');
-        let TargetClass = this.constructor;
-        if (TargetClass.prototype[symbol]) {
-            let map: Map<string, Array<string>> = TargetClass.prototype[symbol];
-            let keys = Array.from(map.keys());
-            keys.forEach((key) => {
-                let list = TargetClass.prototype[symbol].get(key);
-                list.forEach((prop) => {
-                    ProxyData.removeObserver(key, this, prop);
-                });
-            });
-        }
-        let onHides = Symbol.for('TeaHides');
-        this[onHides].forEach((fun) => {
-            fun();
-        });
     }
 
     close(cb?): void {

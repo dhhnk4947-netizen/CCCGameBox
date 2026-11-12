@@ -1,7 +1,6 @@
 import { _decorator, EventTouch, Label, Node, Sprite, SpriteFrame } from 'cc';
 import GameItem, { GameMapper } from '../../Common/Tea/UI/GameItem';
 import { Path } from '../../Common/Tea/decorators/tea.decorators';
-import LocallyData from '../../Common/Tea/data/LocallyData';
 import { Autowired } from '../../Common/Tea/Util/SingletonFactory';
 import TAssetManager from '../../Common/Tea/Util/TAssetManager';
 import EventManager from '../../Common/Tea/Util/EventManager';
@@ -32,8 +31,6 @@ export class T2048 extends GameItem {
     @Path("gamePanel/btns/restartBtn")
     restartBtn: Node = null;
 
-    @Autowired(LocallyData)
-    locallyData: LocallyData = null;
     @Autowired(EventManager)
     eventManager: EventManager = null;
 
@@ -213,7 +210,6 @@ export class T2048 extends GameItem {
     }
 
     moveLeft() {
-        console.log("MOVE_LEFT");
         const newGameBoxData: number[] = [];
         for (let i = 0; i < 4; i++) {
             const row = [];
@@ -233,7 +229,6 @@ export class T2048 extends GameItem {
     }
 
     moveRight() {
-        console.log("MOVE_RIGHT");
         const newGameBoxData: number[] = [];
         for (let i = 0; i < 4; i++) {
             const row = [];
@@ -254,7 +249,6 @@ export class T2048 extends GameItem {
     }
 
     moveUp() {
-        console.log("MOVE_UP");
         const tempGameBoxData: number[] = [];
         for (let i = 0; i < 4; i++) {
             const row = [];
@@ -282,7 +276,6 @@ export class T2048 extends GameItem {
     }
 
     moveDown() {
-        console.log("MOVE_DOWN");
         const tempGameBoxData: number[] = [];
         for (let i = 0; i < 4; i++) {
             const row = [];
@@ -394,11 +387,11 @@ export class T2048 extends GameItem {
     }
 
     saveGameData(data: T2048Data) {
-        this.locallyData.setObj(T2048DataKey, data);
+        this.setObj(T2048DataKey, data);
     }
 
     readGameData(): T2048Data {
-        return this.locallyData.getObj(T2048DataKey) as T2048Data;
+        return this.getObj(T2048DataKey) as T2048Data;
     }
 }
 

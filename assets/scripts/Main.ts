@@ -35,8 +35,6 @@ export class Main extends Component {
         this.quitBtn.on(Node.EventType.TOUCH_END, this.initGame.bind(this));
 
         DEV && (assetManager.downloader._remoteServerAddress = globalThis.remoteServerAddress)
-        console.log("remoteServerAddress =====>", assetManager.downloader.remoteServerAddress);
-        
     }
 
     protected start(): void {

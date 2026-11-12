@@ -1,6 +1,6 @@
-import { _decorator, easing, game, Mask, Node, Quat, size, tween, Tween, UITransform } from 'cc';
-import { Path } from '../../Common/Tea/decorators/tea.decorators';
-import { TBundleName, Cutscene } from '../../Common/Tea/UI/UIView';
+import { _decorator, Mask, Node, size, tween, Tween, UITransform } from 'cc';
+import { Path } from '../../Tea/decorators/tea.decorators';
+import { TBundleName, Cutscene } from '../../Tea/UI/UIView';
 const { ccclass, property } = _decorator;
 
 @ccclass('LoadingView')

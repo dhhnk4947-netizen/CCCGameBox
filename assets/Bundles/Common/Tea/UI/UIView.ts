@@ -1,16 +1,11 @@
-import { Component, js } from "cc";
+import { js } from "cc";
 import SingletonFactory from "../Util/SingletonFactory";
 import UIPage, { TEA_UI_TYPE } from "./UIPage";
 import GameItem from "./GameItem";
-import ProxyData from "../data/ProxyData";
+import { UIBase } from "./UIBase";
 
-export abstract class UIView extends Component implements IUIView {
+export abstract class UIView extends UIBase implements IUIView {
     abstract UIType: TEA_UI_TYPE;
-    onMount(): void { };
-    onInit(...params: any[]): void { };
-    onShow(): void { };
-    onHide(): void { };
-    onCreated(): void { };
 
     /**
      * Full视图建议调用pop、switch、resetTo方法或重写ShowType类型后调用show，否则show方法会使用默认的ShowType
@@ -18,86 +13,12 @@ export abstract class UIView extends Component implements IUIView {
      */
     static show(...params: any) { };
 
-    private TeaUIPageMount() {
-        let onMounts = Symbol.for('TeaMounts');
-        let onShows = Symbol.for('TeaShows');
-        let onHides = Symbol.for('TeaHides');
-        this[onMounts] = this[onMounts] || [];
-        this[onShows] = this[onShows] || [];
-        this[onHides] = this[onHides] || [];
-
-        this[onMounts].push(this.onMount.bind(this));
-        this[onShows].push(this.onShow.bind(this));
-        this[onHides].push(this.onHide.bind(this));
-
-        if (this.UIType === TEA_UI_TYPE.TIP) {
-            let fun = function () {
-                if (this.timer > 0) {
-                    this.scheduleOnce(() => {
-                        this.hide();
-                        if (this.queue.length > 0) {
-                            this.queue.shift()();
-                        }
-                    }, this.timer);
-                }
-            }
-            this[onShows].push(fun.bind(this));
-        }
-
-        this[onMounts].forEach((fun) => {
-            fun();
-        });
-    }
-    private TeaUIPageShow() {
-        let symbol = Symbol.for('observers');
-        let TargetClass = this.constructor;
-        if (TargetClass.prototype[symbol]) {
-            let map: Map<string, Array<string>> = TargetClass.prototype[symbol];
-            let keys = Array.from(map.keys());
-            keys.forEach((key) => {
-                let list = TargetClass.prototype[symbol].get(key);
-                let val = ProxyData.getDataSource(key);
-                list.forEach((prop) => {
-                    ProxyData.addObserver(key, this, prop);
-                    this[prop] = val;
-                });
-            });
-        }
-        let onShows = Symbol.for('TeaShows');
-        this[onShows].forEach((fun) => {
-            fun();
-        });
-    }
-    private TeaUIPageHide() {
-        let symbol = Symbol.for('observers');
-        let TargetClass = this.constructor;
-        if (TargetClass.prototype[symbol]) {
-            let map: Map<string, Array<string>> = TargetClass.prototype[symbol];
-            let keys = Array.from(map.keys());
-            keys.forEach((key) => {
-                let list = TargetClass.prototype[symbol].get(key);
-                list.forEach((prop) => {
-                    ProxyData.removeObserver(key, this, prop);
-                });
-            });
-        }
-        let onHides = Symbol.for('TeaHides');
-        this[onHides].forEach((fun) => {
-            fun();
-        });
-    }
-
     hide(): void {
         SingletonFactory.getInst(UIPage).HideUI(this);
     }
 
     static hide() {
         SingletonFactory.getInst(UIPage).HideUI(js.getClassName(this));
-    }
-
-
-    getInst<T>(classType: { new(): T }): T {
-        return SingletonFactory.getInst(classType);
     }
 }
 

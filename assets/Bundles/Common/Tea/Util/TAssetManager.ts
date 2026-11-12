@@ -167,8 +167,8 @@ export default class TAssetManager {
         });
     }
 
-    static releaseAll(abPackage: string | AssetManager.Bundle){
-        if(abPackage instanceof AssetManager.Bundle){
+    static releaseAll(abPackage: string | AssetManager.Bundle) {
+        if (abPackage instanceof AssetManager.Bundle) {
             abPackage.releaseAll();
             return;
         }
@@ -181,7 +181,7 @@ export default class TAssetManager {
     }
 
     static removeBundle(abPackage: string | AssetManager.Bundle) {
-        if(abPackage instanceof AssetManager.Bundle){
+        if (abPackage instanceof AssetManager.Bundle) {
             abPackage.releaseAll();
             assetManager.removeBundle(abPackage);
             return;
@@ -321,9 +321,9 @@ export default class TAssetManager {
         const platform = sys.platform.toLowerCase();
         const remoteBundleMD5 = globalThis.RemoteMD5 || {};
         const remoteBundle: string = remoteBundleMD5[abPackage] || "";
-        const url = `${assetManager.downloader.remoteServerAddress}${platform}/${remoteBundle}`;
+        const url = `${assetManager.downloader.remoteServerAddress}remote/${platform}/${remoteBundle}`;
         const bundleStr = remoteBundle.length == 0 ? abPackage : url;
-        
+
         assetManager.loadBundle(bundleStr, (err, bundle) => {
             if (err) {
                 failCb && failCb(err, null);
@@ -378,7 +378,7 @@ export default class TAssetManager {
             params.onComplete = onComplete;
         }
 
-        if(!params.onProgress){
+        if (!params.onProgress) {
             params.onProgress = (finish: number, total: number, item: AssetManager.RequestItem) => { };
         }
 
@@ -395,5 +395,9 @@ export default class TAssetManager {
                 onProgressFunc(index, finish, total, item);
             }, params.onComplete);
         });
+    }
+
+    static loadRemote<T extends Asset>(url: string, onComplete: (error: Error, assets: T) => void) {
+        assetManager.loadRemote<T>(url, onComplete);
     }
 }

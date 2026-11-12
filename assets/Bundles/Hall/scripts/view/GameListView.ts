@@ -1,9 +1,9 @@
 import { _decorator, isValid, Node, Sprite, SpriteFrame } from 'cc';
-import { TBundleName, FullView, onMount } from '../../Common/Tea/UI/UIView';
+import { VirtureList } from '../../../Common/Tea/components/VirtureList';
+import { Path } from '../../../Common/Tea/decorators/tea.decorators';
+import { TBundleName, FullView, onMount } from '../../../Common/Tea/UI/UIView';
+import TAssetManager from '../../../Common/Tea/Util/TAssetManager';
 import { HallView } from './HallView';
-import { VirtureList } from '../../Common/Tea/components/VirtureList';
-import { Path } from '../../Common/Tea/decorators/tea.decorators';
-import TAssetManager from '../../Common/Tea/Util/TAssetManager';
 const { ccclass, property } = _decorator;
 
 const GameList = [

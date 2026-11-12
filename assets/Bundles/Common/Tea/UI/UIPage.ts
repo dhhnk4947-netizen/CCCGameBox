@@ -705,7 +705,6 @@ export default class UIPage {
                 ERROR(err);
                 return;
             }
-            LOG("loadGame", assets);
             let node: Node = instantiate(assets as Prefab);
             let gameItem = node.getComponent(GameItem);
             if (!gameItem) {
