@@ -26,7 +26,8 @@
         }
       ],
       "useSplashScreen": false,
-      "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/"
+      "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/",
+      "md5Cache": true
     },
     "taskOptionsMap": {
       "1788497693487": {

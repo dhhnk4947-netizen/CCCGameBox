@@ -25,7 +25,7 @@
         }
       ],
       "useSplashScreen": false,
-      "md5Cache": true
+      "md5Cache": false
     },
     "options": {
       "android": {
