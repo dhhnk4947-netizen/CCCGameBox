@@ -33,6 +33,10 @@ export class Main extends Component {
 
         this.downloadBtn.on(Node.EventType.TOUCH_END, null);
         this.quitBtn.on(Node.EventType.TOUCH_END, this.initGame.bind(this));
+
+        DEV && (assetManager.downloader._remoteServerAddress = globalThis.remoteServerAddress)
+        console.log("remoteServerAddress =====>", assetManager.downloader.remoteServerAddress);
+        
     }
 
     protected start(): void {
@@ -58,7 +62,7 @@ export class Main extends Component {
         let bundleUrl = bundleName;
         if (globalThis.RemoteMD5[bundleName] && globalThis.RemoteMD5[bundleName].length > 0) {
             const platform = sys.platform.toLowerCase();
-            bundleUrl = `${assetManager.downloader.remoteServerAddress}${platform}/${globalThis.RemoteMD5[bundleName]}`;
+            bundleUrl = `${assetManager.downloader.remoteServerAddress}remote/${platform}/${globalThis.RemoteMD5[bundleName]}`;
         }
         assetManager.loadBundle(bundleUrl, (err, bundle) => {
             if (err) {
@@ -70,7 +74,7 @@ export class Main extends Component {
     }
 
     getAppVersion() {
-        let url = assetManager.downloader.remoteServerAddress + VersionManifest;
+        let url = assetManager.downloader.remoteServerAddress + "remote/" + VersionManifest;
         url += `?t=${Date.now()}`;
         console.log("getVersion ===>", url);
 
@@ -99,7 +103,7 @@ export class Main extends Component {
 
     getBundleConfig(version: string) {
         const platform = sys.platform.toLowerCase();
-        const url = `${assetManager.downloader.remoteServerAddress}${platform}/${version}.manifest`;
+        const url = `${assetManager.downloader.remoteServerAddress}remote/${platform}/${version}.manifest`;
         console.log("getBundleConfig ===>", url);
 
         this.file(url, (res) => {

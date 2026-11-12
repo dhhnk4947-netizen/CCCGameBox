@@ -11,7 +11,7 @@
       "mainBundleCompressionType": "merge_dep",
       "platform": "android",
       "mainBundleIsRemote": false,
-      "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/remote/",
+      "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/",
       "bundleConfigs": [],
       "scenes": [
         {
@@ -24,7 +24,8 @@
           "bundle": "db://assets/Common"
         }
       ],
-      "useSplashScreen": false
+      "useSplashScreen": false,
+      "md5Cache": true
     },
     "options": {
       "android": {

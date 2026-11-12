@@ -11,7 +11,7 @@
       "mainBundleCompressionType": "merge_dep",
       "platform": "ios",
       "mainBundleIsRemote": false,
-      "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/remote/",
+      "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/",
       "scenes": [
         {
           "url": "db://assets/scene/main.scene",

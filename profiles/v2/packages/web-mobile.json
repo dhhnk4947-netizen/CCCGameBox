@@ -25,7 +25,8 @@
           "uuid": "ee6d97bc-bfe8-4e04-9558-e0a0ff312d17"
         }
       ],
-      "useSplashScreen": false
+      "useSplashScreen": false,
+      "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/"
     },
     "taskOptionsMap": {
       "1788497693487": {

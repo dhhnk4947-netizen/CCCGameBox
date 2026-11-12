@@ -16,7 +16,7 @@
     "mainBundleCompressionType": "merge_dep",
     "platform": "ios",
     "mainBundleIsRemote": false,
-    "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/remote/",
+    "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/",
     "scenes": [
       {
         "url": "db://assets/TGame.scene",
@@ -30,7 +30,8 @@
     ],
     "bundleConfigs": [],
     "debug": false,
-    "useSplashScreen": false
+    "useSplashScreen": false,
+    "md5Cache": true
   },
   "BuildTaskManager": {
     "taskMap": {
@@ -40,11 +41,11 @@
         "progress": 1,
         "state": "success",
         "stage": "build",
-        "message": "2026-11-10 15:31:40 build success in 12 s!",
-        "detailMessage": "// ---- build task adsense-h5g-plugin：onAfterBuild ----\r",
+        "message": "2026-11-12 16:19:26 build success in 13 s!",
+        "detailMessage": "// ---- build task runtime-bridge：onAfterBuild ----\r",
         "options": {
           "name": "GameBox",
-          "server": "",
+          "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/",
           "engineModulesConfigKey": "defaultConfig",
           "platform": "web-mobile",
           "buildPath": "project://build",
@@ -101,11 +102,11 @@
           "packages": {},
           "__version__": "1.3.9",
           "logDest": "project://temp/builder/log/web-mobile9-15-2026 16-29.log",
-          "__builderUiTaskNavigation": "mwaak7h4-5ke4loqq0j9:3",
-          "__builderUiTaskTime": 1794292288115,
+          "__builderUiTaskNavigation": "mwd7v6v5-wqbfm9mbpte:3",
+          "__builderUiTaskTime": 1794467928424,
           "taskId": "1789457391790"
         },
-        "time": "11-10-2026 15:31:28",
+        "time": "11-12-2026 16:19:12",
         "dirty": false
       },
       "1789558187326": {
@@ -114,18 +115,18 @@
         "progress": 1,
         "state": "success",
         "stage": "build",
-        "message": "2026-11-10 16:31:10 build success in 12 s!",
-        "detailMessage": "// ---- build task adsense-h5g-plugin：onAfterBuild ----\r",
+        "message": "2026-11-12 16:18:59 build success in 13 s!",
+        "detailMessage": "Copy remote build files success:\r/Users/byron/custom-proj/CaterpillarGameBox/build/remote/android\r",
         "options": {
           "name": "GameBox",
-          "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/remote/",
+          "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/",
           "engineModulesConfigKey": "defaultConfig",
           "platform": "android",
           "buildPath": "project://build",
           "debug": false,
           "buildMode": "normal",
           "mangleProperties": false,
-          "md5Cache": false,
+          "md5Cache": true,
           "skipCompressTexture": false,
           "sourceMaps": false,
           "overwriteProjectSettings": {
@@ -175,11 +176,11 @@
           "packages": {},
           "__version__": "1.3.9",
           "logDest": "project://temp/builder/log/android9-16-2026 20-29.log",
-          "__builderUiTaskNavigation": "mwaak7h4-5ke4loqq0j9:5",
-          "__builderUiTaskTime": 1794295858072,
+          "__builderUiTaskNavigation": "mwd7v6v5-wqbfm9mbpte:3",
+          "__builderUiTaskTime": 1794467925176,
           "taskId": "1789558187326"
         },
-        "time": "11-10-2026 16:30:58",
+        "time": "11-12-2026 16:18:45",
         "dirty": false
       },
       "1789562554356": {
@@ -188,11 +189,11 @@
         "progress": 1,
         "state": "success",
         "stage": "build",
-        "message": "2026-11-10 15:13:50 build success in 29 s!",
+        "message": "2026-11-12 16:19:11 build success in 11 s!",
         "detailMessage": "Copy remote build files success:\r/Users/byron/custom-proj/CaterpillarGameBox/build/remote/ios\r",
         "options": {
           "name": "GameBox",
-          "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/remote/",
+          "server": "https://raw.githubusercontent.com/dhhnk4947-netizen/CaterpillarGameBox/",
           "engineModulesConfigKey": "defaultConfig",
           "platform": "ios",
           "buildPath": "project://build",
@@ -249,11 +250,11 @@
           "packages": {},
           "__version__": "1.3.9",
           "logDest": "project://temp/builder/log/ios9-16-2026 21-42.log",
-          "__builderUiTaskNavigation": "mwaak7h4-5ke4loqq0j9:2",
-          "__builderUiTaskTime": 1794291154358,
+          "__builderUiTaskNavigation": "mwd7v6v5-wqbfm9mbpte:3",
+          "__builderUiTaskTime": 1794467927442,
           "taskId": "1789562554356"
         },
-        "time": "11-10-2026 15:13:20",
+        "time": "11-12-2026 16:18:59",
         "dirty": false
       }
     }
