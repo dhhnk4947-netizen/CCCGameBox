@@ -3,6 +3,7 @@ import TAssetManager from "../Util/TAssetManager";
 import SingletonFactory, { Singleton } from "../Util/SingletonFactory";
 import { Cutscene, FullView, PopView, ResidentView, TipView, UIView } from "./UIView";
 import GameItem from "./GameItem";
+import LRU from "../Util/LRU";
 
 export enum TEA_UI_TYPE {
     FULL,
@@ -10,59 +11,6 @@ export enum TEA_UI_TYPE {
     RESIDENT,
     TIP,
     CUTSCENE
-}
-
-export class UILRU {
-    private _cache: { [key: string]: view } = {};
-    private head: view;
-    private tail: view;
-    private size: number;
-    constructor(size: number) {
-        this.size = size;
-        this.head = { prev: null, next: null, ui: null };
-        this.tail = { prev: null, next: null, ui: null };
-        this.head.next = this.tail;
-        this.tail.prev = this.head;
-    }
-
-    private delete() {
-        let ui = this.head.next;
-        while (ui.ui.node.active && ui != this.tail) {
-            ui = ui.next;
-        }
-        if (ui == this.tail) {
-            return;
-        }
-        ui.prev.next = ui.next;
-        ui.next.prev = ui.prev;
-        delete this._cache[ui.ui.name];
-        ui.ui = null;
-        ui.prev = null;
-        ui.next = null;
-        SingletonFactory.getInst(UIPage)['delete'](ui.ui.name);
-    }
-
-    put(key, ui: UIView) {
-        if (this.size == -1) return;
-        let view = this._cache[key];
-        if (view) {
-            view.prev.next = view.next;
-            view.next.prev = view.prev;
-        }
-        view = { prev: this.tail.prev, next: this.tail, ui: ui };
-        this.tail.prev.next = view;
-        this.tail.prev = view;
-        this._cache[key] = view;
-        if (this.size < Object.keys(this._cache).length) {
-            this.delete();
-        }
-    }
-
-    clear() {
-        this._cache = {};
-        this.head.next = this.tail;
-        this.tail.prev = this.head;
-    }
 }
 
 @Singleton()
@@ -80,8 +28,8 @@ export default class UIPage {
     private _uiLoadingCache: Cutscene = null;
     private _animTimer: number = 0;
 
-    private FullLRU: UILRU;
-    private PopLRU: UILRU;
+    private FullLRU: LRU<UIView>;
+    private PopLRU: LRU<UIView>;
 
     private gameTrans: UITransform;
     private uiRoot: Node;
@@ -89,9 +37,9 @@ export default class UIPage {
 
     private _stopGameCb: Function = null;
     init(cb?) {
-        this.FullLRU = new UILRU(MaxFullPage);
-        this.PopLRU = new UILRU(MaxPopPage);
-
+        this.FullLRU = new LRU<UIView>(MaxFullPage, this._deleteLRUFunc.bind(this));
+        this.PopLRU = new LRU<UIView>(MaxPopPage, this._deleteLRUFunc.bind(this));
+        
         const scene = director.getScene();
         const canvas = scene.getComponentInChildren(Canvas).node;
 
@@ -789,10 +737,8 @@ export default class UIPage {
 
         fun();
     }
-}
 
-interface view {
-    prev: view,
-    next: view,
-    ui: UIView
+    private _deleteLRUFunc(ui: UIView){
+        SingletonFactory.getInst(UIPage)['delete'](ui.name);
+    }
 }

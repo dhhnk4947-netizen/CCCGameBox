@@ -2,6 +2,7 @@ import { _decorator, AudioClip, AudioSource, Node } from 'cc';
 import { Autowired, Singleton } from "./SingletonFactory";
 import LocallyData from '../data/LocallyData';
 import TAssetManager from './TAssetManager';
+import LRU from './LRU';
 const { ccclass, property } = _decorator;
 
 
@@ -22,6 +23,10 @@ export default class AudioManager {
     @Autowired(LocallyData)
     locallyData: LocallyData = null;
 
+    private _sfxCache: {[key: string] : AudioClip} = {};
+    private _sfxCacheSize: number = 0;
+    private _sfxLru: LRU<string> = null;
+
     private _bgmVolume: number = 1.0;
     private _sfxVolume: number = 1.0;
     private _isBgmEnabled: boolean = true;
@@ -30,9 +35,12 @@ export default class AudioManager {
 
     private _audioSource: AudioSource = null;
 
-    public init(rootNode: Node): void {
+    public init(rootNode: Node, sfxCacheSize: number = 20): void {
         this._audioSource = rootNode.getComponent(AudioSource);
         !this._audioSource && (this._audioSource = rootNode.addComponent(AudioSource));
+
+        this._sfxCacheSize = sfxCacheSize;
+        this._sfxLru = new LRU<string>(this._sfxCacheSize, this.lruDeleteFunc.bind(this));
 
         this.loadSettings();
     }
@@ -131,6 +139,8 @@ export default class AudioManager {
     public playSfx(clipOrPath: AudioClip | string, bundleName: string = ""): void {
         if (this._isMute) return;
         if (typeof clipOrPath != "string") {
+            this._sfxCache[clipOrPath.name] = clipOrPath;
+            this._sfxLru.put(clipOrPath.name, clipOrPath.name);
             this._audioSource.playOneShot(clipOrPath, this.sfxVolume);
             return;
         }
@@ -139,7 +149,10 @@ export default class AudioManager {
                 ERROR("playSfx ERROR ===>", bundleName, clipOrPath);
                 return;
             }
-            this._audioSource.playOneShot(asset as AudioClip, this.sfxVolume);
+            const clip = asset as AudioClip;
+            this._sfxCache[clipOrPath] = clip;
+            this._sfxLru.put(clipOrPath, clipOrPath);
+            this._audioSource.playOneShot(clip, this.sfxVolume);
         })
     }
 
@@ -181,9 +194,14 @@ export default class AudioManager {
     private loadSettings(): void {
         const audioConfig = this.locallyData.getObj(AudioConfigKey) as AudioConfig;
         this._bgmVolume = audioConfig.bgmVolume || 1;
-        this._isBgmEnabled = audioConfig.isBgmEnabled || true;
-        this._isMute = audioConfig.isMute || false;
-        this._isSfxEnabled = audioConfig.isSfxEnabled || true;
+        this._isBgmEnabled = audioConfig.isBgmEnabled ?? true;
+        this._isMute = audioConfig.isMute ?? false;
+        this._isSfxEnabled = audioConfig.isSfxEnabled ?? true;
         this._sfxVolume = audioConfig.sfxVolume || 1;
+    }
+
+    private lruDeleteFunc(key: string){
+        this._sfxCache[key] = null;
+        delete this._sfxCache[key];
     }
 }
