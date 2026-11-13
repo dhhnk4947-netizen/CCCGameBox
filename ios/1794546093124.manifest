@@ -1,10 +1,10 @@
 {
     "version": "1.0.0",
     "bundles": {
-        "Common": "44a1c4ce12a745a1c91c1b4abff950d9",
-        "Hall": "64eefacfdf9cffad1c5f04248d0b6698",
+        "Common": "871bb4efa57037808f4ade41e6c2f04a",
+        "Hall": "9da17e5c1bd1c6e5b8fd3489e6ac3b12",
         "InsectXiaoxiaole": "1893b6d52aefb4086160dba09c12778d",
         "JapenStudent": "f5d205582dc358856f1fefc5fbe8e864",
-        "T2048": "886934725db1990a4845de83c878d446"
+        "T2048": "3bf81e3948246a12bde1798387d36beb"
     }
 }
