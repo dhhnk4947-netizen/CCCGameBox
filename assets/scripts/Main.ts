@@ -66,8 +66,13 @@ export class Main extends Component {
             if (err) {
                 return console.error(err);
             }
-            this.finished = true;
-            this.timeStep = 200;
+            bundle.preloadDir("textures/gameIcon", (err, data) => {
+                if (err) {
+                    return console.error(err);
+                }
+                this.finished = true;
+                this.timeStep = 200;
+            })
         });
     }
 
