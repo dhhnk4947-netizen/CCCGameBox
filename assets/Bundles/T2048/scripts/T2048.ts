@@ -36,7 +36,9 @@ export class T2048 extends GameItem {
 
     storageCache: T2048Data[] = [];
     gameBoxData: number[] = [];
+    gameBoxSprites: Sprite[] = [];
     spriteFrames: SpriteFrame[] = [];
+    lastData: number[] = null;
 
     get currRecord(): number {
         return this._currRecord;
@@ -96,7 +98,8 @@ export class T2048 extends GameItem {
         if (gameData && gameData.lastData && gameData.lastData.length != 0) {
             this.currRecord = gameData.currRecord || 0;
             this.maxRecord = gameData.maxRecord || 0;
-            this.gameBoxData = gameData.lastData;
+            this.gameBoxData = [...gameData.lastData];
+            this.lastData = [...gameData.lastData];
             this.refreshGameBox();
         } else {
             this.maxRecord = gameData.maxRecord || 0;
@@ -114,16 +117,21 @@ export class T2048 extends GameItem {
         this.currRecord = 0;
         this.generateRandomNumber();
         this.generateRandomNumber();
+        this.lastData = [...this.gameBoxData];
     }
 
     refreshGameBox() {
-        for (let i = 0; i < this.gameBoxData.length; i++) {
-            let sprite = this.gameBox.children[i].getComponent(Sprite);
-            if (this.gameBoxData[i] > 0) {
-                sprite.spriteFrame = this.spriteFrames[this.gameBoxData[i] - 1];
-            } else {
-                sprite.spriteFrame = null;
+        if (!this.gameBoxSprites || this.gameBoxSprites.length == 0) {
+            for (let i = 0; i < this.gameBox.children.length; i++) {
+                this.gameBoxSprites[i] = this.gameBox.children[i].getComponent(Sprite);
             }
+        }
+        if (!this.gameBoxSprites || this.gameBoxSprites.length == 0) {
+            return;
+        }
+        for (let i = 0; i < this.gameBoxData.length; i++) {
+            const sp = this.spriteFrames[this.gameBoxData[i] - 1];
+            this.gameBoxSprites[i].spriteFrame = this.gameBoxData[i] > 0 ? sp : null;
         }
     }
 
@@ -145,11 +153,7 @@ export class T2048 extends GameItem {
         if (len == 0 && this.checkGameOver()) {
             this.gameOver();
         } else {
-            this.saveGameData({
-                currRecord: this.currRecord,
-                maxRecord: this.maxRecord,
-                lastData: this.gameBoxData
-            });
+            this.saveGameData();
         }
     }
 
@@ -166,11 +170,8 @@ export class T2048 extends GameItem {
             0, 0, 0, 0,
             0, 0, 0, 0,
         ];
-        this.saveGameData({
-            currRecord: this.currRecord,
-            maxRecord: this.maxRecord,
-            lastData: null,
-        });
+        this.lastData = null;
+        this.saveGameData();
         this.storageCache = [];
     }
 
@@ -183,16 +184,16 @@ export class T2048 extends GameItem {
         const deltaX = touchEndPos.x - this._touchStartPos.x;
         const deltaY = touchEndPos.y - this._touchStartPos.y;
 
-        if (Math.abs(deltaX) < 100 && Math.abs(deltaY) < 100) {
+        if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) {
             return;
         }
 
-        this.storageCache.push({
+        const lastCache = {
             currRecord: this.currRecord,
             maxRecord: this.maxRecord,
-            lastData: [...this.gameBoxData]
-        })
-        
+            lastData: [...this.lastData]
+        }
+
         let newGameBoxData: number[];
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             if (deltaX > 0) {
@@ -207,8 +208,10 @@ export class T2048 extends GameItem {
                 newGameBoxData = this.moveDown();
             }
         }
-        if (this.checkGameBoxDataChange(newGameBoxData)) {
-            this.gameBoxData = newGameBoxData;
+        this.gameBoxData = newGameBoxData;
+        if (this.checkMove()) {
+            this.lastData = [...this.gameBoxData]
+            this.storageCache.push(lastCache)
             this.generateRandomNumber();
         }
     }
@@ -336,14 +339,17 @@ export class T2048 extends GameItem {
         return newRow;
     }
 
-    checkGameBoxDataChange(newGameBoxData: number[]) {
-        if (this.gameBoxData.length != newGameBoxData.length) {
+
+    checkMove(): boolean {
+        if (!this.lastData || this.lastData.length == 0) {
             return true;
         }
-        for (let i = 0; i < this.gameBoxData.length; i++) {
-            if (this.gameBoxData[i] != newGameBoxData[i]) {
+        if (this.lastData.length != this.gameBoxData.length) {
+            return true;
+        }
+        for (let i = 0; i < this.lastData.length; i++) {
+            if (this.lastData[i] != this.gameBoxData[i])
                 return true;
-            }
         }
         return false;
     }
@@ -376,7 +382,9 @@ export class T2048 extends GameItem {
         const data: T2048Data = this.storageCache.pop();
         this.currRecord = data.currRecord;
         this.maxRecord = data.maxRecord;
-        this.gameBoxData = data.lastData;
+        this.gameBoxData = [...data.lastData];
+        this.lastData = [...data.lastData];
+        this.saveGameData();
         this.refreshGameBox();
     }
 
@@ -384,7 +392,12 @@ export class T2048 extends GameItem {
         this.initGame();
     }
 
-    saveGameData(data: T2048Data) {
+    saveGameData() {
+        const data: T2048Data = {
+            currRecord: this.currRecord,
+            maxRecord: this.maxRecord,
+            lastData: this.gameBoxData
+        }
         this.setObj(T2048DataKey, data);
     }
 
