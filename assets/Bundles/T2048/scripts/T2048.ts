@@ -95,7 +95,7 @@ export class T2048 extends GameItem {
 
     initGameBox() {
         const gameData = this.readGameData();
-        if (gameData && gameData.lastData && gameData.lastData.length != 0) {
+        if (gameData && gameData.currRecord != 0 && gameData.lastData.length != 0) {
             this.currRecord = gameData.currRecord || 0;
             this.maxRecord = gameData.maxRecord || 0;
             this.gameBoxData = [...gameData.lastData];
@@ -164,12 +164,7 @@ export class T2048 extends GameItem {
         T2048SettlementView.show(this.currRecord, this.maxRecord);
 
         this.currRecord = 0;
-        this.gameBoxData = [
-            0, 0, 0, 0,
-            0, 0, 0, 0,
-            0, 0, 0, 0,
-            0, 0, 0, 0,
-        ];
+        this.gameBoxData = null;
         this.lastData = null;
         this.saveGameData();
         this.storageCache = [];

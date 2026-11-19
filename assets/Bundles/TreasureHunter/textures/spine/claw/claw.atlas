@@ -1,0 +1,26 @@
+claw.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+left_arm
+  rotate: false
+  xy: 6, 6
+  size: 121, 153
+  orig: 121, 153
+  offset: 0, 0
+  index: -1
+right_arm
+  rotate: false
+  xy: 135, 6
+  size: 121, 153
+  orig: 121, 153
+  offset: 0, 0
+  index: -1
+hub
+  rotate: false
+  xy: 264, 6
+  size: 84, 93
+  orig: 84, 93
+  offset: 0, 0
+  index: -1

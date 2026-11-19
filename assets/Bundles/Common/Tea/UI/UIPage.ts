@@ -1,4 +1,4 @@
-import { find, instantiate, Prefab, Node, UITransform, view, game, director, Canvas, js, ResolutionPolicy, sys, screen } from "cc";
+import { find, instantiate, Prefab, Node, UITransform, view, game, director, Canvas, js, ResolutionPolicy, sys, screen, isValid } from "cc";
 import TAssetManager from "../Util/TAssetManager";
 import SingletonFactory, { Singleton } from "../Util/SingletonFactory";
 import { Cutscene, FullView, PopView, ResidentView, TipView, UIView } from "./UIView";
@@ -39,7 +39,7 @@ export default class UIPage {
     init(cb?) {
         this.FullLRU = new LRU<UIView>(MaxFullPage, this._deleteLRUFunc.bind(this));
         this.PopLRU = new LRU<UIView>(MaxPopPage, this._deleteLRUFunc.bind(this));
-        
+
         const scene = director.getScene();
         const canvas = scene.getComponentInChildren(Canvas).node;
 
@@ -237,7 +237,7 @@ export default class UIPage {
         if (typeof uiLoading == "string") {
             uiName = uiLoading;
         } else {
-            uiName = uiLoading.name;
+            uiName = js.getClassName(uiLoading);
         }
         const ui: Cutscene = this._uiLoadingCache;
         if (!ui) {
@@ -397,33 +397,57 @@ export default class UIPage {
         PageHide && PageHide.call(ui);
         if (ui instanceof FullView) {
             let len = this._uiTaskList.length;
-            if (this._uiTaskList[len - 1].name == param) {
+            if (len > 0 && ui == this._uiTaskList[len - 1]) {
                 this._uiTaskList.pop();
             }
         }
     }
 
     public BackUI(): void {
-        if (this._uiTaskList.length <= 1)
+        if (this._uiTaskList.length < 2) {
+            ERROR("View栈的只有当前界面，请检查调用栈");
             return;
+        }
         let ui = this._uiTaskList.pop();
+        let backUI: UIView = null;
+        while (backUI == null && this._uiTaskList.length > 0) {
+            const nextUI: UIView = this._uiTaskList[this._uiTaskList.length - 1];
+            if (!nextUI || !isValid(nextUI, true)) {
+                this._uiTaskList.pop();
+                continue;
+            }
+            backUI = nextUI;
+        }
+
+        if (!backUI) {
+            ERROR("View栈的界面已被清理，建议扩容LRU容量或优化调用栈");
+            this._uiTaskList.push(ui);
+            return;
+        }
         ui.node.active = false;
         const PageHide = ui.constructor.prototype['TeaUIPageHide'];
         PageHide && PageHide.call(ui);
-        let backUI = this._uiTaskList[this._uiTaskList.length - 1];
+
         backUI.node.active = true;
         const PageShow = backUI.constructor.prototype['TeaUIPageShow'];
         PageShow && PageShow.call(backUI);
+
+        const backUIName = js.getClassName(backUI);
+        this.FullLRU.put(backUIName, backUI);
     }
 
     /**慎用，需要考虑到最大层级 */
     public PopView(uiName: string, ...uiData: any): void {
-        if (this._uiTaskList.length >= MaxPage)
+        if (this._uiTaskList.length >= MaxPage) {
+            ERROR("View栈空间已满");
             return;
-        if (this._uiTaskList.length > 0 && this._uiTaskList[this._uiTaskList.length - 1].name == uiName && !this._uiTaskList[this._uiTaskList.length - 1].node.active) {
-            this._uiTaskList[this._uiTaskList.length - 1].node.active = true;
-            const PageShow = this._uiTaskList[this._uiTaskList.length - 1].constructor.prototype['TeaUIPageShow'];
-            PageShow && PageShow.call(this._uiTaskList[this._uiTaskList.length - 1]);
+        }
+        const uiView: UIView = this._uiCache[uiName];
+        const index = uiView ? this._uiTaskList.indexOf(uiView) : -1;
+        if (index != -1 && index == this._uiTaskList.length - 1) {
+            this._uiTaskList[index].node.active = true;
+            const PageShow = this._uiTaskList[index].constructor.prototype['TeaUIPageShow'];
+            PageShow && PageShow.call(this._uiTaskList[index]);
             return;
         }
         let fun = (ui: FullView) => {
@@ -535,12 +559,16 @@ export default class UIPage {
         this._uiQueue = [];
         this._uiTaskList = [];
         Object.keys(this._uiCache).forEach(key => {
+            const flag = this._uiCache[key].node.active;
             this._uiCache[key].node.active = false;
-            const PageHide = this._uiCache[key].constructor.prototype['TeaUIPageHide'];
-            PageHide && PageHide.call(this._uiCache[key]);
+            if (flag) {
+                const PageHide = this._uiCache[key].constructor.prototype['TeaUIPageHide'];
+                PageHide && PageHide.call(this._uiCache[key]);
+            }
         })
         this.FullLRU.clear();
         this.PopLRU.clear();
+        this.isShowing = false;
     }
 
     public preLoadAllUI(cb: Function = null): void {
@@ -578,17 +606,11 @@ export default class UIPage {
         return this._uiCache[uiName] && this._uiCache[uiName].node.active;
     }
 
-    public ClearUI(): void {
-        this._uiTaskList = [];
-        this._uiCache = {};
-        this._uiQueue = [];
-        this.isShowing = false;
-    }
-
-    private delete(view: string) {
-        let ui = this._uiCache[view];
+    private delete(view: UIView) {
+        const uiName = js.getClassName(view);
+        let ui = this._uiCache[uiName];
         if (ui) {
-            (!ui.constructor.prototype.SymbolBundleName) && (ui.node.destroy(), delete this._uiCache[view]);
+            (!ui.constructor.prototype.SymbolBundleName) && (ui.node.destroy(), delete this._uiCache[uiName]);
             (ui.constructor.prototype.SymbolBundleName) && (ui.node.removeFromParent());
         }
     }
@@ -617,12 +639,17 @@ export default class UIPage {
     startGame<T extends GameItem>(classType: { new(): T }, ...uiData)
     startGame(classType: string, ...uiData)
     async startGame<T extends GameItem>(classType: { new(): T } | string, ...uiData) {
+        this.FullLRU.clear();
+        this.PopLRU.clear();
+        this._uiTaskList = [];
+
         this.showLoading();
 
         let clazz = null;
         if (typeof classType == 'string') {
             const bundle = await TAssetManager.getBundle(classType);
             if (!bundle) {
+                this.stopGame(null, true);
                 ERROR("Bundle not found: " + classType);
                 return;
             }
@@ -650,6 +677,7 @@ export default class UIPage {
         }
         TAssetManager.load(path, bundleName, Prefab, (err, assets) => {
             if (err) {
+                this.stopGame(null, true);
                 ERROR(err);
                 return;
             }
@@ -659,6 +687,7 @@ export default class UIPage {
                 gameItem = node.addComponent(clazz) as GameItem;
             }
             if (!gameItem) {
+                this.stopGame(null, true);
                 ERROR("GameItem not found: " + path);
                 return;
             }
@@ -687,19 +716,33 @@ export default class UIPage {
 
     }
 
-    stopGame(cb?) {
+    stopGame(cb?, isClear: boolean = false) {
+        this.FullLRU.clear();
+        this.PopLRU.clear();
+        this._uiTaskList = [];
+
+        let func = () => {
+            if (this.currGame) {
+                let gameNode = this.currGame.node;
+                gameNode.active = false;
+                this.currGame['TeaUIPageHide']();
+            }
+
+            cb && cb();
+            this._stopGameCb && this._stopGameCb();
+            this.hideLoading();
+        }
+        if (isClear) {
+            func();
+            return;
+        }
         if (!this.currGame) {
             cb && cb();
             return;
         }
         this.showLoading();
         this._uiLoadingCache.scheduleOnce(() => {
-            let gameNode = this.currGame.node;
-            gameNode.active = false;
-            this.currGame['TeaUIPageHide']();
-            cb && cb();
-            this._stopGameCb && this._stopGameCb();
-            this.hideLoading();
+            func();
         }, this._uiLoadingCache.animTime);
     }
 
@@ -708,7 +751,7 @@ export default class UIPage {
     }
 
     clearUIByBundle(bundleName: string) {
-        let SymbolBundleName = Symbol.for('SymbolBundleName');
+        let SymbolBundleName = Symbol.for('BundleName');
         const keys = Object.keys(this._uiCache).filter(key =>
             this._uiCache[key][SymbolBundleName] === bundleName
         );
@@ -738,7 +781,7 @@ export default class UIPage {
         fun();
     }
 
-    private _deleteLRUFunc(ui: UIView){
-        SingletonFactory.getInst(UIPage)['delete'](ui.name);
+    private _deleteLRUFunc(ui: UIView) {
+        this.delete(ui);
     }
 }

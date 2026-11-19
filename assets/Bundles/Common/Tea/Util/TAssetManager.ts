@@ -14,7 +14,6 @@ export default class TAssetManager {
     static load(path: string, onComplete: (error: Error, assets: Asset) => void): void
     static load(path: string, type: typeof Asset, onComplete: (error: Error, assets: Asset) => void): void
 
-
     static load(
         path: string,
         abPackage?: string | typeof Asset | ((finish: number, total: number, item: AssetManager.RequestItem) => void) | ((error: Error, assets: Asset) => void),

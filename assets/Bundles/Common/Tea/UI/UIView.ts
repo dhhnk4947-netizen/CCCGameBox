@@ -8,7 +8,7 @@ export abstract class UIView extends UIBase implements IUIView {
     abstract UIType: TEA_UI_TYPE;
 
     /**
-     * Full视图建议调用pop、switch、resetTo方法或重写ShowType类型后调用show，否则show方法会使用默认的ShowType
+     * 打开视图
      * @param params
      */
     static show(...params: any) { };
@@ -23,18 +23,29 @@ export abstract class UIView extends UIBase implements IUIView {
 }
 
 export abstract class FullView extends UIView {
-    ShowType: ShowType = ShowType.Stack;
     UIType: TEA_UI_TYPE = TEA_UI_TYPE.FULL;
 
     protected back(): void {
         SingletonFactory.getInst(UIPage).BackUI();
     }
+    /**
+     * 弹出新视图
+     * @param params
+     */
     static show(...uiData: any) {
         SingletonFactory.getInst(UIPage).PopView(js.getClassName(this), ...uiData);
     }
+    /**
+     * 切换新视图
+     * @param params
+     */
     static switch(...uiData: any): void {
         SingletonFactory.getInst(UIPage).SwitchView(js.getClassName(this), ...uiData);
     }
+    /**
+     * 关闭所有页面，打开新视图
+     * @param params
+     */
     static resetTo(...uiData: any): void {
         SingletonFactory.getInst(UIPage).ResetToView(js.getClassName(this), ...uiData);
     }
@@ -87,12 +98,6 @@ export interface ICutscene {
     animTime: number;
     openAnim(): void;
     closeAnim(): void;
-}
-
-export enum ShowType {
-    Stack,
-    Switch,
-    ResetTo
 }
 
 export function onMount(target: UIView | GameItem, key: string, descriptor: PropertyDescriptor) {

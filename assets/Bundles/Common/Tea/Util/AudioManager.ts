@@ -1,4 +1,4 @@
-import { _decorator, AudioClip, AudioSource, Node } from 'cc';
+import { _decorator, assetManager, AudioClip, AudioSource, Node } from 'cc';
 import { Autowired, Singleton } from "./SingletonFactory";
 import LocallyData from '../data/LocallyData';
 import TAssetManager from './TAssetManager';
@@ -58,52 +58,14 @@ export default class AudioManager {
     public playAudio(clipOrPath: string): void;
     public playAudio(clipOrPath: string, bundleName: string): void;
     public playAudio(clipOrPath: AudioClip | string, bundleName: string = ""): void {
-        let playSource = (clip: AudioClip) => {
-            this._audioSource.clip = clip;
-            this._audioSource.loop = false;
-            this._audioSource.volume = this.bgmVolume;
-            this._audioSource.play();
-        }
-        this._audioSource.stop();
-        this._audioSource.clip = null;
-        if (typeof clipOrPath != "string") {
-            playSource(clipOrPath);
-            return;
-        }
-
-        TAssetManager.load(clipOrPath, bundleName, AudioClip, (error, asset) => {
-            if (error) {
-                ERROR("playBgm ERROR ===>", bundleName, clipOrPath);
-                return;
-            }
-            playSource(asset as AudioClip);
-        })
+        this.playMusic(clipOrPath, bundleName, false);
     }
 
     public playBgm(clipOrPath: AudioClip): void;
     public playBgm(clipOrPath: string): void;
     public playBgm(clipOrPath: string, bundleName: string): void;
     public playBgm(clipOrPath: AudioClip | string, bundleName: string = ""): void {
-        let playSource = (clip: AudioClip) => {
-            this._audioSource.clip = clip;
-            this._audioSource.loop = true
-            this._audioSource.volume = this.bgmVolume;
-            this._audioSource.play();
-        }
-        this._audioSource.stop();
-        this._audioSource.clip = null;
-        if (typeof clipOrPath != "string") {
-            playSource(clipOrPath);
-            return;
-        }
-
-        TAssetManager.load(clipOrPath, bundleName, AudioClip, (error, asset) => {
-            if (error) {
-                ERROR("playBgm ERROR ===>", bundleName, clipOrPath);
-                return;
-            }
-            playSource(asset as AudioClip);
-        })
+        this.playMusic(clipOrPath, bundleName, true);
     }
 
     public pauseBgm(): void {
@@ -144,15 +106,30 @@ export default class AudioManager {
             this._audioSource.playOneShot(clipOrPath, this.sfxVolume);
             return;
         }
-        TAssetManager.load(clipOrPath, bundleName, AudioClip, (error, asset) => {
-            if (error) {
-                ERROR("playSfx ERROR ===>", bundleName, clipOrPath);
-                return;
-            }
-            const clip = asset as AudioClip;
+        let playSource = (clip: AudioClip) => {
             this._sfxCache[clipOrPath] = clip;
             this._sfxLru.put(clipOrPath, clipOrPath);
             this._audioSource.playOneShot(clip, this.sfxVolume);
+        }
+        let loadRemote = () => {
+            const url = `${assetManager.downloader.remoteServerAddress}resources/${clipOrPath}`;
+            TAssetManager.loadRemote<AudioClip>(url, (error, asset) => {
+                if (!error) {
+                    playSource(asset as AudioClip);
+                    return;
+                }
+                ERROR("playSfx ERROR ===>", bundleName, clipOrPath);
+            })
+        }
+        TAssetManager.load(clipOrPath, bundleName, AudioClip, (error, asset) => {
+            if (!error) {
+                playSource(asset as AudioClip);
+                return;
+            }
+            if (bundleName.length > 0) {
+                ERROR("playSfx ERROR ===>", bundleName, clipOrPath);
+            }
+            loadRemote();
         })
     }
 
@@ -178,6 +155,45 @@ export default class AudioManager {
         if (muted) {
             this._audioSource.volume = 0;
         }
+    }
+
+    private playMusic(clipOrPath: AudioClip | string, bundleName: string, isLoop: boolean): void {
+        let playSource = (clip: AudioClip) => {
+            this._audioSource.clip = clip;
+            this._audioSource.loop = isLoop;
+            this._audioSource.volume = this.bgmVolume;
+            this._audioSource.play();
+        }
+        this._audioSource.stop();
+        this._audioSource.clip = null;
+
+        let loadRemote = () => {
+            const url = `${assetManager.downloader.remoteServerAddress}resources/${clipOrPath}`;
+            TAssetManager.loadRemote<AudioClip>(url, (error, asset) => {
+                if (!error) {
+                    playSource(asset as AudioClip);
+                    return;
+                }
+                ERROR("playMusic ERROR ===>", bundleName, clipOrPath);
+            })
+        }
+        this._audioSource.stop();
+        this._audioSource.clip = null;
+        if (typeof clipOrPath != "string") {
+            playSource(clipOrPath);
+            return;
+        }
+
+        TAssetManager.load(clipOrPath, bundleName, AudioClip, (error, asset) => {
+            if (!error) {
+                playSource(asset as AudioClip);
+                return;
+            }
+            if (bundleName.length > 0) {
+                ERROR("playMusic ERROR ===>", bundleName, clipOrPath);
+            }
+            loadRemote();
+        })
     }
 
     private saveSettings(): void {

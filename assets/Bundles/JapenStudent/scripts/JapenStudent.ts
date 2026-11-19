@@ -1,6 +1,7 @@
 import { _decorator, Node } from 'cc';
 import { Path } from '../../Common/Tea/decorators/tea.decorators';
 import GameItem, { GameMapper } from '../../Common/Tea/UI/GameItem';
+import { JSPHomeView } from './view/JSPHomeView';
 const { ccclass, property } = _decorator;
 
 @ccclass('JapenStudent')
@@ -9,17 +10,15 @@ export class JapenStudent extends GameItem {
     @Path("quitBtn")
     quitBtn: Node = null;
 
-    onShow(): void { }
-
-    onHide(): void { }
-
-    onMount(): void {
-        this.quitBtn.on(Node.EventType.TOUCH_END, this.onClickQuitBtn.bind(this));
+    onShow(): void {
+        JSPHomeView.resetTo();
     }
 
-    onInit(...params: any[]): void { }
+    onHide(): void {
+        
+    }
 
-    onClickQuitBtn(e){
-        stopGame();
+    onMount(): void {
+        
     }
 }
