@@ -1,0 +1,54 @@
+bomb.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+rip_seam
+  rotate: false
+  xy: 5, 5
+  size: 184, 42
+  orig: 184, 42
+  offset: 0, 0
+  index: -1
+shard_a
+  rotate: false
+  xy: 195, 5
+  size: 37, 37
+  orig: 37, 37
+  offset: 0, 0
+  index: -1
+shard_b
+  rotate: false
+  xy: 5, 52
+  size: 37, 37
+  orig: 37, 37
+  offset: 0, 0
+  index: -1
+shard_c
+  rotate: false
+  xy: 48, 52
+  size: 37, 37
+  orig: 37, 37
+  offset: 0, 0
+  index: -1
+shard_d
+  rotate: false
+  xy: 91, 52
+  size: 37, 37
+  orig: 37, 37
+  offset: 0, 0
+  index: -1
+rip_edge
+  rotate: false
+  xy: 5, 94
+  size: 132, 36
+  orig: 132, 36
+  offset: 0, 0
+  index: -1
+paper_dust
+  rotate: false
+  xy: 143, 94
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1

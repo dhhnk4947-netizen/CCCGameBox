@@ -1,0 +1,651 @@
+{
+  "skeleton": {
+    "hash": "miner_redesigned_v5",
+    "spine": "3.8.75",
+    "x": -360,
+    "y": -145,
+    "width": 720,
+    "height": 710,
+    "images": "./parts/"
+  },
+  "bones": [
+    {
+      "name": "root"
+    },
+    {
+      "name": "shadow",
+      "parent": "root",
+      "y": -115
+    },
+    {
+      "name": "torso",
+      "parent": "root",
+      "y": 186
+    },
+    {
+      "name": "head",
+      "parent": "root",
+      "y": 306
+    },
+    {
+      "name": "reel_back",
+      "parent": "root",
+      "y": 35
+    },
+    {
+      "name": "reel_face",
+      "parent": "root",
+      "y": 35
+    },
+    {
+      "name": "reel_frame",
+      "parent": "root",
+      "y": 35
+    },
+    {
+      "name": "crank",
+      "parent": "root",
+      "x": 255,
+      "y": 56
+    },
+    {
+      "name": "shoulder_left",
+      "parent": "root",
+      "x": -153,
+      "y": 185
+    },
+    {
+      "name": "shoulder_right",
+      "parent": "root",
+      "x": 153,
+      "y": 185
+    },
+    {
+      "name": "left_upper",
+      "parent": "shoulder_left",
+      "rotation": -177.31525
+    },
+    {
+      "name": "left_lower",
+      "parent": "left_upper",
+      "x": 119.0,
+      "rotation": 92.85285
+    },
+    {
+      "name": "left_hand",
+      "parent": "left_lower",
+      "x": 123.0,
+      "rotation": 84.46239
+    },
+    {
+      "name": "right_upper",
+      "parent": "shoulder_right",
+      "rotation": -6.23804
+    },
+    {
+      "name": "right_lower",
+      "parent": "right_upper",
+      "x": 119.0,
+      "rotation": -64.43662
+    },
+    {
+      "name": "right_hand",
+      "parent": "right_lower",
+      "x": 123.0,
+      "rotation": 70.67467
+    }
+  ],
+  "slots": [
+    {
+      "name": "shadow",
+      "bone": "shadow",
+      "attachment": "shadow"
+    },
+    {
+      "name": "torso",
+      "bone": "torso",
+      "attachment": "torso"
+    },
+    {
+      "name": "left_upper",
+      "bone": "left_upper",
+      "attachment": "arm_upper_left"
+    },
+    {
+      "name": "left_lower",
+      "bone": "left_lower",
+      "attachment": "arm_lower_left"
+    },
+    {
+      "name": "right_upper",
+      "bone": "right_upper",
+      "attachment": "arm_upper_right"
+    },
+    {
+      "name": "right_lower",
+      "bone": "right_lower",
+      "attachment": "arm_lower_right"
+    },
+    {
+      "name": "head",
+      "bone": "head",
+      "attachment": "head"
+    },
+    {
+      "name": "reel_back",
+      "bone": "reel_back",
+      "attachment": "reel_back"
+    },
+    {
+      "name": "reel_face",
+      "bone": "reel_face",
+      "attachment": "rope_00"
+    },
+    {
+      "name": "reel_frame",
+      "bone": "reel_frame",
+      "attachment": "reel_frame"
+    },
+    {
+      "name": "crank_rod",
+      "bone": "crank",
+      "attachment": "crank_rod"
+    },
+    {
+      "name": "left_hand",
+      "bone": "left_hand",
+      "attachment": "hand_left"
+    },
+    {
+      "name": "right_hand",
+      "bone": "right_hand",
+      "attachment": "hand_right"
+    }
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "attachments": {
+        "shadow": {
+          "shadow": {
+            "x": 0.0,
+            "y": -0.0,
+            "width": 680,
+            "height": 76
+          }
+        },
+        "torso": {
+          "torso": {
+            "x": 0.0,
+            "y": -26.0,
+            "width": 450,
+            "height": 292
+          }
+        },
+        "left_upper": {
+          "arm_upper_left": {
+            "x": 54.5,
+            "y": -0.0,
+            "width": 139,
+            "height": 82
+          }
+        },
+        "left_lower": {
+          "arm_lower_left": {
+            "x": 56.5,
+            "y": -1.5,
+            "width": 137,
+            "height": 73
+          }
+        },
+        "right_upper": {
+          "arm_upper_right": {
+            "x": 54.5,
+            "y": -0.0,
+            "width": 139,
+            "height": 82
+          }
+        },
+        "right_lower": {
+          "arm_lower_right": {
+            "x": 56.5,
+            "y": -1.5,
+            "width": 137,
+            "height": 73
+          }
+        },
+        "head": {
+          "head": {
+            "x": 0.0,
+            "y": 27.5,
+            "width": 390,
+            "height": 451
+          }
+        },
+        "reel_back": {
+          "reel_back": {
+            "x": 0.0,
+            "y": -6.0,
+            "width": 620,
+            "height": 262
+          }
+        },
+        "reel_face": {
+          "rope_00": {
+            "x": 0.0,
+            "y": -0.5,
+            "width": 356,
+            "height": 135
+          },
+          "rope_01": {
+            "x": 0.0,
+            "y": -0.5,
+            "width": 356,
+            "height": 135
+          },
+          "rope_02": {
+            "x": 0.0,
+            "y": -0.5,
+            "width": 356,
+            "height": 135
+          },
+          "rope_03": {
+            "x": 0.0,
+            "y": -0.5,
+            "width": 356,
+            "height": 135
+          },
+          "rope_04": {
+            "x": 0.0,
+            "y": -0.5,
+            "width": 356,
+            "height": 135
+          },
+          "rope_05": {
+            "x": 0.0,
+            "y": -0.5,
+            "width": 356,
+            "height": 135
+          },
+          "rope_06": {
+            "x": 0.0,
+            "y": -0.5,
+            "width": 356,
+            "height": 135
+          },
+          "rope_07": {
+            "x": 0.0,
+            "y": -0.5,
+            "width": 356,
+            "height": 135
+          },
+          "rope_08": {
+            "x": 0.0,
+            "y": -0.5,
+            "width": 356,
+            "height": 135
+          },
+          "rope_09": {
+            "x": 0.0,
+            "y": -0.5,
+            "width": 356,
+            "height": 135
+          },
+          "rope_10": {
+            "x": 0.0,
+            "y": -0.5,
+            "width": 356,
+            "height": 135
+          },
+          "rope_11": {
+            "x": 0.0,
+            "y": -0.5,
+            "width": 356,
+            "height": 135
+          }
+        },
+        "reel_frame": {
+          "reel_frame": {
+            "x": 0.0,
+            "y": -7.0,
+            "width": 620,
+            "height": 288
+          }
+        },
+        "crank_rod": {
+          "crank_rod": {
+            "x": 28.5,
+            "y": -1.5,
+            "width": 91,
+            "height": 59
+          }
+        },
+        "left_hand": {
+          "hand_left": {
+            "x": 0.0,
+            "y": -0.0,
+            "width": 94,
+            "height": 80
+          }
+        },
+        "right_hand": {
+          "hand_right": {
+            "x": 0.0,
+            "y": -0.0,
+            "width": 94,
+            "height": 80
+          }
+        }
+      }
+    }
+  ],
+  "events": {
+    "turn_complete": {}
+  },
+  "animations": {
+    "turn_rope": {
+      "bones": {
+        "right_upper": {
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 0.0
+            },
+            {
+              "time": 0.08,
+              "angle": 14.8372
+            },
+            {
+              "time": 0.16,
+              "angle": 26.83847
+            },
+            {
+              "time": 0.24,
+              "angle": 31.54757
+            },
+            {
+              "time": 0.32,
+              "angle": 24.24696
+            },
+            {
+              "time": 0.4,
+              "angle": 7.72439
+            },
+            {
+              "time": 0.48,
+              "angle": -7.50669
+            },
+            {
+              "time": 0.56,
+              "angle": -17.60077
+            },
+            {
+              "time": 0.64,
+              "angle": -23.50327
+            },
+            {
+              "time": 0.72,
+              "angle": -25.73021
+            },
+            {
+              "time": 0.8,
+              "angle": -23.10306
+            },
+            {
+              "time": 0.88,
+              "angle": -13.95414
+            },
+            {
+              "time": 0.96,
+              "angle": 0.0
+            }
+          ]
+        },
+        "right_lower": {
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 0.0
+            },
+            {
+              "time": 0.08,
+              "angle": -18.26051
+            },
+            {
+              "time": 0.16,
+              "angle": -37.22615
+            },
+            {
+              "time": 0.24,
+              "angle": -53.47184
+            },
+            {
+              "time": 0.32,
+              "angle": -62.38771
+            },
+            {
+              "time": 0.4,
+              "angle": -59.67992
+            },
+            {
+              "time": 0.48,
+              "angle": -46.84275
+            },
+            {
+              "time": 0.56,
+              "angle": -28.9183
+            },
+            {
+              "time": 0.64,
+              "angle": -9.85481
+            },
+            {
+              "time": 0.72,
+              "angle": 6.89275
+            },
+            {
+              "time": 0.8,
+              "angle": 16.3462
+            },
+            {
+              "time": 0.88,
+              "angle": 13.44775
+            },
+            {
+              "time": 0.96,
+              "angle": 0.0
+            }
+          ]
+        },
+        "right_hand": {
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 0.0
+            },
+            {
+              "time": 0.08,
+              "angle": 3.4233
+            },
+            {
+              "time": 0.16,
+              "angle": 10.38768
+            },
+            {
+              "time": 0.24,
+              "angle": 21.92427
+            },
+            {
+              "time": 0.32,
+              "angle": 38.14075
+            },
+            {
+              "time": 0.4,
+              "angle": 51.95553
+            },
+            {
+              "time": 0.48,
+              "angle": 54.34945
+            },
+            {
+              "time": 0.56,
+              "angle": 46.51907
+            },
+            {
+              "time": 0.64,
+              "angle": 33.35808
+            },
+            {
+              "time": 0.72,
+              "angle": 18.83745
+            },
+            {
+              "time": 0.8,
+              "angle": 6.75686
+            },
+            {
+              "time": 0.88,
+              "angle": 0.50639
+            },
+            {
+              "time": 0.96,
+              "angle": 0.0
+            }
+          ]
+        },
+        "crank": {
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 0.0
+            },
+            {
+              "time": 0.08,
+              "angle": 30.0
+            },
+            {
+              "time": 0.16,
+              "angle": 60.0
+            },
+            {
+              "time": 0.24,
+              "angle": 90.0
+            },
+            {
+              "time": 0.32,
+              "angle": 120.0
+            },
+            {
+              "time": 0.4,
+              "angle": 150.0
+            },
+            {
+              "time": 0.48,
+              "angle": 180.0
+            },
+            {
+              "time": 0.56,
+              "angle": 210.0
+            },
+            {
+              "time": 0.64,
+              "angle": 240.0
+            },
+            {
+              "time": 0.72,
+              "angle": 270.0
+            },
+            {
+              "time": 0.8,
+              "angle": 300.0
+            },
+            {
+              "time": 0.88,
+              "angle": 330.0
+            },
+            {
+              "time": 0.96,
+              "angle": 360.0
+            }
+          ]
+        }
+      },
+      "slots": {
+        "reel_face": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "rope_00"
+            },
+            {
+              "time": 0.08,
+              "name": "rope_01"
+            },
+            {
+              "time": 0.16,
+              "name": "rope_02"
+            },
+            {
+              "time": 0.24,
+              "name": "rope_03"
+            },
+            {
+              "time": 0.32,
+              "name": "rope_04"
+            },
+            {
+              "time": 0.4,
+              "name": "rope_05"
+            },
+            {
+              "time": 0.48,
+              "name": "rope_06"
+            },
+            {
+              "time": 0.56,
+              "name": "rope_07"
+            },
+            {
+              "time": 0.64,
+              "name": "rope_08"
+            },
+            {
+              "time": 0.72,
+              "name": "rope_09"
+            },
+            {
+              "time": 0.8,
+              "name": "rope_10"
+            },
+            {
+              "time": 0.88,
+              "name": "rope_11"
+            },
+            {
+              "time": 0.96,
+              "name": "rope_00"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "time": 0.96,
+          "name": "turn_complete"
+        }
+      ]
+    },
+    "idle": {
+      "slots": {
+        "reel_face": {
+          "attachment": [
+            {
+              "time": 0,
+              "name": "rope_00"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

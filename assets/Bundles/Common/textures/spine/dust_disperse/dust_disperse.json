@@ -1,0 +1,4593 @@
+{
+  "skeleton": {
+    "hash": "mineralfx2038",
+    "spine": "3.8.99",
+    "x": -142,
+    "y": -142,
+    "width": 284,
+    "height": 284,
+    "fps": 30,
+    "images": "./parts/"
+  },
+  "bones": [
+    {
+      "name": "root"
+    },
+    {
+      "name": "dust_disperse_puff0_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_puff1_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_puff2_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle0_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle1_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle2_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle3_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle4_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle5_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle6_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle7_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle8_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle9_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle10_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle11_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle12_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle13_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle14_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle15_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle16_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle17_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle18_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle19_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle20_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle21_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle22_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle23_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle24_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle25_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle26_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle27_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle28_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle29_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle30_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle31_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle32_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle33_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle34_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle35_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle36_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle37_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle38_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle39_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle40_bone",
+      "parent": "root",
+      "length": 0
+    },
+    {
+      "name": "dust_disperse_particle41_bone",
+      "parent": "root",
+      "length": 0
+    }
+  ],
+  "slots": [
+    {
+      "name": "dust_disperse_puff0_slot",
+      "bone": "dust_disperse_puff0_bone"
+    },
+    {
+      "name": "dust_disperse_puff1_slot",
+      "bone": "dust_disperse_puff1_bone"
+    },
+    {
+      "name": "dust_disperse_puff2_slot",
+      "bone": "dust_disperse_puff2_bone"
+    },
+    {
+      "name": "dust_disperse_particle0_slot",
+      "bone": "dust_disperse_particle0_bone"
+    },
+    {
+      "name": "dust_disperse_particle1_slot",
+      "bone": "dust_disperse_particle1_bone"
+    },
+    {
+      "name": "dust_disperse_particle2_slot",
+      "bone": "dust_disperse_particle2_bone"
+    },
+    {
+      "name": "dust_disperse_particle3_slot",
+      "bone": "dust_disperse_particle3_bone"
+    },
+    {
+      "name": "dust_disperse_particle4_slot",
+      "bone": "dust_disperse_particle4_bone"
+    },
+    {
+      "name": "dust_disperse_particle5_slot",
+      "bone": "dust_disperse_particle5_bone"
+    },
+    {
+      "name": "dust_disperse_particle6_slot",
+      "bone": "dust_disperse_particle6_bone"
+    },
+    {
+      "name": "dust_disperse_particle7_slot",
+      "bone": "dust_disperse_particle7_bone"
+    },
+    {
+      "name": "dust_disperse_particle8_slot",
+      "bone": "dust_disperse_particle8_bone"
+    },
+    {
+      "name": "dust_disperse_particle9_slot",
+      "bone": "dust_disperse_particle9_bone"
+    },
+    {
+      "name": "dust_disperse_particle10_slot",
+      "bone": "dust_disperse_particle10_bone"
+    },
+    {
+      "name": "dust_disperse_particle11_slot",
+      "bone": "dust_disperse_particle11_bone"
+    },
+    {
+      "name": "dust_disperse_particle12_slot",
+      "bone": "dust_disperse_particle12_bone"
+    },
+    {
+      "name": "dust_disperse_particle13_slot",
+      "bone": "dust_disperse_particle13_bone"
+    },
+    {
+      "name": "dust_disperse_particle14_slot",
+      "bone": "dust_disperse_particle14_bone"
+    },
+    {
+      "name": "dust_disperse_particle15_slot",
+      "bone": "dust_disperse_particle15_bone"
+    },
+    {
+      "name": "dust_disperse_particle16_slot",
+      "bone": "dust_disperse_particle16_bone"
+    },
+    {
+      "name": "dust_disperse_particle17_slot",
+      "bone": "dust_disperse_particle17_bone"
+    },
+    {
+      "name": "dust_disperse_particle18_slot",
+      "bone": "dust_disperse_particle18_bone"
+    },
+    {
+      "name": "dust_disperse_particle19_slot",
+      "bone": "dust_disperse_particle19_bone"
+    },
+    {
+      "name": "dust_disperse_particle20_slot",
+      "bone": "dust_disperse_particle20_bone"
+    },
+    {
+      "name": "dust_disperse_particle21_slot",
+      "bone": "dust_disperse_particle21_bone"
+    },
+    {
+      "name": "dust_disperse_particle22_slot",
+      "bone": "dust_disperse_particle22_bone"
+    },
+    {
+      "name": "dust_disperse_particle23_slot",
+      "bone": "dust_disperse_particle23_bone"
+    },
+    {
+      "name": "dust_disperse_particle24_slot",
+      "bone": "dust_disperse_particle24_bone"
+    },
+    {
+      "name": "dust_disperse_particle25_slot",
+      "bone": "dust_disperse_particle25_bone"
+    },
+    {
+      "name": "dust_disperse_particle26_slot",
+      "bone": "dust_disperse_particle26_bone"
+    },
+    {
+      "name": "dust_disperse_particle27_slot",
+      "bone": "dust_disperse_particle27_bone"
+    },
+    {
+      "name": "dust_disperse_particle28_slot",
+      "bone": "dust_disperse_particle28_bone"
+    },
+    {
+      "name": "dust_disperse_particle29_slot",
+      "bone": "dust_disperse_particle29_bone"
+    },
+    {
+      "name": "dust_disperse_particle30_slot",
+      "bone": "dust_disperse_particle30_bone"
+    },
+    {
+      "name": "dust_disperse_particle31_slot",
+      "bone": "dust_disperse_particle31_bone"
+    },
+    {
+      "name": "dust_disperse_particle32_slot",
+      "bone": "dust_disperse_particle32_bone"
+    },
+    {
+      "name": "dust_disperse_particle33_slot",
+      "bone": "dust_disperse_particle33_bone"
+    },
+    {
+      "name": "dust_disperse_particle34_slot",
+      "bone": "dust_disperse_particle34_bone"
+    },
+    {
+      "name": "dust_disperse_particle35_slot",
+      "bone": "dust_disperse_particle35_bone"
+    },
+    {
+      "name": "dust_disperse_particle36_slot",
+      "bone": "dust_disperse_particle36_bone"
+    },
+    {
+      "name": "dust_disperse_particle37_slot",
+      "bone": "dust_disperse_particle37_bone"
+    },
+    {
+      "name": "dust_disperse_particle38_slot",
+      "bone": "dust_disperse_particle38_bone"
+    },
+    {
+      "name": "dust_disperse_particle39_slot",
+      "bone": "dust_disperse_particle39_bone"
+    },
+    {
+      "name": "dust_disperse_particle40_slot",
+      "bone": "dust_disperse_particle40_bone"
+    },
+    {
+      "name": "dust_disperse_particle41_slot",
+      "bone": "dust_disperse_particle41_bone"
+    }
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "attachments": {
+        "dust_disperse_puff0_slot": {
+          "dust_puff": {
+            "type": "region",
+            "width": 118,
+            "height": 100
+          }
+        },
+        "dust_disperse_puff1_slot": {
+          "dust_puff": {
+            "type": "region",
+            "width": 118,
+            "height": 100
+          }
+        },
+        "dust_disperse_puff2_slot": {
+          "dust_puff": {
+            "type": "region",
+            "width": 118,
+            "height": 100
+          }
+        },
+        "dust_disperse_particle0_slot": {
+          "dust_dot_s": {
+            "type": "region",
+            "width": 12,
+            "height": 12
+          }
+        },
+        "dust_disperse_particle1_slot": {
+          "dust_dot_m": {
+            "type": "region",
+            "width": 20,
+            "height": 20
+          }
+        },
+        "dust_disperse_particle2_slot": {
+          "dust_dot_l": {
+            "type": "region",
+            "width": 27,
+            "height": 27
+          }
+        },
+        "dust_disperse_particle3_slot": {
+          "dust_tick": {
+            "type": "region",
+            "width": 18,
+            "height": 9
+          }
+        },
+        "dust_disperse_particle4_slot": {
+          "dust_dot_s": {
+            "type": "region",
+            "width": 12,
+            "height": 12
+          }
+        },
+        "dust_disperse_particle5_slot": {
+          "dust_dot_m": {
+            "type": "region",
+            "width": 20,
+            "height": 20
+          }
+        },
+        "dust_disperse_particle6_slot": {
+          "dust_dot_l": {
+            "type": "region",
+            "width": 27,
+            "height": 27
+          }
+        },
+        "dust_disperse_particle7_slot": {
+          "dust_tick": {
+            "type": "region",
+            "width": 18,
+            "height": 9
+          }
+        },
+        "dust_disperse_particle8_slot": {
+          "dust_dot_s": {
+            "type": "region",
+            "width": 12,
+            "height": 12
+          }
+        },
+        "dust_disperse_particle9_slot": {
+          "dust_dot_m": {
+            "type": "region",
+            "width": 20,
+            "height": 20
+          }
+        },
+        "dust_disperse_particle10_slot": {
+          "dust_dot_l": {
+            "type": "region",
+            "width": 27,
+            "height": 27
+          }
+        },
+        "dust_disperse_particle11_slot": {
+          "dust_tick": {
+            "type": "region",
+            "width": 18,
+            "height": 9
+          }
+        },
+        "dust_disperse_particle12_slot": {
+          "dust_dot_s": {
+            "type": "region",
+            "width": 12,
+            "height": 12
+          }
+        },
+        "dust_disperse_particle13_slot": {
+          "dust_dot_m": {
+            "type": "region",
+            "width": 20,
+            "height": 20
+          }
+        },
+        "dust_disperse_particle14_slot": {
+          "dust_dot_l": {
+            "type": "region",
+            "width": 27,
+            "height": 27
+          }
+        },
+        "dust_disperse_particle15_slot": {
+          "dust_tick": {
+            "type": "region",
+            "width": 18,
+            "height": 9
+          }
+        },
+        "dust_disperse_particle16_slot": {
+          "dust_dot_s": {
+            "type": "region",
+            "width": 12,
+            "height": 12
+          }
+        },
+        "dust_disperse_particle17_slot": {
+          "dust_dot_m": {
+            "type": "region",
+            "width": 20,
+            "height": 20
+          }
+        },
+        "dust_disperse_particle18_slot": {
+          "dust_dot_l": {
+            "type": "region",
+            "width": 27,
+            "height": 27
+          }
+        },
+        "dust_disperse_particle19_slot": {
+          "dust_tick": {
+            "type": "region",
+            "width": 18,
+            "height": 9
+          }
+        },
+        "dust_disperse_particle20_slot": {
+          "dust_dot_s": {
+            "type": "region",
+            "width": 12,
+            "height": 12
+          }
+        },
+        "dust_disperse_particle21_slot": {
+          "dust_dot_m": {
+            "type": "region",
+            "width": 20,
+            "height": 20
+          }
+        },
+        "dust_disperse_particle22_slot": {
+          "dust_dot_l": {
+            "type": "region",
+            "width": 27,
+            "height": 27
+          }
+        },
+        "dust_disperse_particle23_slot": {
+          "dust_tick": {
+            "type": "region",
+            "width": 18,
+            "height": 9
+          }
+        },
+        "dust_disperse_particle24_slot": {
+          "dust_dot_s": {
+            "type": "region",
+            "width": 12,
+            "height": 12
+          }
+        },
+        "dust_disperse_particle25_slot": {
+          "dust_dot_m": {
+            "type": "region",
+            "width": 20,
+            "height": 20
+          }
+        },
+        "dust_disperse_particle26_slot": {
+          "dust_dot_l": {
+            "type": "region",
+            "width": 27,
+            "height": 27
+          }
+        },
+        "dust_disperse_particle27_slot": {
+          "dust_tick": {
+            "type": "region",
+            "width": 18,
+            "height": 9
+          }
+        },
+        "dust_disperse_particle28_slot": {
+          "dust_dot_s": {
+            "type": "region",
+            "width": 12,
+            "height": 12
+          }
+        },
+        "dust_disperse_particle29_slot": {
+          "dust_dot_m": {
+            "type": "region",
+            "width": 20,
+            "height": 20
+          }
+        },
+        "dust_disperse_particle30_slot": {
+          "dust_dot_l": {
+            "type": "region",
+            "width": 27,
+            "height": 27
+          }
+        },
+        "dust_disperse_particle31_slot": {
+          "dust_tick": {
+            "type": "region",
+            "width": 18,
+            "height": 9
+          }
+        },
+        "dust_disperse_particle32_slot": {
+          "dust_dot_s": {
+            "type": "region",
+            "width": 12,
+            "height": 12
+          }
+        },
+        "dust_disperse_particle33_slot": {
+          "dust_dot_m": {
+            "type": "region",
+            "width": 20,
+            "height": 20
+          }
+        },
+        "dust_disperse_particle34_slot": {
+          "dust_dot_l": {
+            "type": "region",
+            "width": 27,
+            "height": 27
+          }
+        },
+        "dust_disperse_particle35_slot": {
+          "dust_tick": {
+            "type": "region",
+            "width": 18,
+            "height": 9
+          }
+        },
+        "dust_disperse_particle36_slot": {
+          "dust_dot_s": {
+            "type": "region",
+            "width": 12,
+            "height": 12
+          }
+        },
+        "dust_disperse_particle37_slot": {
+          "dust_dot_m": {
+            "type": "region",
+            "width": 20,
+            "height": 20
+          }
+        },
+        "dust_disperse_particle38_slot": {
+          "dust_dot_l": {
+            "type": "region",
+            "width": 27,
+            "height": 27
+          }
+        },
+        "dust_disperse_particle39_slot": {
+          "dust_tick": {
+            "type": "region",
+            "width": 18,
+            "height": 9
+          }
+        },
+        "dust_disperse_particle40_slot": {
+          "dust_dot_s": {
+            "type": "region",
+            "width": 12,
+            "height": 12
+          }
+        },
+        "dust_disperse_particle41_slot": {
+          "dust_dot_m": {
+            "type": "region",
+            "width": 20,
+            "height": 20
+          }
+        }
+      }
+    }
+  ],
+  "events": {
+    "hide_target": {},
+    "fx_done": {}
+  },
+  "animations": {
+    "dust_disperse": {
+      "bones": {
+        "dust_disperse_puff0_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -22.0,
+              "y": -3.0
+            },
+            {
+              "time": 0.23,
+              "x": -27.06,
+              "y": 2.0
+            },
+            {
+              "time": 0.72,
+              "x": -33.0,
+              "y": 12.0
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.14,
+              "y": 0.14
+            },
+            {
+              "time": 0.22,
+              "x": 0.65,
+              "y": 0.6
+            },
+            {
+              "time": 0.5,
+              "x": 1.0,
+              "y": 0.91
+            },
+            {
+              "time": 0.9,
+              "x": 1.28,
+              "y": 1.04
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 0.0
+            },
+            {
+              "time": 0.71,
+              "angle": -14.0
+            }
+          ]
+        },
+        "dust_disperse_puff1_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "time": 0.23,
+              "x": 0.0,
+              "y": 5.0
+            },
+            {
+              "time": 0.72,
+              "x": 0.0,
+              "y": 15.0
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.14,
+              "y": 0.14
+            },
+            {
+              "time": 0.22,
+              "x": 0.65,
+              "y": 0.6
+            },
+            {
+              "time": 0.5,
+              "x": 1.0,
+              "y": 0.91
+            },
+            {
+              "time": 0.9,
+              "x": 1.28,
+              "y": 1.04
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 7.0
+            },
+            {
+              "time": 0.71,
+              "angle": 0.0
+            }
+          ]
+        },
+        "dust_disperse_puff2_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 22.0,
+              "y": 3.0
+            },
+            {
+              "time": 0.23,
+              "x": 27.06,
+              "y": 8.0
+            },
+            {
+              "time": 0.72,
+              "x": 33.0,
+              "y": 18.0
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.14,
+              "y": 0.14
+            },
+            {
+              "time": 0.22,
+              "x": 0.65,
+              "y": 0.6
+            },
+            {
+              "time": 0.5,
+              "x": 1.0,
+              "y": 0.91
+            },
+            {
+              "time": 0.9,
+              "x": 1.28,
+              "y": 1.04
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 14.0
+            },
+            {
+              "time": 0.71,
+              "angle": 14.0
+            }
+          ]
+        },
+        "dust_disperse_particle0_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 35.529,
+              "y": -5.861
+            },
+            {
+              "time": 0.208,
+              "x": 35.529,
+              "y": -5.861
+            },
+            {
+              "time": 0.581,
+              "x": 43.092,
+              "y": 6.334
+            },
+            {
+              "time": 1.01,
+              "x": 50.656,
+              "y": 18.53
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.308,
+              "x": 0.785,
+              "y": 0.785
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 10.612
+            },
+            {
+              "time": 1.01,
+              "angle": 71.689
+            }
+          ]
+        },
+        "dust_disperse_particle1_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -18.808,
+              "y": -16.248
+            },
+            {
+              "time": 0.245,
+              "x": -18.808,
+              "y": -16.248
+            },
+            {
+              "time": 0.543,
+              "x": -26.08,
+              "y": 12.448
+            },
+            {
+              "time": 1.01,
+              "x": -33.352,
+              "y": 41.145
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.345,
+              "x": 0.822,
+              "y": 0.822
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -7.337
+            },
+            {
+              "time": 1.01,
+              "angle": -30.485
+            }
+          ]
+        },
+        "dust_disperse_particle2_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 1.294,
+              "y": 5.958
+            },
+            {
+              "time": 0.117,
+              "x": 1.294,
+              "y": 5.958
+            },
+            {
+              "time": 0.378,
+              "x": 1.655,
+              "y": 50.95
+            },
+            {
+              "time": 1.01,
+              "x": 2.015,
+              "y": 95.942
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.217,
+              "x": 0.737,
+              "y": 0.737
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -76.883
+            },
+            {
+              "time": 1.01,
+              "angle": 91.739
+            }
+          ]
+        },
+        "dust_disperse_particle3_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 30.626,
+              "y": 6.459
+            },
+            {
+              "time": 0.185,
+              "x": 30.626,
+              "y": 6.459
+            },
+            {
+              "time": 0.475,
+              "x": 51.049,
+              "y": 28.295
+            },
+            {
+              "time": 1.01,
+              "x": 71.472,
+              "y": 50.13
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.285,
+              "x": 0.775,
+              "y": 0.775
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 32.337
+            },
+            {
+              "time": 1.01,
+              "angle": 54.301
+            }
+          ]
+        },
+        "dust_disperse_particle4_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 7.54,
+              "y": 2.82
+            },
+            {
+              "time": 0.133,
+              "x": 7.54,
+              "y": 2.82
+            },
+            {
+              "time": 0.434,
+              "x": 28.651,
+              "y": 27.165
+            },
+            {
+              "time": 1.01,
+              "x": 49.762,
+              "y": 51.509
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.233,
+              "x": 0.782,
+              "y": 0.782
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -18.528
+            },
+            {
+              "time": 1.01,
+              "angle": -102.527
+            }
+          ]
+        },
+        "dust_disperse_particle5_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 18.134,
+              "y": -6.85
+            },
+            {
+              "time": 0.241,
+              "x": 18.134,
+              "y": -6.85
+            },
+            {
+              "time": 0.543,
+              "x": 38.289,
+              "y": 28.36
+            },
+            {
+              "time": 1.01,
+              "x": 58.444,
+              "y": 63.569
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.341,
+              "x": 0.672,
+              "y": 0.672
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 21.899
+            },
+            {
+              "time": 1.01,
+              "angle": 111.986
+            }
+          ]
+        },
+        "dust_disperse_particle6_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 22.904,
+              "y": 2.791
+            },
+            {
+              "time": 0.127,
+              "x": 22.904,
+              "y": 2.791
+            },
+            {
+              "time": 0.416,
+              "x": 51.998,
+              "y": 15.252
+            },
+            {
+              "time": 1.01,
+              "x": 81.091,
+              "y": 27.712
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.227,
+              "x": 0.425,
+              "y": 0.425
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 25.471
+            },
+            {
+              "time": 1.01,
+              "angle": -39.533
+            }
+          ]
+        },
+        "dust_disperse_particle7_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -7.549,
+              "y": -20.075
+            },
+            {
+              "time": 0.307,
+              "x": -7.549,
+              "y": -20.075
+            },
+            {
+              "time": 0.691,
+              "x": -11.122,
+              "y": 7.765
+            },
+            {
+              "time": 1.01,
+              "x": -14.695,
+              "y": 35.605
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.407,
+              "x": 0.426,
+              "y": 0.426
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -19.675
+            },
+            {
+              "time": 1.01,
+              "angle": 51.978
+            }
+          ]
+        },
+        "dust_disperse_particle8_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -5.917,
+              "y": -4.807
+            },
+            {
+              "time": 0.272,
+              "x": -5.917,
+              "y": -4.807
+            },
+            {
+              "time": 0.613,
+              "x": -15.071,
+              "y": 35.218
+            },
+            {
+              "time": 1.01,
+              "x": -24.226,
+              "y": 75.244
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.372,
+              "x": 0.352,
+              "y": 0.352
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 18.108
+            },
+            {
+              "time": 1.01,
+              "angle": 3.66
+            }
+          ]
+        },
+        "dust_disperse_particle9_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -11.62,
+              "y": 27.153
+            },
+            {
+              "time": 0.221,
+              "x": -11.62,
+              "y": 27.153
+            },
+            {
+              "time": 0.54,
+              "x": -20.775,
+              "y": 61.06
+            },
+            {
+              "time": 1.01,
+              "x": -29.929,
+              "y": 94.967
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.321,
+              "x": 0.664,
+              "y": 0.664
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -85.041
+            },
+            {
+              "time": 1.01,
+              "angle": -57.746
+            }
+          ]
+        },
+        "dust_disperse_particle10_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 26.041,
+              "y": 18.611
+            },
+            {
+              "time": 0.292,
+              "x": 26.041,
+              "y": 18.611
+            },
+            {
+              "time": 0.624,
+              "x": 53.674,
+              "y": 45.107
+            },
+            {
+              "time": 1.01,
+              "x": 81.306,
+              "y": 71.604
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.392,
+              "x": 0.521,
+              "y": 0.521
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 17.192
+            },
+            {
+              "time": 1.01,
+              "angle": -44.712
+            }
+          ]
+        },
+        "dust_disperse_particle11_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -5.555,
+              "y": -22.504
+            },
+            {
+              "time": 0.182,
+              "x": -5.555,
+              "y": -22.504
+            },
+            {
+              "time": 0.526,
+              "x": -4.278,
+              "y": 17.967
+            },
+            {
+              "time": 1.01,
+              "x": -3.002,
+              "y": 58.438
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.282,
+              "x": 0.59,
+              "y": 0.59
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 15.326
+            },
+            {
+              "time": 1.01,
+              "angle": 6.181
+            }
+          ]
+        },
+        "dust_disperse_particle12_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 10.695,
+              "y": 16.2
+            },
+            {
+              "time": 0.137,
+              "x": 10.695,
+              "y": 16.2
+            },
+            {
+              "time": 0.488,
+              "x": 24.418,
+              "y": 39.878
+            },
+            {
+              "time": 1.01,
+              "x": 38.141,
+              "y": 63.557
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.237,
+              "x": 0.369,
+              "y": 0.369
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 34.643
+            },
+            {
+              "time": 1.01,
+              "angle": -94.299
+            }
+          ]
+        },
+        "dust_disperse_particle13_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 2.998,
+              "y": 16.528
+            },
+            {
+              "time": 0.292,
+              "x": 2.998,
+              "y": 16.528
+            },
+            {
+              "time": 0.669,
+              "x": 2.057,
+              "y": 56.481
+            },
+            {
+              "time": 1.01,
+              "x": 1.116,
+              "y": 96.434
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.392,
+              "x": 0.65,
+              "y": 0.65
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -19.874
+            },
+            {
+              "time": 1.01,
+              "angle": -50.648
+            }
+          ]
+        },
+        "dust_disperse_particle14_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -19.109,
+              "y": -25.543
+            },
+            {
+              "time": 0.087,
+              "x": -19.109,
+              "y": -25.543
+            },
+            {
+              "time": 0.366,
+              "x": -26.68,
+              "y": 7.835
+            },
+            {
+              "time": 1.01,
+              "x": -34.25,
+              "y": 41.213
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.187,
+              "x": 0.433,
+              "y": 0.433
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 79.363
+            },
+            {
+              "time": 1.01,
+              "angle": 9.213
+            }
+          ]
+        },
+        "dust_disperse_particle15_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -19.417,
+              "y": 23.185
+            },
+            {
+              "time": 0.162,
+              "x": -19.417,
+              "y": 23.185
+            },
+            {
+              "time": 0.439,
+              "x": -35.337,
+              "y": 67.917
+            },
+            {
+              "time": 1.01,
+              "x": -51.256,
+              "y": 112.649
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.262,
+              "x": 0.512,
+              "y": 0.512
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 15.196
+            },
+            {
+              "time": 1.01,
+              "angle": 48.415
+            }
+          ]
+        },
+        "dust_disperse_particle16_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 19.67,
+              "y": 10.608
+            },
+            {
+              "time": 0.188,
+              "x": 19.67,
+              "y": 10.608
+            },
+            {
+              "time": 0.561,
+              "x": 39.98,
+              "y": 39.82
+            },
+            {
+              "time": 1.01,
+              "x": 60.289,
+              "y": 69.032
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.288,
+              "x": 0.381,
+              "y": 0.381
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -51.721
+            },
+            {
+              "time": 1.01,
+              "angle": -30.203
+            }
+          ]
+        },
+        "dust_disperse_particle17_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -18.433,
+              "y": 8.008
+            },
+            {
+              "time": 0.104,
+              "x": -18.433,
+              "y": 8.008
+            },
+            {
+              "time": 0.353,
+              "x": -44.54,
+              "y": 27.533
+            },
+            {
+              "time": 1.01,
+              "x": -70.648,
+              "y": 47.058
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.204,
+              "x": 0.849,
+              "y": 0.849
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -67.52
+            },
+            {
+              "time": 1.01,
+              "angle": -21.224
+            }
+          ]
+        },
+        "dust_disperse_particle18_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 2.754,
+              "y": 13.106
+            },
+            {
+              "time": 0.265,
+              "x": 2.754,
+              "y": 13.106
+            },
+            {
+              "time": 0.605,
+              "x": 3.244,
+              "y": 52.012
+            },
+            {
+              "time": 1.01,
+              "x": 3.733,
+              "y": 90.919
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.365,
+              "x": 0.728,
+              "y": 0.728
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -32.695
+            },
+            {
+              "time": 1.01,
+              "angle": 35.798
+            }
+          ]
+        },
+        "dust_disperse_particle19_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 16.288,
+              "y": 22.378
+            },
+            {
+              "time": 0.196,
+              "x": 16.288,
+              "y": 22.378
+            },
+            {
+              "time": 0.489,
+              "x": 33.988,
+              "y": 63.007
+            },
+            {
+              "time": 1.01,
+              "x": 51.689,
+              "y": 103.636
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.296,
+              "x": 0.83,
+              "y": 0.83
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -5.166
+            },
+            {
+              "time": 1.01,
+              "angle": -75.379
+            }
+          ]
+        },
+        "dust_disperse_particle20_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -19.564,
+              "y": 4.668
+            },
+            {
+              "time": 0.157,
+              "x": -19.564,
+              "y": 4.668
+            },
+            {
+              "time": 0.534,
+              "x": -47.236,
+              "y": 36.059
+            },
+            {
+              "time": 1.01,
+              "x": -74.908,
+              "y": 67.45
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.257,
+              "x": 0.789,
+              "y": 0.789
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -67.616
+            },
+            {
+              "time": 1.01,
+              "angle": 114.038
+            }
+          ]
+        },
+        "dust_disperse_particle21_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -16.459,
+              "y": -14.481
+            },
+            {
+              "time": 0.162,
+              "x": -16.459,
+              "y": -14.481
+            },
+            {
+              "time": 0.43,
+              "x": -19.8,
+              "y": 9.161
+            },
+            {
+              "time": 1.01,
+              "x": -23.141,
+              "y": 32.803
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.262,
+              "x": 0.522,
+              "y": 0.522
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 78.383
+            },
+            {
+              "time": 1.01,
+              "angle": 12.353
+            }
+          ]
+        },
+        "dust_disperse_particle22_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 8.539,
+              "y": -20.235
+            },
+            {
+              "time": 0.201,
+              "x": 8.539,
+              "y": -20.235
+            },
+            {
+              "time": 0.585,
+              "x": 8.911,
+              "y": 17.743
+            },
+            {
+              "time": 1.01,
+              "x": 9.283,
+              "y": 55.72
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.301,
+              "x": 0.6,
+              "y": 0.6
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -44.199
+            },
+            {
+              "time": 1.01,
+              "angle": -31.903
+            }
+          ]
+        },
+        "dust_disperse_particle23_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 21.748,
+              "y": -19.943
+            },
+            {
+              "time": 0.132,
+              "x": 21.748,
+              "y": -19.943
+            },
+            {
+              "time": 0.517,
+              "x": 46.258,
+              "y": 22.881
+            },
+            {
+              "time": 1.01,
+              "x": 70.767,
+              "y": 65.705
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.232,
+              "x": 0.656,
+              "y": 0.656
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 10.445
+            },
+            {
+              "time": 1.01,
+              "angle": -12.875
+            }
+          ]
+        },
+        "dust_disperse_particle24_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 21.694,
+              "y": -4.232
+            },
+            {
+              "time": 0.297,
+              "x": 21.694,
+              "y": -4.232
+            },
+            {
+              "time": 0.617,
+              "x": 52.459,
+              "y": 22.335
+            },
+            {
+              "time": 1.01,
+              "x": 83.224,
+              "y": 48.903
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.397,
+              "x": 0.778,
+              "y": 0.778
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 45.676
+            },
+            {
+              "time": 1.01,
+              "angle": -12.295
+            }
+          ]
+        },
+        "dust_disperse_particle25_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 0.35,
+              "y": -14.44
+            },
+            {
+              "time": 0.176,
+              "x": 0.35,
+              "y": -14.44
+            },
+            {
+              "time": 0.471,
+              "x": -1.477,
+              "y": 26.93
+            },
+            {
+              "time": 1.01,
+              "x": -3.303,
+              "y": 68.3
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.276,
+              "x": 0.365,
+              "y": 0.365
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -66.424
+            },
+            {
+              "time": 1.01,
+              "angle": -0.346
+            }
+          ]
+        },
+        "dust_disperse_particle26_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -5.664,
+              "y": 5.128
+            },
+            {
+              "time": 0.259,
+              "x": -5.664,
+              "y": 5.128
+            },
+            {
+              "time": 0.622,
+              "x": -18.597,
+              "y": 37.234
+            },
+            {
+              "time": 1.01,
+              "x": -31.531,
+              "y": 69.341
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.359,
+              "x": 0.843,
+              "y": 0.843
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 80.886
+            },
+            {
+              "time": 1.01,
+              "angle": 47.346
+            }
+          ]
+        },
+        "dust_disperse_particle27_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -13.525,
+              "y": 6.674
+            },
+            {
+              "time": 0.088,
+              "x": -13.525,
+              "y": 6.674
+            },
+            {
+              "time": 0.424,
+              "x": -38.144,
+              "y": 28.479
+            },
+            {
+              "time": 1.01,
+              "x": -62.762,
+              "y": 50.285
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.188,
+              "x": 0.701,
+              "y": 0.701
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 73.974
+            },
+            {
+              "time": 1.01,
+              "angle": -49.496
+            }
+          ]
+        },
+        "dust_disperse_particle28_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -27.85,
+              "y": 4.595
+            },
+            {
+              "time": 0.212,
+              "x": -27.85,
+              "y": 4.595
+            },
+            {
+              "time": 0.597,
+              "x": -70.011,
+              "y": 33.619
+            },
+            {
+              "time": 1.01,
+              "x": -112.173,
+              "y": 62.643
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.312,
+              "x": 0.395,
+              "y": 0.395
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -14.475
+            },
+            {
+              "time": 1.01,
+              "angle": -75.867
+            }
+          ]
+        },
+        "dust_disperse_particle29_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 6.169,
+              "y": 12.415
+            },
+            {
+              "time": 0.245,
+              "x": 6.169,
+              "y": 12.415
+            },
+            {
+              "time": 0.57,
+              "x": 20.421,
+              "y": 50.878
+            },
+            {
+              "time": 1.01,
+              "x": 34.673,
+              "y": 89.341
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.345,
+              "x": 0.781,
+              "y": 0.781
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 6.854
+            },
+            {
+              "time": 1.01,
+              "angle": -56.495
+            }
+          ]
+        },
+        "dust_disperse_particle30_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -22.54,
+              "y": -13.098
+            },
+            {
+              "time": 0.258,
+              "x": -22.54,
+              "y": -13.098
+            },
+            {
+              "time": 0.54,
+              "x": -30.912,
+              "y": 21.11
+            },
+            {
+              "time": 1.01,
+              "x": -39.284,
+              "y": 55.318
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.358,
+              "x": 0.622,
+              "y": 0.622
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -44.864
+            },
+            {
+              "time": 1.01,
+              "angle": -53.509
+            }
+          ]
+        },
+        "dust_disperse_particle31_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -15.233,
+              "y": 6.581
+            },
+            {
+              "time": 0.133,
+              "x": -15.233,
+              "y": 6.581
+            },
+            {
+              "time": 0.444,
+              "x": -36.435,
+              "y": 21.372
+            },
+            {
+              "time": 1.01,
+              "x": -57.637,
+              "y": 36.164
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.233,
+              "x": 0.6,
+              "y": 0.6
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 47.266
+            },
+            {
+              "time": 1.01,
+              "angle": -46.353
+            }
+          ]
+        },
+        "dust_disperse_particle32_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 30.057,
+              "y": -1.127
+            },
+            {
+              "time": 0.192,
+              "x": 30.057,
+              "y": -1.127
+            },
+            {
+              "time": 0.522,
+              "x": 48.017,
+              "y": 16.563
+            },
+            {
+              "time": 1.01,
+              "x": 65.976,
+              "y": 34.253
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.292,
+              "x": 0.741,
+              "y": 0.741
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 42.399
+            },
+            {
+              "time": 1.01,
+              "angle": -1.768
+            }
+          ]
+        },
+        "dust_disperse_particle33_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 12.754,
+              "y": 12.422
+            },
+            {
+              "time": 0.167,
+              "x": 12.754,
+              "y": 12.422
+            },
+            {
+              "time": 0.555,
+              "x": 19.709,
+              "y": 44.367
+            },
+            {
+              "time": 1.01,
+              "x": 26.664,
+              "y": 76.312
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.267,
+              "x": 0.73,
+              "y": 0.73
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 5.524
+            },
+            {
+              "time": 1.01,
+              "angle": 57.255
+            }
+          ]
+        },
+        "dust_disperse_particle34_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 16.121,
+              "y": 7.415
+            },
+            {
+              "time": 0.124,
+              "x": 16.121,
+              "y": 7.415
+            },
+            {
+              "time": 0.508,
+              "x": 31.761,
+              "y": 34.351
+            },
+            {
+              "time": 1.01,
+              "x": 47.401,
+              "y": 61.286
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.224,
+              "x": 0.488,
+              "y": 0.488
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -54.978
+            },
+            {
+              "time": 1.01,
+              "angle": 52.802
+            }
+          ]
+        },
+        "dust_disperse_particle35_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -3.874,
+              "y": 5.309
+            },
+            {
+              "time": 0.199,
+              "x": -3.874,
+              "y": 5.309
+            },
+            {
+              "time": 0.536,
+              "x": -20.297,
+              "y": 39.422
+            },
+            {
+              "time": 1.01,
+              "x": -36.72,
+              "y": 73.535
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.299,
+              "x": 0.66,
+              "y": 0.66
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 82.85
+            },
+            {
+              "time": 1.01,
+              "angle": 66.512
+            }
+          ]
+        },
+        "dust_disperse_particle36_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 5.371,
+              "y": -17.083
+            },
+            {
+              "time": 0.118,
+              "x": 5.371,
+              "y": -17.083
+            },
+            {
+              "time": 0.412,
+              "x": 3.184,
+              "y": 17.194
+            },
+            {
+              "time": 1.01,
+              "x": 0.997,
+              "y": 51.471
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.218,
+              "x": 0.57,
+              "y": 0.57
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -36.143
+            },
+            {
+              "time": 1.01,
+              "angle": -47.474
+            }
+          ]
+        },
+        "dust_disperse_particle37_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -10.786,
+              "y": 5.505
+            },
+            {
+              "time": 0.099,
+              "x": -10.786,
+              "y": 5.505
+            },
+            {
+              "time": 0.468,
+              "x": -24.87,
+              "y": 41.427
+            },
+            {
+              "time": 1.01,
+              "x": -38.955,
+              "y": 77.348
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.199,
+              "x": 0.487,
+              "y": 0.487
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 52.348
+            },
+            {
+              "time": 1.01,
+              "angle": -119.524
+            }
+          ]
+        },
+        "dust_disperse_particle38_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -11.393,
+              "y": 26.257
+            },
+            {
+              "time": 0.285,
+              "x": -11.393,
+              "y": 26.257
+            },
+            {
+              "time": 0.553,
+              "x": -15.967,
+              "y": 75.249
+            },
+            {
+              "time": 1.01,
+              "x": -20.542,
+              "y": 124.24
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.385,
+              "x": 0.381,
+              "y": 0.381
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 41.083
+            },
+            {
+              "time": 1.01,
+              "angle": -69.758
+            }
+          ]
+        },
+        "dust_disperse_particle39_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 9.073,
+              "y": 2.507
+            },
+            {
+              "time": 0.145,
+              "x": 9.073,
+              "y": 2.507
+            },
+            {
+              "time": 0.513,
+              "x": 33.253,
+              "y": 30.718
+            },
+            {
+              "time": 1.01,
+              "x": 57.432,
+              "y": 58.929
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.245,
+              "x": 0.371,
+              "y": 0.371
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": 89.592
+            },
+            {
+              "time": 1.01,
+              "angle": -60.553
+            }
+          ]
+        },
+        "dust_disperse_particle40_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": -17.582,
+              "y": 20.534
+            },
+            {
+              "time": 0.293,
+              "x": -17.582,
+              "y": 20.534
+            },
+            {
+              "time": 0.562,
+              "x": -31.747,
+              "y": 58.485
+            },
+            {
+              "time": 1.01,
+              "x": -45.912,
+              "y": 96.437
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.393,
+              "x": 0.458,
+              "y": 0.458
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -26.063
+            },
+            {
+              "time": 1.01,
+              "angle": -93.705
+            }
+          ]
+        },
+        "dust_disperse_particle41_bone": {
+          "translate": [
+            {
+              "time": 0.0,
+              "x": 13.13,
+              "y": 3.719
+            },
+            {
+              "time": 0.133,
+              "x": 13.13,
+              "y": 3.719
+            },
+            {
+              "time": 0.471,
+              "x": 26.665,
+              "y": 23.837
+            },
+            {
+              "time": 1.01,
+              "x": 40.2,
+              "y": 43.956
+            }
+          ],
+          "scale": [
+            {
+              "time": 0.0,
+              "x": 0.1,
+              "y": 0.1
+            },
+            {
+              "time": 0.233,
+              "x": 0.35,
+              "y": 0.35
+            },
+            {
+              "time": 1.01,
+              "x": 0.05,
+              "y": 0.05
+            }
+          ],
+          "rotate": [
+            {
+              "time": 0.0,
+              "angle": -41.599
+            },
+            {
+              "time": 1.01,
+              "angle": -92.059
+            }
+          ]
+        }
+      },
+      "slots": {
+        "dust_disperse_puff0_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_puff"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.12,
+              "color": "ffffffbd"
+            },
+            {
+              "time": 0.26,
+              "color": "ffffffc4"
+            },
+            {
+              "time": 0.52,
+              "color": "ffffff4d"
+            },
+            {
+              "time": 0.78,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_puff1_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_puff"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.12,
+              "color": "ffffffbd"
+            },
+            {
+              "time": 0.26,
+              "color": "ffffffc4"
+            },
+            {
+              "time": 0.52,
+              "color": "ffffff4d"
+            },
+            {
+              "time": 0.78,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_puff2_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_puff"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.12,
+              "color": "ffffffbd"
+            },
+            {
+              "time": 0.26,
+              "color": "ffffffc4"
+            },
+            {
+              "time": 0.52,
+              "color": "ffffff4d"
+            },
+            {
+              "time": 0.78,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle0_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_s"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.208,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle1_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_m"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.245,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle2_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_l"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.117,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle3_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_tick"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.185,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle4_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_s"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.133,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle5_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_m"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.241,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle6_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_l"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.127,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle7_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_tick"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.307,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle8_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_s"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.272,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle9_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_m"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.221,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle10_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_l"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.292,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle11_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_tick"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.182,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle12_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_s"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.137,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle13_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_m"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.292,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle14_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_l"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.087,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle15_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_tick"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.162,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle16_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_s"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.188,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle17_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_m"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.104,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle18_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_l"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.265,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle19_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_tick"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.196,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle20_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_s"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.157,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle21_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_m"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.162,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle22_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_l"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.201,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle23_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_tick"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.132,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle24_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_s"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.297,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle25_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_m"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.176,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle26_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_l"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.259,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle27_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_tick"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.088,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle28_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_s"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.212,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle29_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_m"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.245,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle30_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_l"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.258,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle31_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_tick"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.133,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle32_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_s"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.192,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle33_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_m"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.167,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle34_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_l"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.124,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle35_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_tick"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.199,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle36_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_s"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.118,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle37_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_m"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.099,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle38_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_l"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.285,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle39_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_tick"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.145,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle40_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_s"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.293,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        },
+        "dust_disperse_particle41_slot": {
+          "attachment": [
+            {
+              "time": 0.0,
+              "name": "dust_dot_m"
+            },
+            {
+              "time": 1.04,
+              "name": null
+            }
+          ],
+          "color": [
+            {
+              "time": 0.0,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.133,
+              "color": "ffffffc2"
+            },
+            {
+              "time": 0.51,
+              "color": "ffffffd1"
+            },
+            {
+              "time": 0.79,
+              "color": "ffffff59"
+            },
+            {
+              "time": 1.01,
+              "color": "ffffff00"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "time": 0.35,
+          "name": "hide_target"
+        },
+        {
+          "time": 1.04,
+          "name": "fx_done"
+        }
+      ]
+    }
+  }
+}
