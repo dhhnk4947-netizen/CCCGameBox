@@ -1,0 +1,131 @@
+snail.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+foot_00
+  rotate: false
+  xy: 8, 8
+  size: 390, 57
+  orig: 390, 57
+  offset: 0, 0
+  index: -1
+foot_01
+  rotate: false
+  xy: 408, 8
+  size: 390, 57
+  orig: 390, 57
+  offset: 0, 0
+  index: -1
+foot_02
+  rotate: false
+  xy: 8, 77
+  size: 390, 57
+  orig: 390, 57
+  offset: 0, 0
+  index: -1
+foot_03
+  rotate: false
+  xy: 408, 77
+  size: 390, 57
+  orig: 390, 57
+  offset: 0, 0
+  index: -1
+foot_04
+  rotate: false
+  xy: 8, 146
+  size: 390, 57
+  orig: 390, 57
+  offset: 0, 0
+  index: -1
+foot_05
+  rotate: false
+  xy: 408, 146
+  size: 390, 57
+  orig: 390, 57
+  offset: 0, 0
+  index: -1
+foot_06
+  rotate: false
+  xy: 8, 215
+  size: 390, 57
+  orig: 390, 57
+  offset: 0, 0
+  index: -1
+foot_07
+  rotate: false
+  xy: 408, 215
+  size: 390, 57
+  orig: 390, 57
+  offset: 0, 0
+  index: -1
+foot_08
+  rotate: false
+  xy: 8, 284
+  size: 390, 57
+  orig: 390, 57
+  offset: 0, 0
+  index: -1
+foot_09
+  rotate: false
+  xy: 408, 284
+  size: 390, 57
+  orig: 390, 57
+  offset: 0, 0
+  index: -1
+foot_10
+  rotate: false
+  xy: 8, 353
+  size: 390, 57
+  orig: 390, 57
+  offset: 0, 0
+  index: -1
+foot_11
+  rotate: false
+  xy: 408, 353
+  size: 390, 57
+  orig: 390, 57
+  offset: 0, 0
+  index: -1
+body_static
+  rotate: false
+  xy: 8, 422
+  size: 390, 142
+  orig: 390, 142
+  offset: 0, 0
+  index: -1
+shell
+  rotate: false
+  xy: 408, 422
+  size: 214, 181
+  orig: 214, 181
+  offset: 0, 0
+  index: -1
+stalk_far
+  rotate: false
+  xy: 632, 422
+  size: 62, 109
+  orig: 62, 109
+  offset: 0, 0
+  index: -1
+stalk_near
+  rotate: false
+  xy: 704, 422
+  size: 62, 110
+  orig: 62, 110
+  offset: 0, 0
+  index: -1
+mouth
+  rotate: false
+  xy: 776, 422
+  size: 46, 31
+  orig: 46, 31
+  offset: 0, 0
+  index: -1
+diamond
+  rotate: false
+  xy: 832, 422
+  size: 79, 90
+  orig: 79, 90
+  offset: 0, 0
+  index: -1

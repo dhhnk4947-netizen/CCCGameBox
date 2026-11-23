@@ -1,0 +1,180 @@
+miner.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shadow
+  rotate: false
+  xy: 5, 1008
+  size: 680, 76
+  orig: 680, 76
+  offset: 0, 0
+  index: -1
+torso
+  rotate: false
+  xy: 400, 5
+  size: 450, 292
+  orig: 450, 292
+  offset: 0, 0
+  index: -1
+arm_upper_left
+  rotate: false
+  xy: 1449, 868
+  size: 139, 82
+  orig: 139, 82
+  offset: 0, 0
+  index: -1
+arm_upper_right
+  rotate: false
+  xy: 1593, 868
+  size: 139, 82
+  orig: 139, 82
+  offset: 0, 0
+  index: -1
+arm_lower_left
+  rotate: false
+  xy: 690, 1008
+  size: 137, 73
+  orig: 137, 73
+  offset: 0, 0
+  index: -1
+arm_lower_right
+  rotate: false
+  xy: 832, 1008
+  size: 137, 73
+  orig: 137, 73
+  offset: 0, 0
+  index: -1
+hand_left
+  rotate: false
+  xy: 1737, 868
+  size: 94, 80
+  orig: 94, 80
+  offset: 0, 0
+  index: -1
+hand_right
+  rotate: false
+  xy: 1836, 868
+  size: 94, 80
+  orig: 94, 80
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 5, 5
+  size: 390, 451
+  orig: 390, 451
+  offset: 0, 0
+  index: -1
+reel_back
+  rotate: false
+  xy: 5, 461
+  size: 620, 262
+  orig: 620, 262
+  offset: 0, 0
+  index: -1
+rope_00
+  rotate: false
+  xy: 630, 461
+  size: 356, 135
+  orig: 356, 135
+  offset: 0, 0
+  index: -1
+rope_01
+  rotate: false
+  xy: 991, 461
+  size: 356, 135
+  orig: 356, 135
+  offset: 0, 0
+  index: -1
+rope_02
+  rotate: false
+  xy: 1352, 461
+  size: 356, 135
+  orig: 356, 135
+  offset: 0, 0
+  index: -1
+rope_03
+  rotate: false
+  xy: 5, 728
+  size: 356, 135
+  orig: 356, 135
+  offset: 0, 0
+  index: -1
+rope_04
+  rotate: false
+  xy: 366, 728
+  size: 356, 135
+  orig: 356, 135
+  offset: 0, 0
+  index: -1
+rope_05
+  rotate: false
+  xy: 727, 728
+  size: 356, 135
+  orig: 356, 135
+  offset: 0, 0
+  index: -1
+rope_06
+  rotate: false
+  xy: 1088, 728
+  size: 356, 135
+  orig: 356, 135
+  offset: 0, 0
+  index: -1
+rope_07
+  rotate: false
+  xy: 1449, 728
+  size: 356, 135
+  orig: 356, 135
+  offset: 0, 0
+  index: -1
+rope_08
+  rotate: false
+  xy: 5, 868
+  size: 356, 135
+  orig: 356, 135
+  offset: 0, 0
+  index: -1
+rope_09
+  rotate: false
+  xy: 366, 868
+  size: 356, 135
+  orig: 356, 135
+  offset: 0, 0
+  index: -1
+rope_10
+  rotate: false
+  xy: 727, 868
+  size: 356, 135
+  orig: 356, 135
+  offset: 0, 0
+  index: -1
+rope_11
+  rotate: false
+  xy: 1088, 868
+  size: 356, 135
+  orig: 356, 135
+  offset: 0, 0
+  index: -1
+reel_frame
+  rotate: false
+  xy: 855, 5
+  size: 620, 288
+  orig: 620, 288
+  offset: 0, 0
+  index: -1
+crank_rod
+  rotate: false
+  xy: 1049, 1008
+  size: 91, 59
+  orig: 91, 59
+  offset: 0, 0
+  index: -1
+helmet_glint
+  rotate: false
+  xy: 974, 1008
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1

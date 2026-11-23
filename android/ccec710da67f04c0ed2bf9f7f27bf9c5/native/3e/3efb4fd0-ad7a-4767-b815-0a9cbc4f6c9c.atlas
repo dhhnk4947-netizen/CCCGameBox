@@ -1,0 +1,26 @@
+bat.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+wing_left
+  rotate: false
+  xy: 183, 8
+  size: 262, 177
+  orig: 262, 177
+  offset: 0, 0
+  index: -1
+wing_right
+  rotate: false
+  xy: 8, 256
+  size: 262, 177
+  orig: 262, 177
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 8, 8
+  size: 167, 240
+  orig: 167, 240
+  offset: 0, 0
+  index: -1

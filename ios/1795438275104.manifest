@@ -1,0 +1,11 @@
+{
+    "version": "1.0.0",
+    "bundles": {
+        "Common": "c65dd3657e075dd48ab55d5552f0a82e",
+        "Hall": "2975cf0b04f31c1ef5f97a76234a3a61",
+        "InsectXiaoxiaole": "1893b6d52aefb4086160dba09c12778d",
+        "JapenStudent": "db089554cb0a8cdb37f44707d2e2cb95",
+        "T2048": "10397da73dcc2372f7704244c39fda8f",
+        "TreasureHunter": "ccec710da67f04c0ed2bf9f7f27bf9c5"
+    }
+}
