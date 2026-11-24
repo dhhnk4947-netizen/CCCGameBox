@@ -2,7 +2,7 @@
     "version": "1.0.1",
     "bundles": {
         "Common": "86b6ac2d6f786282759e030ffaf74a77",
-        "Hall": "56cde6bc45e1f9e55f19ba8f189c51f5",
+        "Hall": "51da9fce4318b1007ca334c0610a789f",
         "InsectXiaoxiaole": "1893b6d52aefb4086160dba09c12778d",
         "JapenStudent": "db089554cb0a8cdb37f44707d2e2cb95",
         "T2048": "10397da73dcc2372f7704244c39fda8f",
