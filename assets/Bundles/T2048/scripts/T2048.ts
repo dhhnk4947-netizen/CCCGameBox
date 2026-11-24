@@ -13,7 +13,7 @@ const { ccclass, property } = _decorator;
 const T2048DataKey = "T2048Data";
 
 @ccclass('T2048')
-@GameMapper('T2048', 'main', SCREEN_TYPE.LANDSCAPE)
+@GameMapper('T2048', 'main', SCREEN_TYPE.PORTRAIT)
 export class T2048 extends GameItem {
     @Path("gamePanel/currRecord/recordLabel", Label)
     currRecordLabel: Label = null;
@@ -97,7 +97,7 @@ export class T2048 extends GameItem {
 
     initGameBox() {
         const gameData = this.readGameData();
-        if (gameData && gameData.currRecord != 0 && gameData.lastData.length != 0) {
+        if (gameData && gameData.currRecord != 0 && gameData.lastData && gameData.lastData.length != 0) {
             this.currRecord = gameData.currRecord || 0;
             this.maxRecord = gameData.maxRecord || 0;
             this.gameBoxData = [...gameData.lastData];

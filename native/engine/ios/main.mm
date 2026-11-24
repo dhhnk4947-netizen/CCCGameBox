@@ -27,14 +27,33 @@
 
 #include "platform/BasePlatform.h"
 #include "AppDelegate.h"
+#import "ViewController.h"
+#import "platform/apple/JsbBridgeWrapper.h"
+
+static void registerOrientationEvents() {
+    JsbBridgeWrapper *bridge = [JsbBridgeWrapper sharedInstance];
+    [bridge addScriptEventListener:@"setLandscape" listener:^(NSString *arg) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            [delegate.viewController setScreenOrientation:UIInterfaceOrientationLandscapeRight];
+        });
+    }];
+    [bridge addScriptEventListener:@"setPortrait" listener:^(NSString *arg) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            [delegate.viewController setScreenOrientation:UIInterfaceOrientationPortrait];
+        });
+    }];
+}
 
 int main(int argc, const char * argv[]) {
     cc::BasePlatform* platform = cc::BasePlatform::getPlatform(); 
     if (platform->init()) { 
         return -1;                                                
     }                                                            
-    platform->run(argc, argv);                                    
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    registerOrientationEvents();
+    platform->run(argc, argv);
     int retVal = UIApplicationMain(argc, (char**)argv, nil, @"AppDelegate");
     [pool release];
     return retVal;

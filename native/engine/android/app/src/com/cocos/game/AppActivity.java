@@ -24,21 +24,28 @@ THE SOFTWARE.
 ****************************************************************************/
 package com.cocos.game;
 
+import android.Manifest;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.util.Log;
 
 import com.cocos.service.SDKWrapper;
 import com.cocos.lib.CocosActivity;
 
 public class AppActivity extends CocosActivity {
+    private static AppActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // DO OTHER INITIALIZATION BELOW
         SDKWrapper.shared().init(this);
-
+        instance = this;
+        JsbBridge.start(this);
     }
 
     @Override
@@ -121,5 +128,17 @@ public class AppActivity extends CocosActivity {
     public void onLowMemory() {
         SDKWrapper.shared().onLowMemory();
         super.onLowMemory();
+    }
+
+    public void SetLandscape() {
+        instance.runOnUiThread(() -> {
+            instance.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        });
+    }
+
+    public void SetPortrait() {
+        instance.runOnUiThread(() -> {
+            instance.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        });
     }
 }

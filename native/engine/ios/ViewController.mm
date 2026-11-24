@@ -35,10 +35,43 @@ namespace {
 }
 
 @interface ViewController ()
- 
+@property(nonatomic, assign) UIInterfaceOrientationMask screenOrientationMask;
+@property(nonatomic, assign) UIInterfaceOrientation requestedOrientation;
 @end
 
 @implementation ViewController
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return self.screenOrientationMask ?: [super supportedInterfaceOrientations];
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return self.requestedOrientation != UIInterfaceOrientationUnknown
+        ? self.requestedOrientation : [super preferredInterfaceOrientationForPresentation];
+}
+
+- (void)setScreenOrientation:(UIInterfaceOrientation)orientation {
+    self.requestedOrientation = orientation;
+    self.screenOrientationMask = (UIInterfaceOrientationMask)(1 << orientation);
+
+    if (@available(iOS 16.0, *)) {
+        [self setNeedsUpdateOfSupportedInterfaceOrientations];
+        UIWindowScene *scene = self.view.window.windowScene;
+        if (scene != nil) {
+            UIWindowSceneGeometryPreferencesIOS *preferences =
+                [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:self.screenOrientationMask];
+            [scene requestGeometryUpdateWithPreferences:preferences errorHandler:^(NSError *error) {
+                NSLog(@"[NativeBridge] Screen orientation request failed: %@", error);
+            }];
+            [preferences release];
+        }
+        return;
+    }
+
+    // Compatibility for iOS versions before the window-scene geometry API.
+    [[UIDevice currentDevice] setValue:@(orientation) forKey:@"orientation"];
+    [UIViewController attemptRotationToDeviceOrientation];
+}
 
 
 - (BOOL) shouldAutorotate {
@@ -62,6 +95,7 @@ namespace {
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+   [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
    AppDelegate* delegate = [[UIApplication sharedApplication] delegate];
    [delegate.appDelegateBridge viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
    float pixelRatio = [delegate.appDelegateBridge getPixelRatio];

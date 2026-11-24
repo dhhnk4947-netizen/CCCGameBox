@@ -32,4 +32,6 @@ you.
 
 @interface ViewController : UIViewController
 
+- (void)setScreenOrientation:(UIInterfaceOrientation)orientation;
+
 @end

@@ -46,9 +46,8 @@ export class GameListView extends FullView {
                 this._gameList.push(game)
             })
         } else {
-            const data = this.getObj(GameListKey);
-            Object.keys(data).length > 0 && this.checkMd5(data);
-            this._gameList = Object.keys(data).length > 0 ? data : GameList;
+            this._gameList = this.checkMd5(GameList);
+            this.setObj(GameListKey, this._gameList);
         }
         this.virtureList.initList(this._gameList.length, this.onRegisterItemRefreshFunc.bind(this));
     }
@@ -99,14 +98,19 @@ export class GameListView extends FullView {
         });
     }
 
-    checkMd5(games: GameListItem[]) {
-        if (games == null) return;
-        games.forEach(game => {
-            if (game.unlock && game.remoteMD5 != globalThis.RemoteMD5[game.name]) {
-                game.unlock = false;
-                game.remoteMD5 = "";
+    checkMd5(games: GameListItem[]): GameListItem[] {
+        if (games == null) return [];
+        const results: GameListItem[] = JSON.parse(JSON.stringify(games));
+        let datas = this.getObj(GameListKey);
+        datas = Array.isArray(datas) ? datas : [];
+        datas.forEach(data => {
+            if (data.unlock && data.remoteMD5 == globalThis.RemoteMD5[data.name]) {
+                const index = results.findIndex(item => item.name == data.name);
+                results[index].unlock = true;
+                results[index].remoteMD5 = data.remoteMD5;
             }
         })
+        return results;
     }
 
     onHide() {

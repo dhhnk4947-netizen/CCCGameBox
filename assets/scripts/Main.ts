@@ -3,7 +3,8 @@ import { DEV } from 'cc/env';
 const { ccclass, property } = _decorator;
 
 const VersionManifest = "version.manifest";
-const PackagedVersionManifest = "assets/version.manifest";
+const IOSVersionManifest = "version.manifest";
+const ANDROIDVersionManifest = "assets/version.manifest";
 
 @ccclass('Main')
 export class Main extends Component {
@@ -116,6 +117,7 @@ export class Main extends Component {
     }
 
     versionContrast(json) {
+        const PackagedVersionManifest = sys.platform == sys.Platform.IOS ? IOSVersionManifest : ANDROIDVersionManifest;
         const fullPath = native.fileUtils.fullPathForFilename(PackagedVersionManifest);
         console.log("fullPath =====>", fullPath);
 
@@ -127,6 +129,17 @@ export class Main extends Component {
         const pkgStrData = this.ReadStringFromFile(fullPath);
         console.log("pkgStrData =====>", pkgStrData);
         const pkgJsonData = JSON.parse(pkgStrData)
+        // MD5 URLs create an MD5 cache folder, but resource downloads use the
+        // bundle name from cc.config.json. iOS requires that folder to exist.
+        const cacheDir = assetManager.cacheManager.cacheDir;
+        for (const bundleName of Object.keys(json.bundles)) {
+            const bundleCacheDir = `${cacheDir}/${bundleName}`;
+            if (!native.fileUtils.isDirectoryExist(bundleCacheDir)
+                && !native.fileUtils.createDirectory(bundleCacheDir)) {
+                console.error("Failed to create bundle cache directory:", bundleCacheDir);
+                return;
+            }
+        }
         Object.keys(json.bundles).forEach(key => {
             globalThis.RemoteMD5[key] = json.bundles[key];
         })

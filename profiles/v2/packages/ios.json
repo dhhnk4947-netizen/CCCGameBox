@@ -17,12 +17,13 @@
           "url": "db://assets/scene/main.scene",
           "uuid": "8290b9a6-02a6-42aa-9bb4-a1783ccebaa8"
         }
-      ]
+      ],
+      "sourceMaps": false
     },
     "options": {
       "ios": {
         "executableName": "",
-        "packageName": "com.gamebox",
+        "packageName": "com.jidjn.ppukke3",
         "renderBackEnd": {
           "metal": true
         },
@@ -30,8 +31,8 @@
         "orientation": {
           "portrait": true,
           "upsideDown": false,
-          "landscapeRight": false,
-          "landscapeLeft": false
+          "landscapeRight": true,
+          "landscapeLeft": true
         },
         "osTarget": {
           "iphoneos": true,
@@ -115,6 +116,48 @@
           "upsideDown": false,
           "landscapeRight": false,
           "landscapeLeft": false
+        },
+        "osTarget": {
+          "iphoneos": true,
+          "simulator": true
+        },
+        "targetVersion": "12.0",
+        "__version__": "1.0.1",
+        "developerTeam": "3X989LQRML_2D7C74605865015F8783BABB26696BA03E242658"
+      },
+      "1795499064960": {
+        "executableName": "",
+        "packageName": "com.gamebox",
+        "renderBackEnd": {
+          "metal": true
+        },
+        "skipUpdateXcodeProject": false,
+        "orientation": {
+          "portrait": true,
+          "upsideDown": false,
+          "landscapeRight": true,
+          "landscapeLeft": true
+        },
+        "osTarget": {
+          "iphoneos": true,
+          "simulator": true
+        },
+        "targetVersion": "12.0",
+        "__version__": "1.0.1",
+        "developerTeam": "3X989LQRML_2D7C74605865015F8783BABB26696BA03E242658"
+      },
+      "1795500462940": {
+        "executableName": "",
+        "packageName": "com.jidjn.ppukke3",
+        "renderBackEnd": {
+          "metal": true
+        },
+        "skipUpdateXcodeProject": false,
+        "orientation": {
+          "portrait": true,
+          "upsideDown": false,
+          "landscapeRight": true,
+          "landscapeLeft": true
         },
         "osTarget": {
           "iphoneos": true,

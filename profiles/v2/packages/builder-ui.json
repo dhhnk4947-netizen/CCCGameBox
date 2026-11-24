@@ -3,5 +3,12 @@
   "panelNavigation": {
     "category": "native",
     "view": "history"
+  },
+  "builderApi": {
+    "pendingBuildTasks": {
+      "version": 2,
+      "tasks": [],
+      "cancelled": []
+    }
   }
 }

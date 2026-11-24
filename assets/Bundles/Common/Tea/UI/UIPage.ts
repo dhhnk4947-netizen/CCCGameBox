@@ -1,9 +1,11 @@
 import { find, instantiate, Prefab, Node, UITransform, view, game, director, Canvas, js, ResolutionPolicy, sys, screen, isValid, macro, math, Widget } from "cc";
 import TAssetManager from "../Util/TAssetManager";
-import SingletonFactory, { Singleton } from "../Util/SingletonFactory";
+import { Singleton } from "../Util/SingletonFactory";
 import { Cutscene, FullView, PopView, ResidentView, TipView, UIView } from "./UIView";
 import GameItem from "./GameItem";
 import LRU from "../Util/LRU";
+import { NativeBridge } from "../jsb/NativeBridge";
+import { EDITOR, PREVIEW } from "cc/env";
 
 export enum TEA_UI_TYPE {
     FULL,
@@ -47,8 +49,16 @@ export default class UIPage {
     private _screen_type = SCREEN_TYPE.LANDSCAPE;
 
     private switchToScreen(type: SCREEN_TYPE): void {
+        if (PREVIEW && this._screen_type != type) {
+            const rotateBtn = document.querySelector<HTMLElement>("#btn-rotate");
+            rotateBtn?.click();
+        }
         this._screen_type = type;
         view.setOrientation(type);
+        if (NativeBridge.isNative) {
+            type == SCREEN_TYPE.LANDSCAPE && NativeBridge.setLandscape();
+            type == SCREEN_TYPE.PORTRAIT && NativeBridge.setPortrait();
+        }
         this.adapt();
     }
 
