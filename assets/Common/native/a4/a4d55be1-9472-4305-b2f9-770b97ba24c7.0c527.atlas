@@ -1,0 +1,40 @@
+dust_disperse.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dust_puff
+  rotate: false
+  xy: 5, 5
+  size: 118, 100
+  orig: 118, 100
+  offset: 0, 0
+  index: -1
+dust_dot_l
+  rotate: false
+  xy: 129, 5
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+dust_dot_m
+  rotate: false
+  xy: 162, 5
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+dust_dot_s
+  rotate: false
+  xy: 188, 5
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+dust_tick
+  rotate: false
+  xy: 206, 5
+  size: 18, 9
+  orig: 18, 9
+  offset: 0, 0
+  index: -1

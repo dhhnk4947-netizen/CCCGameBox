@@ -1,0 +1,19 @@
+goblin.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 12, 12
+  size: 359, 382
+  orig: 359, 382
+  offset: 0, 0
+  index: -1
+pickaxe
+  rotate: false
+  xy: 395, 12
+  size: 140, 154
+  orig: 140, 154
+  offset: 0, 0
+  index: -1

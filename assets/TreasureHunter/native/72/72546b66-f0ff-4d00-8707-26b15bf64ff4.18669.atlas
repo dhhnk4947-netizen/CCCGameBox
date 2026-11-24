@@ -1,0 +1,110 @@
+barrel.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+barrel
+  rotate: false
+  xy: 8, 8
+  size: 149, 166
+  orig: 149, 166
+  offset: 0, 0
+  index: -1
+flash
+  rotate: false
+  xy: 165, 8
+  size: 140, 146
+  orig: 140, 146
+  offset: 0, 0
+  index: -1
+shard_00
+  rotate: false
+  xy: 57, 268
+  size: 35, 43
+  orig: 35, 43
+  offset: 0, 0
+  index: -1
+shard_01
+  rotate: false
+  xy: 8, 268
+  size: 41, 49
+  orig: 41, 49
+  offset: 0, 0
+  index: -1
+shard_02
+  rotate: false
+  xy: 201, 268
+  size: 47, 37
+  orig: 47, 37
+  offset: 0, 0
+  index: -1
+shard_03
+  rotate: false
+  xy: 100, 268
+  size: 34, 43
+  orig: 34, 43
+  offset: 0, 0
+  index: -1
+shard_04
+  rotate: false
+  xy: 256, 268
+  size: 40, 36
+  orig: 40, 36
+  offset: 0, 0
+  index: -1
+shard_05
+  rotate: false
+  xy: 142, 268
+  size: 51, 42
+  orig: 51, 42
+  offset: 0, 0
+  index: -1
+shard_06
+  rotate: false
+  xy: 304, 268
+  size: 33, 36
+  orig: 33, 36
+  offset: 0, 0
+  index: -1
+smoke_00
+  rotate: false
+  xy: 325, 182
+  size: 87, 68
+  orig: 87, 68
+  offset: 0, 0
+  index: -1
+smoke_01
+  rotate: false
+  xy: 8, 182
+  size: 103, 78
+  orig: 103, 78
+  offset: 0, 0
+  index: -1
+smoke_02
+  rotate: false
+  xy: 313, 8
+  size: 87, 89
+  orig: 87, 89
+  offset: 0, 0
+  index: -1
+smoke_03
+  rotate: false
+  xy: 214, 182
+  size: 103, 68
+  orig: 103, 68
+  offset: 0, 0
+  index: -1
+smoke_04
+  rotate: false
+  xy: 119, 182
+  size: 87, 78
+  orig: 87, 78
+  offset: 0, 0
+  index: -1
+spark
+  rotate: false
+  xy: 420, 182
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
