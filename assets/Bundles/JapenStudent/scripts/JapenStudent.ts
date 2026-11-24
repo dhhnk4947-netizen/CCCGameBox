@@ -1,11 +1,13 @@
 import { _decorator, Node } from 'cc';
 import { Path } from '../../Common/Tea/decorators/tea.decorators';
-import GameItem, { GameMapper } from '../../Common/Tea/UI/GameItem';
+import GameItem from '../../Common/Tea/UI/GameItem';
 import { JSPHomeView } from './view/JSPHomeView';
+import { GameMapper } from '../../Common/Tea/UI/GameMapper';
+import { SCREEN_TYPE } from '../../Common/Tea/UI/UIPage';
 const { ccclass, property } = _decorator;
 
 @ccclass('JapenStudent')
-@GameMapper('JapenStudent', 'main')
+@GameMapper('JapenStudent', 'main', SCREEN_TYPE.PORTRAIT)
 export class JapenStudent extends GameItem {
     @Path("quitBtn")
     quitBtn: Node = null;
@@ -15,10 +17,10 @@ export class JapenStudent extends GameItem {
     }
 
     onHide(): void {
-        
+
     }
 
     onMount(): void {
-        
+
     }
 }

@@ -1,4 +1,4 @@
-import { find, instantiate, Prefab, Node, UITransform, view, game, director, Canvas, js, ResolutionPolicy, sys, screen, isValid } from "cc";
+import { find, instantiate, Prefab, Node, UITransform, view, game, director, Canvas, js, ResolutionPolicy, sys, screen, isValid, macro, math, Widget } from "cc";
 import TAssetManager from "../Util/TAssetManager";
 import SingletonFactory, { Singleton } from "../Util/SingletonFactory";
 import { Cutscene, FullView, PopView, ResidentView, TipView, UIView } from "./UIView";
@@ -11,6 +11,13 @@ export enum TEA_UI_TYPE {
     RESIDENT,
     TIP,
     CUTSCENE
+}
+
+export enum SCREEN_TYPE {
+    /** 横屏朝向 */
+    LANDSCAPE = macro.ORIENTATION_LANDSCAPE,
+    /** 竖屏朝向 */
+    PORTRAIT = macro.ORIENTATION_PORTRAIT
 }
 
 @Singleton()
@@ -36,6 +43,15 @@ export default class UIPage {
     private uiTrans: UITransform;
 
     private _stopGameCb: Function = null;
+
+    private _screen_type = SCREEN_TYPE.LANDSCAPE;
+
+    private switchToScreen(type: SCREEN_TYPE): void {
+        this._screen_type = type;
+        view.setOrientation(type);
+        this.adapt();
+    }
+
     init(cb?) {
         this.FullLRU = new LRU<UIView>(MaxFullPage, this._deleteLRUFunc.bind(this));
         this.PopLRU = new LRU<UIView>(MaxPopPage, this._deleteLRUFunc.bind(this));
@@ -80,28 +96,37 @@ export default class UIPage {
         LoadingNode.name = "Loading";
         LoadingNode.parent = this.uiRoot;
 
+        [gameNode2D, this.uiRoot, ...this.uiRoot.children].forEach(root => {
+            root.addComponent(UITransform);
+            let widget = root.addComponent(Widget);
+            widget.alignMode = 2;
+            widget.isAlignTop = true;
+            widget.isAlignBottom = true;
+            widget.isAlignLeft = true;
+            widget.isAlignRight = true;
+            widget.top = 0;
+            widget.bottom = 0;
+            widget.left = 0;
+            widget.right = 0;
+        })
+
         this.MountCbs[TEA_UI_TYPE.FULL] = (view) => {
-            view.setContentSize(this.uiTrans.contentSize);
             fullNode.addChild(view);
             view.setPosition(0, 0);
         }
         this.MountCbs[TEA_UI_TYPE.POP] = (view) => {
-            view.setContentSize(this.uiTrans.contentSize);
             popNode.addChild(view);
             view.setPosition(0, 0);
         }
         this.MountCbs[TEA_UI_TYPE.TIP] = (view) => {
-            view.setContentSize(this.uiTrans.contentSize);
             tipNode.addChild(view);
             view.setPosition(0, 0);
         }
         this.MountCbs[TEA_UI_TYPE.RESIDENT] = (view) => {
-            view.setContentSize(this.uiTrans.contentSize);
             residentNode.addChild(view);
             view.setPosition(0, 0);
         }
         this.MountCbs[TEA_UI_TYPE.CUTSCENE] = (view) => {
-            view.setContentSize(this.uiTrans.contentSize);
             LoadingNode.addChild(view);
             view.setPosition(0, 0);
         }
@@ -120,32 +145,31 @@ export default class UIPage {
         }
 
         canvas.setSiblingIndex(999);
-
-        let size = view.getVisibleSize();
-        let resolutionSize = view.getDesignResolutionSize();
-        const proportion = size.height / size.width;
-        if (proportion > 1.5 && proportion < 2.2) {
-            view.setDesignResolutionSize(resolutionSize.width, resolutionSize.height, ResolutionPolicy.FIXED_WIDTH);
-        } else {
-            view.setDesignResolutionSize(resolutionSize.width, resolutionSize.height, ResolutionPolicy.SHOW_ALL);
-        }
-        this.uiRootAdapt();
-
-        if (sys.platform != sys.Platform.IOS && sys.platform != sys.Platform.ANDROID) {
-            view.on('canvas-resize', this.adapt, this);
-        }
+        this.initAdapt();
         cb && cb();
     }
 
-    private adapt() {
-        let size = screen.windowSize;
-        let resolutionSize = view.getDesignResolutionSize();
-        const proportion = size.height / size.width;
-        if (proportion > 1.5 && proportion < 2.2) {
-            view.setDesignResolutionSize(resolutionSize.width, resolutionSize.height, ResolutionPolicy.FIXED_WIDTH);
-        } else {
-            view.setDesignResolutionSize(resolutionSize.width, resolutionSize.height, ResolutionPolicy.SHOW_ALL);
+    initAdapt() {
+        this._screen_type = MAIN_SCREEN_TYPE;
+        view.setOrientation(MAIN_SCREEN_TYPE);
+        this.adapt(true);
+        if (sys.platform != sys.Platform.IOS && sys.platform != sys.Platform.ANDROID) {
+            view.on('canvas-resize', this.adapt, this);
         }
+
+    }
+
+    private adapt(isFirst: boolean = false) {
+        let visibleSize = isFirst ? view.getVisibleSize() : screen.windowSize;
+        let resolutionSize = view.getDesignResolutionSize();
+        resolutionSize = resolutionSize.width < resolutionSize.height ? resolutionSize : new math.Size(resolutionSize.height, resolutionSize.width);
+        const proportion = visibleSize.height / visibleSize.width;
+        let resolutionPolicy = ResolutionPolicy.SHOW_ALL;
+        let size = this._screen_type == SCREEN_TYPE.PORTRAIT ? resolutionSize : new math.Size(resolutionSize.height, resolutionSize.width);
+        if (proportion > 1.5 && proportion < 2) {
+            resolutionPolicy = this._screen_type == SCREEN_TYPE.PORTRAIT ? ResolutionPolicy.FIXED_WIDTH : ResolutionPolicy.FIXED_HEIGHT;
+        }
+        view.setDesignResolutionSize(size.width, size.height, resolutionPolicy);
         this.uiRootAdapt();
     }
 
@@ -157,13 +181,13 @@ export default class UIPage {
             const canvasSize = canvas.getComponent(UITransform).contentSize;
             this.uiTrans.setContentSize(canvasSize);
             this.gameTrans.setContentSize(canvasSize);
-            this.uiRoot.children.forEach(node => {
-                let trans = node.getComponent(UITransform);
-                if (!trans) {
-                    trans = node.addComponent(UITransform);
-                }
-                trans.setContentSize(this.uiTrans.contentSize);
-            });
+            // this.uiRoot.children.forEach(node => {
+            //     let trans = node.getComponent(UITransform);
+            //     if (!trans) {
+            //         trans = node.addComponent(UITransform);
+            //     }
+            //     trans.setContentSize(this.uiTrans.contentSize);
+            // });
         })
     }
 
@@ -659,6 +683,7 @@ export default class UIPage {
         }
         let bundleName = clazz.prototype['SymbolBundleName'];
         let path = clazz.prototype['SymbolPath'];
+        let screenType = clazz.prototype['SymbolScreenType'];
         let fun = (gameItem: GameItem) => {
             if (!gameItem) return;
             gameItem.node.active = true;
@@ -700,6 +725,7 @@ export default class UIPage {
                 Mount && Mount.call(gameItem);
                 this.currGame = gameItem;
                 fun(gameItem);
+                this.switchToScreen(screenType);
                 this.hideLoading();
             }
             if (!this._uiLoadingCache) {
@@ -730,7 +756,8 @@ export default class UIPage {
 
             cb && cb();
             this._stopGameCb && this._stopGameCb();
-            this.hideLoading();
+            isClear || this.switchToScreen(MAIN_SCREEN_TYPE);
+            isClear || this.hideLoading();
         }
         if (isClear) {
             func();

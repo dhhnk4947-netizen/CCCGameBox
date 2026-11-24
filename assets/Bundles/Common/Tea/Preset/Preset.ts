@@ -1,4 +1,4 @@
-import { Button, Director, Game, _decorator, director, game, js, sp } from "cc";
+import { Button, Director, Game, _decorator, director, game, js, macro, sp } from "cc";
 import UIPage from "../UI/UIPage";
 import EventManager from "../Util/EventManager";
 import SingletonFactory from "../Util/SingletonFactory";

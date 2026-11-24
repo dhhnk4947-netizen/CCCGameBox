@@ -1,7 +1,7 @@
 {
-  "__version__": "1.1.56",
+  "__version__": "1.1.64",
   "panelNavigation": {
     "category": "native",
-    "view": "home"
+    "view": "history"
   }
 }

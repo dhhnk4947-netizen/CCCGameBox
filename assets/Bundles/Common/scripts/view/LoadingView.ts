@@ -40,6 +40,9 @@ export class LoadingView extends Cutscene {
         tween(this.animNode)
             .set({ contentSize: size(0, 0) })
             .to(this.animTime, { contentSize: size(2000, 2400) })
+            .call(() => {
+                this.node.active = false;
+            })
             .start();
     }
 }

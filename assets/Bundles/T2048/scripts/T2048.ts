@@ -1,17 +1,19 @@
 import { _decorator, EventTouch, Label, Node, Sprite, SpriteFrame } from 'cc';
-import GameItem, { GameMapper } from '../../Common/Tea/UI/GameItem';
+import GameItem from '../../Common/Tea/UI/GameItem';
 import { Path } from '../../Common/Tea/decorators/tea.decorators';
 import { Autowired } from '../../Common/Tea/Util/SingletonFactory';
 import TAssetManager from '../../Common/Tea/Util/TAssetManager';
 import EventManager from '../../Common/Tea/Util/EventManager';
 import { T2048GlobalContext } from './T2048GlobalContext';
 import { T2048SettlementView } from './view/T2048SettlementView';
+import { SCREEN_TYPE } from '../../Common/Tea/UI/UIPage';
+import { GameMapper } from '../../Common/Tea/UI/GameMapper';
 const { ccclass, property } = _decorator;
 
 const T2048DataKey = "T2048Data";
 
 @ccclass('T2048')
-@GameMapper('T2048', 'main')
+@GameMapper('T2048', 'main', SCREEN_TYPE.LANDSCAPE)
 export class T2048 extends GameItem {
     @Path("gamePanel/currRecord/recordLabel", Label)
     currRecordLabel: Label = null;

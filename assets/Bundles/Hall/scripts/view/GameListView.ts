@@ -16,7 +16,7 @@ interface GameListItem {
 const GameList: GameListItem[] = [
     { icon: "10001", name: "T2048", unlock: false, remoteMD5: "" },
     { icon: "10002", name: "JapenStudent", unlock: false, remoteMD5: "" },
-    { icon: "10002", name: "TreasureHunter", unlock: false, remoteMD5: "" },
+    { icon: "10003", name: "TreasureHunter", unlock: false, remoteMD5: "" },
 ]
 
 const GameListKey = "GAME_LIST_KEY";

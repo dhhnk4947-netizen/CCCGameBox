@@ -1,5 +1,6 @@
 import { Camera, Component, UITransform, Node, director } from "cc";
 import { UIBase } from "./UIBase";
+import { SCREEN_TYPE } from "./UIPage";
 
 export default class GameItem extends UIBase {
     is3D() {
@@ -33,12 +34,5 @@ export default class GameItem extends UIBase {
 
     static close(cb?): void {
         stopGame(cb);
-    }
-}
-
-export function GameMapper(bundleName: string, path: string) {
-    return function (target) {
-        target.prototype.SymbolBundleName = bundleName;
-        target.prototype.SymbolPath = path;
     }
 }

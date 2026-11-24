@@ -9,6 +9,7 @@ declare global {
     var MaxFullPage: number;
     var MaxPopPage: number;
     var RemoteMD5: { [key: string]: string };
+    var MAIN_SCREEN_TYPE: number;
 
     function initGame(path: string, bundle: string, cb: (...args: any[]) => void);
     function initGame(path: string, cb: (...args: any[]) => void);
