@@ -1,4 +1,5 @@
 import { Component, find, isValid } from "cc";
+import type { Constructor } from "cc";
 
 export function MainCamera(cameraPath) {
     globalThis.MainCamera = cameraPath;
@@ -59,8 +60,8 @@ export function DefaultValue(value) {
 }
 
 export function Path(path: string);
-export function Path<T extends typeof Component>(path: string, component: T);
-export function Path<T extends typeof Component>(path: string, component?: T) {
+export function Path<T extends Component>(path: string, component: Constructor<T>);
+export function Path<T extends Component>(path: string, component?: Constructor<T>) {
     return function (target, key) {
         const symbol = Symbol.for(key);
         // delete target[key];

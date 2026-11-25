@@ -1,7 +1,7 @@
 import { _decorator, Node } from 'cc';
 import { Path } from '../../Common/Tea/decorators/tea.decorators';
 import GameItem from '../../Common/Tea/UI/GameItem';
-import { JSPHomeView } from './view/JSPHomeView';
+import { JapenStudentHomeView } from './view/JapenStudentHomeView';
 import { GameMapper } from '../../Common/Tea/UI/GameMapper';
 import { SCREEN_TYPE } from '../../Common/Tea/UI/UIPage';
 const { ccclass, property } = _decorator;
@@ -13,7 +13,7 @@ export class JapenStudent extends GameItem {
     quitBtn: Node = null;
 
     onShow(): void {
-        JSPHomeView.resetTo();
+        JapenStudentHomeView.resetTo();
     }
 
     onHide(): void {
